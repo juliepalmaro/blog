@@ -25,7 +25,7 @@ class Role
     private $label;
 
     /**
-     * @ORM\ManyToMany(targetEntity=User::class, inversedBy="roles")
+     * @ORM\ManyToMany(targetEntity=User::class, mappedBy="userRoles")
      */
     private $users;
 
@@ -63,6 +63,7 @@ class Role
     {
         if (!$this->users->contains($user)) {
             $this->users[] = $user;
+            $user->addUserRole($this);
         }
 
         return $this;
@@ -73,5 +74,10 @@ class Role
         $this->users->removeElement($user);
 
         return $this;
+    }
+
+    public function __toString()
+    {
+        return $this->label;
     }
 }
