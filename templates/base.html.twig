@@ -3,10 +3,16 @@
     <head>
         <meta charset="UTF-8">
         <title>{% block title %}Welcome!{% endblock %}</title>
-        {% block stylesheets %}{% endblock %}
+        {% block stylesheets %}
+            <link rel="stylesheet" href="{{ asset('styles/bootstrap/bootstrap.min.css') }}">
+        {% endblock %}
     </head>
     <body>
         {% block body %}{% endblock %}
-        {% block javascripts %}{% endblock %}
+        {% block javascripts %}
+            <script src="{{ asset('styles/js/jquery-3.2.1.slim.min.js') }}"></script>
+            <script src="{{ asset('styles/js/popper.min.js') }}"></script>
+            <script src="{{ asset('styles/js/bootstrap.min.js') }}"></script>
+        {% endblock %}
     </body>
 </html>
