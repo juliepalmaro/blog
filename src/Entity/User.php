@@ -181,7 +181,7 @@ class User implements UserInterface
     public function getRoles(): array
     {
         $roles = $this->roles->map(function ($role) {
-            return $role->getName();
+            return $role->getLabel();
         })->toArray();
         // guarantee every user at least has ROLE_USER
         $roles[] = 'ROLE_USER';
