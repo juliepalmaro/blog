@@ -1,7 +1,7 @@
 security:
     encoders:
         App\Entity\User:
-            algorithm: auto
+            algorithm: bcrypt
 
     # https://symfony.com/doc/current/security.html#where-do-users-come-from-user-providers
     providers:
@@ -20,8 +20,12 @@ security:
             guard:
                 authenticators:
                     - App\Security\UserAuthenticator
+            form_login:
+                login_path: app_login
+                check_path: app_login
             logout:
                 path: app_logout
+                # target: default
                 # where to redirect after logout
                 # target: app_any_route
 
