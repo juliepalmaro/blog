@@ -5,10 +5,12 @@ namespace App\Form;
 use App\Entity\Role;
 use App\Entity\User;
 use App\Repository\RoleRepository;
+use Doctrine\DBAL\Types\TextType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
@@ -29,11 +31,21 @@ class RegistrationFormType extends AbstractType
     {
         $encoder = $this->encoder;
         $builder
-            ->add('firstName')
-            ->add('lastName')
-            ->add('email', EmailType::class)
-            ->add('phone')
-            ->add('password', PasswordType::class)
+            ->add('firstName', TextareaType::class, [
+                'label' => 'Prénom'
+            ])
+            ->add('lastName', TextareaType::class, [
+                'label' => 'Nom'
+            ])
+            ->add('email', EmailType::class, [
+                'label' => 'Email'
+            ])
+            ->add('phone', TextareaType::class, [
+                'label' => 'Numéro de téléphone'
+            ])
+            ->add('password', PasswordType::class, [
+                'label' => 'Mot de Passe'
+            ])
             ->add('userRoles', EntityType::class, [
                 'class' => Role::class,
                 'multiple' => true,
