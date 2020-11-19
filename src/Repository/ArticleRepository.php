@@ -49,6 +49,12 @@ class ArticleRepository extends ServiceEntityRepository
                 ->setParameter('val', $request->id);
         }
 
+        if ($request->userId) {
+            $query
+                ->andWhere('a.userId = :val')
+                ->setParameter('val', $request->userId);
+        }
+
         !$request->length ?  $length = 20 : $length = $request->length;
 
         return $query
