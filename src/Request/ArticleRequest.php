@@ -9,4 +9,7 @@ class GetOneArticleRequest
 
 class GetAllArticleRequest extends BaseRequest
 {
+    public $userId;
+    public $onlyBookmarked;
+    public $onlyShared;
 }
