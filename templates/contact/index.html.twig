@@ -10,14 +10,27 @@
 
 <div class="example-wrapper">
     <div id="contactForm">
+
+        {% for message in app.flashes('success') %}
+        <div class="alert alert-success">
+            {{ message }}
+        </div>
+        {% endfor %}
+
+        {% if not form.vars.valid %}
+            <div class="alert alert-danger">
+                Attention des données ne respectent pas le format
+            </div>
+        {% endif %}
+
         {{ form_start(form) }}
         <div class="row">
-            <div class="col">{{ form_row(form.lastname) }}</div>
-            <div class="col">{{ form_row(form.firstname) }}</div>
+            <div class="col">{{ form_row(form.lastname, { 'label' : 'Nom' }) }}</div>
+            <div class="col">{{ form_row(form.firstname, { 'label' : 'Prénom' }) }}</div>
         </div>
         <div class="row">
-            <div class="col">{{ form_row(form.phone) }}</div>
-            <div class="col">{{ form_row(form.mail) }}</div>
+            <div class="col">{{ form_row(form.phone, { 'label' : 'Téléphone' }) }}</div>
+            <div class="col">{{ form_row(form.mail, { 'label' : 'Email' }) }}</div>
         </div>
         {{ form_rest(form) }}
         <div class="form-group">

@@ -26,6 +26,13 @@ class ContactNotification
 
     public function notify(Contact $contact){
         $message = (new \Swift_Message('Contact blog :'))
+            ->setFrom($contact->getMail())
+            ->setTo('laraj.symfony@gmail.com')
+            ->setReplyTo($contact->getMail())
+            ->setBody($this->renderer->render('emails/contact.html.twig',[
+                'contact' => $contact
+            ]), 'text/html');
+        $this->mailer->send($message);
     }
 
 }

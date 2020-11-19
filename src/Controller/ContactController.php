@@ -24,10 +24,10 @@ class ContactController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $notification->notify($contact);
             $this->addFlash('success', 'Merci de nous avoir contacté nous vous répondrons bientôt :)');
-            /*
+
             return $this->render('contact/index.html.twig', [
                 'form' => $form->createView(),
-            ]);*/
+            ]);
         }
 
         return $this->render('contact/index.html.twig', [
