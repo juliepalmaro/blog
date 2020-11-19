@@ -17,20 +17,35 @@
 		}
 	</style>
 
-	<div class="example-wrapper">
-		<h1>Hello
-			{{ controller_name }}! ✅</h1>
-		<h1>Mes derniers articles</h1>
+	<div>
+		<div class="display:flex">
+			<div>
+				<h1>Menu</h1>
+				<h4>
+					<a href="/article/home">Accueil</a>
+				</h4>
+				<h4>
+					<a href="/article/articles">Article</a>
+				</h4>
+				<h4>
+					<a href="/article/articleComments">Gestion des commentaires</a>
+				</h4>
+			</div>
+			<div>
+				Contenu</div>
+		</div>
+
+
 		{# <ul>
-					{% for artcile in articles %}
-						<li>{{ article.title }}
-						{# {{article.image}} #}
+																									{% for artcile in articles %}
+																										<li>{{ article.title }}
+																										{# {{article.image}} #}
 	{# {{article.user}}
-								{{article.publicationDate}} #}
+																		{{article.publicationDate}} #}
 		{# ajouter la catégorie de l'article #}
 		{# </li>
-									{% endfor %}
-								</ul> #}
+																													{% endfor %}
+																												</ul> #}
 
 	</div>
 {% endblock %}

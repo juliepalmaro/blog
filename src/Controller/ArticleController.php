@@ -19,6 +19,29 @@ class ArticleController extends AbstractController
             'controller_name' => 'ArticleController',
         ]);
     }
+    /**
+     * @Route("/article/home", name="Accueil")
+     */
+    public function home(): Response
+    {
+        return $this->render('article/home.html.twig', []);
+    }
+    /**
+     * @Route("/article/articles", name="Accueil")
+     */
+    public function articles(): Response
+    {
+        return $this->render('article/articles.html.twig', []);
+    }
+
+    /**
+     * @Route("/article/articleComments", name="Accueil")
+     */
+    public function articleComments(): Response
+    {
+        return $this->render('article/articleComments.html.twig', []);
+    }
+
 
     public function getAllArticles(ArticleRepository $articleRepository)
     {
