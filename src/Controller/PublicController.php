@@ -135,7 +135,7 @@ class PublicController extends AbstractController
             6
         );
 
-        return $this->render('home.html.twig', [
+        return $this->render('public/home.html.twig', [
             'datas' => $articles,
         ]);
     }

@@ -9,6 +9,10 @@
 			{% include '_article.html.twig' with {'article': article} %}
 		</div>
 	{% endfor %}
+
+	<div class="home-pagination">
+		{{ knp_pagination_render(datas) }}
+	</div>
 {% endblock %}
 
 {#{% if forAdmin == true %}
