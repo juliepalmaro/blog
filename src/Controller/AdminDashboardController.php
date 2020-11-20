@@ -24,6 +24,17 @@ class AdminDashboardController extends AbstractController
     }
 
     /**
+     * @Route("/admin/articles", name="admin_articles")
+     */
+    public function articles(ArticleRepository $articleRepository): Response
+    {
+        $articles = $articleRepository->findAllArticles(0, 10, null, null, null, null, null);
+        dump($articles);
+
+        return $this->render('admin_dashboard/articles.html.twig', ['articles' => $articles]);
+    }
+
+    /**
      * @Route("/admin/articles/new", name="admin_article_new")
      */
     public function createArticle(Request $request, ArticleRepository $articleRepository): Response

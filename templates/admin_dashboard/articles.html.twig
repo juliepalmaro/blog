@@ -1,35 +1,15 @@
-{% extends 'base.html.twig' %}
+{% extends 'admin_dashboard/templateAdmin.html.twig' %}
 
-{% block title %}Hello ArticleController!
+{% block title %}Hello AdminDashboardController!
 {% endblock %}
 
-{% block body %}
-	<style>
-		.example-wrapper {
-			margin: 1em auto;
-			max-width: 800px;
-			width: 95%;
-			font: 18px / 1.5 sans-serif;
-		}
-		.example-wrapper code {
-			background: #F5F5F5;
-			padding: 2px 6px;
-		}
-	</style>
+{% block content %}
+<h1>Articles</h1>
 
-	<div class="example-wrapper">
+{% for article in articles %}
+	{% include '_article.html.twig' with {'article': article, 'forAdmin': true} %}
+{% endfor %}
 
-		<h1>Admin Articles</h1>
-		{#  <ul>
-				            {% for artcile in articles %}
-				        <li>{{ article.title }}
-							{# {{article.image}} #}
-	{#      {{article.user}}
-			        {{article.publicationDate}} #}
-		{# ajouter la catégorie de l'article #}
-		{# </li>
-						    {% endfor %}
-						</ul> #}
-
-	</div>
+<a class="btn btn-primary" href="{{ path('admin_article_new') }}">Créer un nouvel article</a>
 {% endblock %}
+

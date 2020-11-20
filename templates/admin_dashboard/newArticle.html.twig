@@ -4,8 +4,6 @@
 {% endblock %}
 
 {% block content %}
-    Nouveau article ici
-
     {% for message in app.flashes('notice') %}
         <div class="flash-notice">
             {{ message }}
