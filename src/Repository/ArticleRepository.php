@@ -22,7 +22,7 @@ class ArticleRepository extends ServiceEntityRepository
         parent::__construct($registry, Article::class);
     }
 
-    public function findOne(?string $id): Article
+    public function findOneArticle(?string $id): Article
     {
         $query = $this->createQueryBuilder('a');
 
@@ -53,6 +53,7 @@ class ArticleRepository extends ServiceEntityRepository
         !$length ?  $length = 20 : $length = $length;
 
         return $query
+            ->setFirstResult($start)
             ->orderBy($orderby, $order)
             ->setMaxResults($length)
             ->getQuery()
