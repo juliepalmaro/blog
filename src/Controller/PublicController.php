@@ -201,5 +201,26 @@ class PublicController extends AbstractController
         ]);
     }
 
+    /**
+     * @Route("/search/", name="search")
+     */
+    public function searchArticle(ArticleRepository $repository): Response
+    {
+        if(isset ($_POST['search'])){
+            $search = $_POST['search'];
+        }else{
+            throw $this->createNotFoundException('Cet article n\'existe pas');
+        }
+
+        $article = $repository->findSpecificArticle(0, 10, 'creationDate' ,'DESC', $search);
+
+        if (!$article) {
+            throw $this->createNotFoundException('Cet article n\'existe pas 2');
+        }
+
+        return $this->render('public/articlefind.html.twig', [
+            'articleSearched' => $article,
+        ]);
+    }
 
 }

@@ -4,6 +4,11 @@
 {% endblock %}
 
 {% block body %}
+	{#<form action="{{path('search')}}" method="post">
+		<input type="text" name="search" >
+		<button class="btn btn-secondary">Rechercher</button>
+	</form>#}
+
 	{% for article in datas %}
 		<div class="mb-5">
 			{% include '_article.html.twig' with {'article': article} %}
