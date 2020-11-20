@@ -50,7 +50,13 @@
 	<body>
         <div class="homepage-container">
             <div class="homepage-contentWrap">
-                {% block body %}{% endblock %}
+				<div class="container mt-5">
+					{% block body %}
+					<h1>
+						{{ block('title') }}
+					</h1>
+					{% endblock %}
+				</div>
                 {% block javascripts %}
                     <script src="{{ asset('js/jquery-3.2.1.slim.min.js') }}"></script>
                     <script src="{{ asset('js/popper.min.js') }}"></script>
