@@ -18,6 +18,18 @@
             <div>
                 {# <span> Catégories :</span> cat #}
             </div>
+
+			{% if sharedDate is defined %}
+				<div>
+               		<span> Partagé le :</span> {{sharedDate | date}}
+				</div>
+			{% endif %}
+
+			{% if bookmarkDate is defined %}
+				<div>
+               		<span> Ajouté en favoris le :</span> {{bookmarkDate | date}}
+				</div>
+			{% endif %}
 	    </div>
     </div>
 
