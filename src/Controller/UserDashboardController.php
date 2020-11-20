@@ -18,8 +18,14 @@ class UserDashboardController extends AbstractController
      */
     public function index(): Response
     {
-        return $this->render('user_dashboard/index.html.twig', [
-            'controller_name' => 'DashboardController',
-        ]);
+        return $this->render('user_dashboard/index.html.twig');
+    }
+
+     /**
+     * @Route("/update", name="user_update")
+     */
+    public function update(): Response
+    {
+        return $this->render('user_dashboard/index.html.twig');
     }
 }
