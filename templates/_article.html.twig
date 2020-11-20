@@ -22,7 +22,7 @@
 	<img src="{{ asset('img/guerre.jpg') }}" class="card-img-top" alt="...">
 	<div class="card-body">
 		<p class="card-text">{{article.content}}
-			<button class="btn btn-link btn-projectTextColor">Voir plus</button>
+			<a href="article/{{ article.id }}" class="btn btn-link btn-projectTextColor">Voir plus</a>
 		</p>
 	</div>
 
@@ -50,3 +50,4 @@
 									</div>
 								{% endif %}#}
 </div>
+

@@ -151,7 +151,7 @@ class PublicController extends AbstractController
             throw $this->createNotFoundException('Cet article n\existe pas');
         }
 
-        return $this->render('_article.html.twig', [
+        return $this->render('public/infoarticle.html.twig', [
             'article' => $article,
         ]);
     }
