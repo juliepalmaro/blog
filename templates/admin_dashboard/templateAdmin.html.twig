@@ -6,6 +6,17 @@
 {% block body %}
 	<div class="row">
 		<div class="col-2">
+			<a {% if route_name == "homepage" %} class="btn btn-primary active" {% else %} class="btn btn-primary" {% endif %}
+				href="{{ path('admin_home') }}">Accueil<span class="sr-only">(current)</span></a>
+
+
+			<a {% if route_name == "homepage" %} class="btn btn-primary active" {% else %} class="btn btn-primary" {% endif %}
+				href="{{ path('admin_articles') }}">Articles<span class="sr-only">(current)</span></a>
+
+
+			<a {% if route_name == "homepage" %} class="btn btn-primary active" {% else %} class="btn btn-primary" {% endif %}
+				href="{{ path('admin_comments') }}">Commentaires<span class="sr-only">(current)</span></a>
+
 			<li {% if route_name == "homepage" %} class="nav-item active" {% else %} class="nav-item" {% endif %}>
 				<a class="nav-link" href="{{ path('admin_home') }}">Accueil
 					<span class="sr-only">(current)</span>
