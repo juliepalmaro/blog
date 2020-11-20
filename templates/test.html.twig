@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Test{% endblock %}
+
+{% block body %}
+
+    <div class="row flex">
+        {% for data in datas %}
+            <div class="col-3">
+                {{ data.title }}
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}
