@@ -1,9 +1,9 @@
-{% extends 'base.html.twig' %}
+{% extends 'admin_dashboard/templateAdmin.html.twig' %}
 
 {% block title %}Hello ArticleController!
 {% endblock %}
 
-{% block body %}
+{% block content %}
 	<style>
 		.example-wrapper {
 			margin: 1em auto;
@@ -17,19 +17,34 @@
 		}
 	</style>
 
-	<div class="example-wrapper">
 
-		<h1>Admin Articles</h1>
-		{#  <ul>
-				            {% for artcile in articles %}
-				        <li>{{ article.title }}
-							{# {{article.image}} #}
-	{#      {{article.user}}
-			        {{article.publicationDate}} #}
-		{# ajouter la catégorie de l'article #}
-		{# </li>
-						    {% endfor %}
-						</ul> #}
+	<h1>Tous mes articles</h1>
+	<button class="btn btn-outline-info" onclick="">Ajouter un article</button>
+	<ul>
+		<li>
+			<input type="checkbox" id="scales" name="scales" checked>
+			<label for="scales">Article 1</label>
+		</li>
+		<li><input type="checkbox" id="scales" name="scales" checked>
+			<label for="scales">Article 2</label>
+		</li>
+		<li><input type="checkbox" id="scales" name="scales" checked>
+			<label for="scales">Article 3</label>
+		</li>
+		<li><input type="checkbox" id="scales" name="scales" checked>
+			<label for="scales">Article 4</label>
+		</li>
+	</ul>
 
-	</div>
+	{# <ul>
+																						{% for artcile in articles %}
+																							 <li>{{ article.title }}
+																								{# {{article.image}} #}
+{#	{{article.user}}
+												        {{article.publicationDate}} #}
+	{# ajouter la catégorie de l'article #}
+	{# </li>
+																							{% endfor %}
+																					</ul> #}
+
 {% endblock %}
