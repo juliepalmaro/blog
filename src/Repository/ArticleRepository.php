@@ -35,7 +35,7 @@ class ArticleRepository extends ServiceEntityRepository
             ->getOneOrNullResult();
     }
 
-    public function findAllArticles(?int $start, ?int $length, ?string $orderBy, ?string $order, ?int $userId): array
+    public function findAllArticles(?int $start, ?int $length, ?string $orderBy, ?string $order, ?string $search, ?int $userId): array
     {
         !$order ?  $order = 'DESC' : $order = $order;
         !$orderBy ?  $orderby = 'a.creationDate' : $orderby = 'a.' . $orderBy;
@@ -46,6 +46,12 @@ class ArticleRepository extends ServiceEntityRepository
             $query
                 ->andWhere('a.userId = :val')
                 ->setParameter('val', $userId);
+        }
+
+        if ($search) {
+            $query
+                ->andWhere('a.titre = :val')
+                ->orWhere('a.subTitle = :val');
         }
 
         !$length ?  $length = 20 : $length = $length;
