@@ -1,15 +1,15 @@
 {% extends 'user_dashboard/templateUser.html.twig' %}
 
-{% block title %}Articles favoris
+{% block title %}Articles partagés
 {% endblock %}
 
 {% block content %}
-<h1>Favoris</h1>
+<h1>Articles partagés</h1>
 
-{% for bookmark in bookmarks %}
+{% for share in shared %}
     {# {% include '_article.html.twig' with {'article': bookmark.article, 'forAdmin': true} %} #}
     <div class="mb-3">
-        {% include '_article_small.html.twig' with {'article': bookmark.article, 'bookmarkDate': bookmark.creationDate} %}
+        {% include '_article_small.html.twig' with {'article': share.article, 'sharedDate': share.creationDate} %}
     </div>
 {% endfor %}
 {% endblock %}

@@ -3,10 +3,12 @@
 namespace App\Controller;
 
 use App\Repository\BookmarkRepository;
+use App\Repository\ShareRepository;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Validator\Constraints\Length;
 
 /**
  * @IsGranted("ROLE_USER")
@@ -37,8 +39,18 @@ class UserDashboardController extends AbstractController
     {
         $currentUser = $this->getUser();
         $bookmarks = $bookmarkRepository->findAllBookmarks(0, 10, null, null, $currentUser, null);
-        dump($bookmarks);
 
-        return $this->render('user_dashboard/bookmarks.html.twig');
+        return $this->render('user_dashboard/bookmarks.html.twig', ['bookmarks' => $bookmarks]);
+    }
+
+    /**
+     * @Route("/shared", name="shared")
+     */
+    public function shared(ShareRepository $shareRepository): Response
+    {
+        $currentUser = $this->getUser();
+        $shared = $shareRepository->findAllShared(0, 10, null, null, $currentUser, null);
+
+        return $this->render('user_dashboard/shared.html.twig', ['shared' => $shared]);
     }
 }
