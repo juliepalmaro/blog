@@ -16,6 +16,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Guard\GuardAuthenticatorHandler;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use App\Form\ContactType;
+use Knp\Component\Pager\PaginatorInterface;
 use App\Form\RegistrationType;
 
 class PublicController extends AbstractController
@@ -114,17 +115,28 @@ class PublicController extends AbstractController
     /**
      * @Route("/", name="homepage")
      */
-    public function getAllArticles(ArticleRepository $repository)
-    {
-        if (isset($page)) {
+    public function getAllArticles(ArticleRepository $repository, PaginatorInterface $paginator, Request $request){
+
+        if(isset($page)) {
             $x = ($page - 1) * 10;
         } else {
             $x = 0;
         }
 
-        $datas = $repository->findAllArticles($x, 10, 'creationDate', 'DESC', null, null);
+        $datas = $repository->findAllArticles($x,20, 'creationDate' , 'DESC', NULL, null );
+
+        // Paginate the results of the query
+        $articles = $paginator->paginate(
+        // Doctrine Query, not results
+            $datas,
+            // Define the page parameter
+            $request->query->getInt('page', 1),
+            // Items per page
+            6
+        );
+
         return $this->render('public/home.html.twig', [
-            'datas' => $datas,
+            'datas' => $articles,
         ]);
     }
 
@@ -143,4 +155,6 @@ class PublicController extends AbstractController
             'article' => $article,
         ]);
     }
+
+
 }
