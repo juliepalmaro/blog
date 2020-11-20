@@ -2,7 +2,9 @@
 
 namespace App\Repository;
 
+use App\Entity\Article;
 use App\Entity\Share;
+use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -36,23 +38,23 @@ class ShareRepository extends ServiceEntityRepository
             ->getOneOrNullResult();
     }
 
-    public function findAllShared(?int $start, ?int $length, ?string $orderBy, ?string $order, ?int $userId, ?int $articleId): array
+    public function findAllShared(?int $start, ?int $length, ?string $orderBy, ?string $order, ?User $user, ?Article $article): array
     {
         !$order ?  $order = 'DESC' : $order = $order;
         !$orderBy ?  $orderby = 'a.creationDate' : $orderby = 'a.' . $orderBy;
 
         $query = $this->createQueryBuilder('a');
 
-        if ($userId) {
+        if ($user) {
             $query
-                ->andWhere('a.userId = :userId')
-                ->setParameter('val', $userId);
+                ->andWhere('a.user = :user')
+                ->setParameter('user', $user);
         }
 
-        if ($articleId) {
+        if ($article) {
             $query
-                ->andWhere('a.articleId = :articleId')
-                ->setParameter('val', $articleId);
+                ->andWhere('a.article = :article')
+                ->setParameter('article', $article);
         }
 
         !$length ?  $length = 20 : $length = $length;

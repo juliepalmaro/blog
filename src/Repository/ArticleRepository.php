@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Article;
+use App\Entity\User;
 use DateTime;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
@@ -35,23 +36,33 @@ class ArticleRepository extends ServiceEntityRepository
             ->getOneOrNullResult();
     }
 
-    public function findAllArticles(?int $start, ?int $length, ?string $orderBy, ?string $order, ?string $search, ?int $userId): array
+    /**
+     * @param integer|null $start index du premier result
+     * @param integer|null $length combien de results
+     * @param string|null $orderBy ordoné par le nom du champ
+     * @param string|null $order DESC ou ASC
+     * @param string|null $search mot clef
+     * @param User|null $user article du user
+     * @return array
+     */
+    public function findAllArticles(?int $start, ?int $length, ?string $orderBy, ?string $order, ?string $search, ?User $user): array
     {
         !$order ?  $order = 'DESC' : $order = $order;
         !$orderBy ?  $orderby = 'a.creationDate' : $orderby = 'a.' . $orderBy;
 
         $query = $this->createQueryBuilder('a');
 
-        if ($userId) {
+        if ($user) {
             $query
-                ->andWhere('a.userId = :val')
-                ->setParameter('val', $userId);
+                ->andWhere('a.user = :user')
+                ->setParameter('user', $user);
         }
 
         if ($search) {
             $query
                 ->andWhere('a.titre = :val')
-                ->orWhere('a.subTitle = :val');
+                ->orWhere('a.subTitle = :val')
+                ->setParameter('val', $search);
         }
 
         !$length ?  $length = 20 : $length = $length;

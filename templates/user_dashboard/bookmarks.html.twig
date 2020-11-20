@@ -1,0 +1,15 @@
+{% extends 'user_dashboard/templateUser.html.twig' %}
+
+{% block title %}Articles favoris
+{% endblock %}
+
+{% block content %}
+<h1>Favoris</h1>
+
+{% for bookmark in bookmarks %}
+    {# {% include '_article.html.twig' with {'article': bookmark.article, 'forAdmin': true} %} #}
+    <div class="mb-3">
+        {% include '_article_small.html.twig' with {'article': bookmark.article, 'bookmarkDate': bookmark.creationDate} %}
+    </div>
+{% endfor %}
+{% endblock %}

@@ -1,0 +1,21 @@
+.article-container--admin {
+    width: 100%;
+}
+
+.card-content {
+    display: flex;
+    align-items: center;
+}
+
+.article-header--admin {
+    margin: auto;
+}
+
+.article-header--admin span {
+    font-weight: bold;
+    text-decoration: underline;
+}
+
+.article-header--admin-img {
+    width: 60%;
+}
