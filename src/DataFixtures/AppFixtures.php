@@ -3,8 +3,10 @@
 namespace App\DataFixtures;
 
 use App\Entity\Article;
+use App\Entity\Bookmark;
 use App\Entity\Comment;
 use App\Entity\Role;
+use App\Entity\Share;
 use App\Entity\User;
 use DateTime;
 use Doctrine\Bundle\FixturesBundle\Fixture;
@@ -77,6 +79,24 @@ class AppFixtures extends Fixture
                 $manager->persist($comment);
             }
 
+            if ($i < 3) {
+                $bookmark = new Bookmark();
+                $bookmark->setCreationDate(new DateTime());
+                $bookmark->setArticle($article);
+                $bookmark->setUser($user);
+
+                $manager->persist($bookmark);
+            }
+
+            if ($i > 7) {
+                $share = new Share();
+                $share->setCreationDate(new DateTime());
+                $share->setArticle($article);
+                $share->setUser($user);
+
+                $manager->persist($share);
+            }
+
             $manager->persist($article);
         }
 
@@ -102,6 +122,24 @@ class AppFixtures extends Fixture
                 $comment->setCreationDate(new DateTime());
 
                 $manager->persist($comment);
+            }
+
+            if ($i < 3) {
+                $bookmark = new Bookmark();
+                $bookmark->setCreationDate(new DateTime());
+                $bookmark->setArticle($article);
+                $bookmark->setUser($userAdmin);
+
+                $manager->persist($bookmark);
+            }
+
+            if ($i > 7) {
+                $share = new Share();
+                $share->setCreationDate(new DateTime());
+                $share->setArticle($article);
+                $share->setUser($userAdmin);
+
+                $manager->persist($share);
             }
 
             $manager->persist($article);
