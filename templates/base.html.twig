@@ -49,6 +49,11 @@
         <div class="homepage-container">
             <div class="homepage-contentWrap">
 				<div class="container mt-5">
+					{% for message in app.flashes('success') %}
+						<div class="alert alert-success">
+							{{ message }}
+						</div>
+					{% endfor %}
 					{% block body %}
 					<h1>
 						{{ block('title') }}

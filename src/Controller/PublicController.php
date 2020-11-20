@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Contact;
+use App\Entity\Role;
 use App\Entity\User;
 use App\Notification\ContactNotification;
 use App\Security\UserAuthenticator;
@@ -77,7 +78,8 @@ class PublicController extends AbstractController
 
             $entityManager->persist($user);
             $entityManager->flush();
-            // do anything else you need here, like send an email
+
+            $this->addFlash('success', 'L\'utilisateur a été créé');
 
             return $guardHandler->authenticateUserAndHandleSuccess(
                 $user,
