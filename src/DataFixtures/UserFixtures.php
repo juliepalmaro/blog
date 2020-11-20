@@ -39,8 +39,8 @@ class UserFixtures extends Fixture
             ->setPassword($this->encoder->encodePassword($user, 'admin'))
             ->setFirstName('admin')
             ->setLastName('admin')
-            ->addRole($userRole)
-            ->addRole($adminRole);
+            ->addUserRole($userRole)
+            ->addUserRole($adminRole);
         $manager->persist($user);
 
         $user = new User();
@@ -48,7 +48,7 @@ class UserFixtures extends Fixture
             ->setPassword($this->encoder->encodePassword($user, 'user'))
             ->setFirstName('user')
             ->setLastName('user')
-            ->addRole($userRole);
+            ->addUserRole($userRole);
         $manager->persist($user);
 
 

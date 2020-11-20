@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Role;
 use App\Entity\User;
 use App\Form\RegistrationFormType;
 use App\Security\UserAuthenticator;
@@ -25,6 +26,9 @@ class RegistrationController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
+            $role = $entityManager->getRepository(Role::class)->findOneBy(['label' => 'ROLE_USER']);
+            $user->addUserRole($role);
+
             $entityManager->persist($user);
             $entityManager->flush();
             // do anything else you need here, like send an email

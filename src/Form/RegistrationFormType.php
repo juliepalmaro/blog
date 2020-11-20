@@ -52,14 +52,6 @@ class RegistrationFormType extends AbstractType
                 'first_options'  => ['label' => 'Mot de Passe'],
                 'second_options' => ['label' => 'Confirmation de mot de passe'],
             ])
-            ->add('userRoles', EntityType::class, [
-                'class' => Role::class,
-                'multiple' => true,
-                'expanded' => true,
-                'query_builder' => function (RoleRepository $repo) {
-                    return $repo->createQueryBuilder('r');
-                }
-            ])
             ->addEventListener(FormEvents::POST_SUBMIT, function (FormEvent $event) use ($encoder) {
                 /** @var USer */
                 $user = $event->getData();
