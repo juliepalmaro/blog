@@ -9,7 +9,10 @@
 		</title>
 		{% block stylesheets %}
 			<link rel="stylesheet" href="{{ asset('styles/bootstrap/bootstrap.min.css') }}">
-			<link rel="stylesheet" href="{{ asset('css/style.css') }}">
+            <link rel="stylesheet" href="{{ asset('styles/components/article.css') }}">
+			<link rel="stylesheet" href="{{ asset('styles/components/footer.css') }}">
+			<link rel="stylesheet" href="{{ asset('styles/pages/homepage.css') }}">
+			<link rel="stylesheet" href="{{ asset('styles/global.css') }}">
 		{% endblock %}
 	</head>
 	<header>
@@ -45,19 +48,31 @@
 		</nav>
 	</header>
 	<body>
-		{% block body %}{% endblock %}
-		{% block javascripts %}
-			<script src="{{ asset('js/jquery-3.2.1.slim.min.js') }}"></script>
-			<script src="{{ asset('js/popper.min.js') }}"></script>
-			<script src="{{ asset('js/bootstrap.min.js') }}"></script>
-		{% endblock %}
+        <div class="homepage-container">
+            <div class="homepage-contentWrap">
+				<div class="container mt-5">
+					{% block body %}
+					<h1>
+						{{ block('title') }}
+					</h1>
+					{% endblock %}
+				</div>
+                {% block javascripts %}
+                    <script src="{{ asset('js/jquery-3.2.1.slim.min.js') }}"></script>
+                    <script src="{{ asset('js/popper.min.js') }}"></script>
+                    <script src="{{ asset('js/bootstrap.min.js') }}"></script>
+                {% endblock %}
+            </div>
+
+            <footer class="blog-footer">
+                <p>Blog
+                    <b>LARAJ</b>
+                    by  Laura, Alban, Romain, Aymeric and Julie.</p>
+                <p>
+                    <a href="#">Back to top</a>
+                </p>
+            </footer>
+        </div>
 	</body>
-	<footer class="blog-footer">
-		<p>Blog
-			<b>LARAJ</b>
-			by  Laura, Alban, Romain, Aymeric and Julie.</p>
-		<p>
-			<a href="#">Back to top</a>
-		</p>
-	</footer>
+	
 </html>

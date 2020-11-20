@@ -4,30 +4,26 @@
 {% endblock %}
 
 {% block body %}
-	<div class="example-wrapper">
-		<div style="display:flex;">
-
-			<div style="flex-direction: column">
-				<h4>Menu</h4>
-				<div>
-					<a class="btn btn-info" href="{{ path('admin_home') }}">Accueil</a>
-					{# <a href="/article/home">Accueil</a> #}
-				</div>
-				<div>
-
-					<a class="btn btn-info" href="{{ path('admin_articles') }}">Articles</a>
-					{# <a href="/article/articles">Article</a> #}
-
-				</div>
-				<div>
-					<a class="btn btn-info" href="{{ path('admin_articlesComments') }}">Gestion des commentaires</a>
-					{# <a href="/article/articleComments">Gestion des commentaires</a> #}
-				</div>
-			</div>
-
-			<div>
-				{% block content %}{% endblock %}
-			</div>
+	<div class="row">
+		<div class="col-2">
+			<li {% if route_name == "homepage" %} class="nav-item active" {% else %} class="nav-item" {% endif %}>
+				<a class="nav-link" href="{{ path('admin_home') }}">Accueil
+					<span class="sr-only">(current)</span>
+				</a>
+			</li>
+			<li {% if route_name == "homepage" %} class="nav-item active" {% else %} class="nav-item" {% endif %}>
+				<a class="nav-link" href="{{ path('admin_articles') }}">Articles
+					<span class="sr-only">(current)</span>
+				</a>
+			</li>
+			<li {% if route_name == "homepage" %} class="nav-item active" {% else %} class="nav-item" {% endif %}>
+				<a class="nav-link" href="{{ path('admin_comments') }}">Gestion des commentaires
+					<span class="sr-only">(current)</span>
+				</a>
+			</li>
+		</div>
+		<div class="col-10">
+			{% block content %}{% endblock %}
 		</div>
 	</div>
 {% endblock %}

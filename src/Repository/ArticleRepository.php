@@ -3,8 +3,11 @@
 namespace App\Repository;
 
 use App\Entity\Article;
+use DateTime;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Exception;
+use Symfony\Component\HttpFoundation\Response;
 
 /**
  * @method Article|null find($id, $lockMode = null, $lockVersion = null)
@@ -54,6 +57,23 @@ class ArticleRepository extends ServiceEntityRepository
             ->setMaxResults($length)
             ->getQuery()
             ->getResult();
+    }
+
+    public function setDefaultValues(Article $article): Article
+    {
+        if (!$article->getState()) {
+            $article->setState('validated');
+        }
+
+        if (!$article->getCreationDate()) {
+            $article->setCreationDate(new DateTime());
+        }
+
+        if (!$article->getPublic()) {
+            $article->setPublic(true);
+        }
+
+        return $article;
     }
 
     // /**

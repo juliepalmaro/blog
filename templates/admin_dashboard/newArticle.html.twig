@@ -1,0 +1,16 @@
+{% extends 'admin_dashboard/templateAdmin.html.twig' %}
+
+{% block title %}Hello AdminDashboardController!
+{% endblock %}
+
+{% block content %}
+    {% for message in app.flashes('notice') %}
+        <div class="flash-notice">
+            {{ message }}
+        </div>
+    {% endfor %}
+
+    {% include '_form.html.twig' with {'form_title': 'Créer un article', 'button_label': 'Valider'} %}
+{% endblock %}
+
+

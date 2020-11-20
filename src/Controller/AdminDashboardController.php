@@ -2,10 +2,13 @@
 
 namespace App\Controller;
 
+use App\Entity\Article;
 use App\Repository\ArticleRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use App\Form\ArticleNewType;
 
 class AdminDashboardController extends AbstractController
 {
@@ -31,16 +34,41 @@ class AdminDashboardController extends AbstractController
         return $this->render('admin_dashboard/articles.html.twig', []);
     }
 
+    /**
+     * @Route("/admin/articles/new", name="admin_article_new")
+     */
+    public function createArticle(Request $request, ArticleRepository $articleRepository): Response
+    {
+        $article = new Article();
+        $form = $this->createForm(ArticleNewType::class, $article);
+        $form->handleRequest($request);
 
+        if ($form->isSubmitted() && $form->isValid()) {
+            $user = $this->getUser();
+
+            $article->setUser($user);
+            $article = $articleRepository->setDefaultValues($article);
+
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($article);
+            $entityManager->flush();
+
+            $this->addFlash(
+                'notice',
+                'Article crée !'
+            );
+        }
+
+        return $this->render('admin_dashboard/newArticle.html.twig', [
+            'form' => $form->createView(),
+        ]);
+    }
 
     /**
-     * @Route("/admin/articlesComments", name="admin_articlesComments")
+     * @Route("/admin/comments", name="admin_comments")
      */
-    public function articlesComments(ArticleRepository $articleRepository): Response
+    public function comments(): Response
     {
-        $articles = $articleRepository->findAllArticles(0, 10, null, null, null, null, null);
-        dump($articles);
-
-        return $this->render('admin_dashboard/articlesComments.html.twig', []);
+        return $this->render('admin_dashboard/comments.html.twig', []);
     }
 }
