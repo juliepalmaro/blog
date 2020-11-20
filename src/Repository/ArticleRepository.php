@@ -40,7 +40,7 @@ class ArticleRepository extends ServiceEntityRepository
     public function findAllArticles(?int $start, ?int $length, ?string $orderBy, ?string $order, ?int $userId, ?bool $onlyBookmarked, ?bool $onlyShared): array
     {
         !$order ?  $order = 'DESC' : $order = $order;
-        !$orderBy ?  $orderby = 'a.creationDate' : $orderby = $orderBy;
+        !$orderBy ?  $orderby = 'a.creationDate' : $orderby = 'a.' . $orderBy;
 
         $query = $this->createQueryBuilder('a');
 
