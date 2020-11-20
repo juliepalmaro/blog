@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Article;
+use DateTime;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Exception;
@@ -58,28 +59,21 @@ class ArticleRepository extends ServiceEntityRepository
             ->getResult();
     }
 
-    public function createOrUpdateArticle(?Article $article): Article
+    public function setDefaultValues(Article $article): Article
     {
-        $entityManager = $this->getDoctrine()->getManager();
-        $entityManager->persist($article);
-        $entityManager->flush();
-
-        $id = $article->getId();
-
-        return $this->findOne($id);
-    }
-
-    public function delete(?Article $article): bool
-    {
-        try {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->delete($article);
-            $entityManager->flush();
-        } catch (Exception $err) {
-            return false;
+        if (!$article->getState()) {
+            $article->setState('validated');
         }
 
-        return true;
+        if (!$article->getCreationDate()) {
+            $article->setCreationDate(new DateTime());
+        }
+
+        if (!$article->getPublic()) {
+            $article->setPublic(true);
+        }
+
+        return $article;
     }
 
     // /**

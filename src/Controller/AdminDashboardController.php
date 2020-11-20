@@ -33,7 +33,19 @@ class AdminDashboardController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $articleRepository->createOrUpdateArticle($article);
+            $user = $this->getUser();
+
+            $article->setUser($user);
+            $article = $articleRepository->setDefaultValues($article);
+
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($article);
+            $entityManager->flush();
+
+            $this->addFlash(
+                'notice',
+                'Article crée !'
+            );
         }
 
         return $this->render('admin_dashboard/newArticle.html.twig', [
