@@ -19,32 +19,41 @@ class CommentRepository extends ServiceEntityRepository
         parent::__construct($registry, Comment::class);
     }
 
-    // /**
-    //  * @return Comment[] Returns an array of Comment objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    public function findOneComment(?string $id): Comment
     {
-        return $this->createQueryBuilder('c')
-            ->andWhere('c.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('c.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
+        $query = $this->createQueryBuilder('a');
 
-    /*
-    public function findOneBySomeField($value): ?Comment
-    {
-        return $this->createQueryBuilder('c')
-            ->andWhere('c.exampleField = :val')
-            ->setParameter('val', $value)
+        if ($id) {
+            $query
+                ->andWhere('a.id = :val')
+                ->setParameter('val', $id);
+        }
+
+        return $query
             ->getQuery()
-            ->getOneOrNullResult()
-        ;
+            ->getOneOrNullResult();
     }
-    */
+
+    public function findAllComments(?int $start, ?int $length, ?string $orderBy, ?string $order, ?int $userId): array
+    {
+        !$order ?  $order = 'DESC' : $order = $order;
+        !$orderBy ?  $orderby = 'a.creationDate' : $orderby = 'a.' . $orderBy;
+
+        $query = $this->createQueryBuilder('a');
+
+        if ($userId) {
+            $query
+                ->andWhere('a.userId = :val')
+                ->setParameter('val', $userId);
+        }
+
+        !$length ?  $length = 20 : $length = $length;
+
+        return $query
+            ->setFirstResult($start)
+            ->orderBy($orderby, $order)
+            ->setMaxResults($length)
+            ->getQuery()
+            ->getResult();
+    }
 }
