@@ -1,0 +1,21 @@
+.articleRecent-container {
+    display: flex;
+    justify-content: space-between;
+    background-color: #6AA9C1;
+}
+
+.articleRecent-container > div{
+    display: flex;
+    width: 25%;
+    margin: 1%;
+    background-color: white;
+    padding: 0.5rem;
+    align-items: center;
+}
+
+.articleRecent-container > div > div:last-child{
+    display: flex;
+    flex-direction: column;
+    padding: 0 0.5rem;
+    align-items: center;
+}
