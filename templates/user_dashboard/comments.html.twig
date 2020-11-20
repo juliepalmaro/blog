@@ -1,0 +1,14 @@
+{% extends 'user_dashboard/templateUser.html.twig' %}
+
+{% block title %}Articles commentés
+{% endblock %}
+
+{% block content %}
+<h1>Articles commentés</h1>
+
+{% for comment in comments %}
+    <div class="mb-3">
+        {% include '_article_small.html.twig' with {'article': comment.article, 'commentDate': comment.creationDate} %}
+    </div>
+{% endfor %}
+{% endblock %}

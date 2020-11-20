@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Repository\BookmarkRepository;
+use App\Repository\CommentRepository;
 use App\Repository\ShareRepository;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -33,7 +34,7 @@ class UserDashboardController extends AbstractController
     }
 
     /**
-     * @Route("/bookmarks", name="bookmarks")
+     * @Route("/bookmarks", name="user_bookmarks")
      */
     public function bookmarks(BookmarkRepository $bookmarkRepository): Response
     {
@@ -44,7 +45,7 @@ class UserDashboardController extends AbstractController
     }
 
     /**
-     * @Route("/shared", name="shared")
+     * @Route("/shared", name="user_shared")
      */
     public function shared(ShareRepository $shareRepository): Response
     {
@@ -52,5 +53,16 @@ class UserDashboardController extends AbstractController
         $shared = $shareRepository->findAllShared(0, 10, null, null, $currentUser, null);
 
         return $this->render('user_dashboard/shared.html.twig', ['shared' => $shared]);
+    }
+
+    /**
+     * @Route("/comments", name="user_comments")
+     */
+    public function comments(CommentRepository $commentRepository): Response
+    {
+        $currentUser = $this->getUser();
+        $comments = $commentRepository->findAllComments(0, 10, null, null, $currentUser);
+
+        return $this->render('user_dashboard/comments.html.twig', ['comments' => $comments]);
     }
 }

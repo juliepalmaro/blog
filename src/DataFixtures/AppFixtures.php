@@ -75,6 +75,7 @@ class AppFixtures extends Fixture
                 $comment->setState('validated');
                 $comment->setPrivacy('approved');
                 $comment->setCreationDate(new DateTime());
+                $comment->setArticle($article);
 
                 $manager->persist($comment);
             }
@@ -120,6 +121,7 @@ class AppFixtures extends Fixture
                 $comment->setState('validated');
                 $comment->setPrivacy('approved');
                 $comment->setCreationDate(new DateTime());
+                $comment->setArticle($article);
 
                 $manager->persist($comment);
             }

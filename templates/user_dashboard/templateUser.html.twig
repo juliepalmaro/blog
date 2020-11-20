@@ -8,10 +8,12 @@
 		<div class="col-2">
 			<a {% if route_name == "user_home" %} class="btn btn-primary active" {% else %} class="btn btn-primary" {% endif %}
 				href="{{ path('user_home') }}">Accueil<span class="sr-only">(current)</span></a>
-			<a {% if route_name == "bookmarks" %} class="btn btn-primary active" {% else %} class="btn btn-primary" {% endif %}
-				href="{{ path('bookmarks') }}">Articles aimés<span class="sr-only">(current)</span></a>
-			<a {% if route_name == "shared" %} class="btn btn-primary active" {% else %} class="btn btn-primary" {% endif %}
-				href="{{ path('shared') }}">Articles partagés<span class="sr-only">(current)</span></a>
+			<a {% if route_name == "user_bookmarks" %} class="btn btn-primary active" {% else %} class="btn btn-primary" {% endif %}
+				href="{{ path('user_bookmarks') }}">Articles aimés<span class="sr-only">(current)</span></a>
+			<a {% if route_name == "user_shared" %} class="btn btn-primary active" {% else %} class="btn btn-primary" {% endif %}
+				href="{{ path('user_shared') }}">Articles partagés<span class="sr-only">(current)</span></a>
+			<a {% if route_name == "user_comments" %} class="btn btn-primary active" {% else %} class="btn btn-primary" {% endif %}
+				href="{{ path('user_comments') }}">Articles commentés<span class="sr-only">(current)</span></a>
 		</div>
 		<div class="col-10">
 			{% block content %}{% endblock %}
