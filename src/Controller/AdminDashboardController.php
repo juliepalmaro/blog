@@ -9,6 +9,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Form\ArticleNewType;
+use App\Repository\CommentRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 /**
@@ -70,8 +71,9 @@ class AdminDashboardController extends AbstractController
     /**
      * @Route("/comments", name="admin_comments")
      */
-    public function comments(): Response
+    public function comments(CommentRepository $commentRepository): Response
     {
-        return $this->render('admin_dashboard/comments.html.twig', []);
+        $comments = $commentRepository->findAllComments(0, 10, null, null, null, null);
+        return $this->render('admin_dashboard/comments.html.twig', ['comments' => $comments]);
     }
 }

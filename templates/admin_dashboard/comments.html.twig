@@ -6,6 +6,22 @@
 {% block content %}
 
 	<h1>Commentaires</h1>
-
+	{# <a class="btn btn-primary active" href="{{ path('admin_comments') }}">
+					Gérer les commentaires<span class="sr-only">(current)</span>
+				</a> #}
+	<ul>
+		{% for comment in comments %}
+			<li>{{comment.content}}
+				{{comment.user.firstName}}
+				{{comment.user.lasttName}}
+				{{comment.email}}
+				{{comment.creationDate|date}}
+				{# titre
+												{{}} #}
+				{{comment.content}}
+			</li>
+			{# {{comment.user}} #}
+		{% endfor %}
+	</ul>
 
 {% endblock %}
