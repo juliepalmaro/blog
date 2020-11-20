@@ -115,16 +115,16 @@ class PublicController extends AbstractController
     /**
      * @Route("/", name="homepage")
      */
-    public function getAllArticles(ArticleRepository $repository, Request $request){
-
-        if(isset($page)) {
+    public function getAllArticles(ArticleRepository $repository)
+    {
+        if (isset($page)) {
             $x = ($page - 1) * 10;
-        }else{
+        } else {
             $x = 0;
         }
 
-        $datas = $repository->findAllArticles($x,10, 'creationDate' , 'DESC', NULL, null );
-        return $this->render('home.html.twig', [
+        $datas = $repository->findAllArticles($x, 10, 'creationDate', 'DESC', null, null);
+        return $this->render('public/home.html.twig', [
             'datas' => $datas,
         ]);
     }
@@ -136,7 +136,7 @@ class PublicController extends AbstractController
     {
         $article = $repository->find($id);
 
-        if (!$article){
+        if (!$article) {
             throw $this->createNotFoundException('Cet article n\existe pas');
         }
 
