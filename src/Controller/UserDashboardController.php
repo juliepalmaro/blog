@@ -14,7 +14,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class UserDashboardController extends AbstractController
 {
     /**
-     * @Route("/dashboard/home", name="user_home")
+     * @Route("/", name="user_home")
      */
     public function index(): Response
     {
