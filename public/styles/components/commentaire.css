@@ -1,0 +1,39 @@
+.article-commentaire {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 2%;
+}
+
+.article-commentaire_text {
+    color: white;
+    padding: 1.25rem;
+    background-color:#6AA9C1;
+    border-top-left-radius: 25px;
+
+}
+
+.article-commentaire_info {
+    display: flex;
+    padding: 0.25rem;
+    border: 2px solid #6AA9C1;
+    /* border-bottom-left-radius: 25px; */
+    border-bottom-right-radius: 25px;
+}
+
+.article-commentaire_info > div{
+    flex-grow: 1;
+}
+
+.article-commentaire_info > div:last-child{
+    flex-grow: 6;
+    text-align: end;
+    padding-right: 2%;
+}
+
+.article-commentaire_info > div:first-child{
+    margin-left: 3%;
+}
+/* 
+.article-commentaire_info > div:not(:last-child){
+    margin-right: 3%;
+} */

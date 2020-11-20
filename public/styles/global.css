@@ -17,3 +17,8 @@
 .btn.btn-projectBackgroundColor:hover {
     background-color: #49a0c2;
 }
+
+.btn-link--white {
+    font-weight: bold;
+    color: white !important;
+}

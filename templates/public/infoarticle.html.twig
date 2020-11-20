@@ -69,4 +69,15 @@
                                         </div>
                                     {% endif %}#}
     </div>
+
+    {# {% for comment in comments %}
+		<div class="mb-5">
+			{% include 'comment.html.twig' with {'comment': comment} %}
+		</div>
+	{% endfor %} #}
+
+			{% include 'public/comment.html.twig' %}
+			{% include 'public/articleRecent.html.twig' %}
+
+
 {%  endblock %}

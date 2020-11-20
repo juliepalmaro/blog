@@ -18,6 +18,7 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use App\Form\ContactType;
 use Knp\Component\Pager\PaginatorInterface;
 use App\Form\RegistrationType;
+use App\Repository\CommentRepository;
 
 class PublicController extends AbstractController
 {
@@ -156,6 +157,52 @@ class PublicController extends AbstractController
         ]);
     }
 
+    // LES COMMENTAIRES NE FONCTIONNENT PAS ENCORE (IACO)
+
+    /**
+     * @Route("/article/{id}", name="infoarticle")
+     */
+    public function getAllComments(CommentRepository $repository, PaginatorInterface $paginator, Request $request){
+
+        if(isset($page)) {
+            $x = ($page - 1) * 10;
+        } else {
+            $x = 0;
+        }
+
+        $datas = $repository->findAllComments($x,20, 'creationDate' , 'DESC', NULL, null );
+
+        // Paginate the results of the query
+        $comments = $paginator->paginate(
+        // Doctrine Query, not results
+            $datas,
+            // Define the page parameter
+            $request->query->getInt('page', 1),
+            // Items per page
+            6
+        );
+
+        return $this->render('public/home.html.twig', [
+            'datas' => $comments,
+        ]);
+    }
+
+    /**
+     * @Route("/comment/{id}", name="comment")
+     */
+    public function findOneComment(CommentRepository $repository, $id): Response
+    {
+        $comment = $repository->find($id);
+
+        if (!$comment) {
+            throw $this->createNotFoundException('Ce commentaire n\existe pas');
+        }
+
+        return $this->render('public/infoarticle.html.twig', [
+            'article' => $comment,
+        ]);
+    }
+
     /**
      * @Route("/search/", name="search")
      */
@@ -177,7 +224,5 @@ class PublicController extends AbstractController
             'articleSearched' => $article,
         ]);
     }
-
-
 
 }
