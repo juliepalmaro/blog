@@ -7,6 +7,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Validator\Constraints\Length;
 
 /**
  * @IsGranted("ROLE_USER")
@@ -37,8 +38,7 @@ class UserDashboardController extends AbstractController
     {
         $currentUser = $this->getUser();
         $bookmarks = $bookmarkRepository->findAllBookmarks(0, 10, null, null, $currentUser, null);
-        dump($bookmarks);
 
-        return $this->render('user_dashboard/bookmarks.html.twig');
+        return $this->render('user_dashboard/bookmarks.html.twig', ['bookmarks' => $bookmarks]);
     }
 }
