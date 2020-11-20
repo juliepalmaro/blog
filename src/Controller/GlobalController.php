@@ -93,4 +93,19 @@ class GlobalController extends AbstractController
 
         return $this->redirectToRoute($refererPathInfo);
     }
+
+    /**
+     * @Route("/dashboard", name="dashboard")
+     */
+    public function dashboard() : Response
+    {
+        if($this->container->get('security.authorization_checker')->isGranted('ROLE_ADMIN')){
+            return $this->redirectToRoute('admin_home');
+        } elseif($this->container->get('security.authorization_checker')->isGranted('ROLE_USER')){
+            return $this->redirectToRoute('user_home');
+        } else {
+            return $this->redirectToRoute('homepage');
+        }
+        
+    }
 }
