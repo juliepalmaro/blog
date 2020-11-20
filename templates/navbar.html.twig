@@ -1,0 +1,45 @@
+<nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #6AA9C1;">
+    <a class="navbar-brand" href="{{ path('homepage') }}">LARAJ</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <div class="navbar-nav">
+            <li {% if route_name == "homepage" %} class="nav-item active" {% else %} class="nav-item" {% endif %}>
+                <a class="nav-link" href="{{ path('homepage') }}">Accueil
+                    <span class="sr-only">(current)</span>
+                </a>
+            </li>
+            <li {% if route_name == "about" %} class="nav-item active" {% else %} class="nav-item" {% endif %}>
+                <a class="nav-link" href="{{ path('about') }}">À propos</a>
+            </li>
+            <li {% if route_name == "contact" %} class="nav-item active" {% else %} class="nav-item" {% endif %}>
+                <a class="nav-link" href="{{ path('contact') }}">Contact</a>
+            </li>
+
+            {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+                {% if is_granted('ROLE_ADMIN') %}
+                    <li {% if route_name == "admin_home" %} class="nav-item active" {% else %} class="nav-item" {% endif %}>
+                        <a class="nav-link" href="{{ path('admin_home') }}">{{ app.user.firstname }}</a>
+                    </li>
+                {% else %}
+                    <li {% if route_name == "user_home" %} class="nav-item active" {% else %} class="nav-item" {% endif %}>
+                        <a class="nav-link" href="{{ path('user_home') }}">{{ app.user.firstname }}</a>
+                    </li> 
+                {% endif %}
+                <li {% if route_name == "app_logout" %} class="nav-item active" {% else %} class="nav-item" {% endif %}>
+                    <a class="nav-link" href="{{ path('app_logout') }}">Se déconnecter</a>
+                </li>
+			</div>
+            {% else %}
+                <li {% if route_name == "register" %} class="nav-item active" {% else %} class="nav-item" {% endif %}>
+                    <a class="nav-link" href="{{ path('register') }}">Créer un compte</a>
+                </li>
+                <li {% if route_name == "app_login" %} class="nav-item active" {% else %} class="nav-item" {% endif %}>
+                    <a class="nav-link" href="{{ path('app_login') }}">Se connecter</a>
+                </li>
+            {% endif %}
+        </div>
+    </div>
+</nav>
