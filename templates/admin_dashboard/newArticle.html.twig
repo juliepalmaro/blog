@@ -1,0 +1,10 @@
+{% extends 'admin_dashboard/templateAdmin.html.twig' %}
+
+{% block title %}Hello AdminDashboardController!
+{% endblock %}
+
+{% block content %}
+    Nouveau article ici
+
+    {% include '_form.html.twig' with {'form_title': 'Créer un article', 'button_label': 'Valider'} %}
+{% endblock %}
