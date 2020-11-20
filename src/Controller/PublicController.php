@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Contact;
 use App\Entity\Role;
 use App\Entity\User;
+use App\Entity\Article;
 use App\Notification\ContactNotification;
 use App\Repository\ArticleRepository;
 use App\Security\UserAuthenticator;
@@ -129,14 +130,14 @@ class PublicController extends AbstractController
     }
 
     /**
-     * @Route("/article/{id]", name="article")
+     * @Route("/article/{id}", name="article")
      */
     public function findOneArticle(ArticleRepository $repository, $id): Response
     {
-        $article = $repository->findOneArticle($id);
+        $article = $repository->find($id);
 
         if (!$article){
-            throw $this->createNotFoundException('Cet arricle n\existe pas');
+            throw $this->createNotFoundException('Cet article n\existe pas');
         }
 
         return $this->render('_article.html.twig', [
