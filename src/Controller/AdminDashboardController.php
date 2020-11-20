@@ -24,7 +24,7 @@ class AdminDashboardController extends AbstractController
     {
         $articles = $articleRepository->findAllArticles(0, 5, 'creationDate', 'DESC', null, null, null);
 
-        return $this->render('admin_dashboard/index.html.twig', []);
+        return $this->render('admin_dashboard/index.html.twig', ['articles' => $articles]);
     }
 
     /**

@@ -4,5 +4,8 @@
 {% endblock %}
 
 {% block content %}
-<h1>Accueil</h1>
+	<h1>Accueil</h1>
+	{% for article in articles %}
+		{% include '_article.html.twig' with {'article': article, 'forAdmin': true} %}
+	{% endfor %}
 {% endblock %}
