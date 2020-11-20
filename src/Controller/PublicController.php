@@ -6,6 +6,7 @@ use App\Entity\Contact;
 use App\Entity\Role;
 use App\Entity\User;
 use App\Notification\ContactNotification;
+use App\Repository\ArticleRepository;
 use App\Security\UserAuthenticator;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -16,6 +17,7 @@ use Symfony\Component\Security\Guard\GuardAuthenticatorHandler;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use App\Form\RegistrationFormType;
 use App\Form\ContactType;
+use Knp\Component\Pager\PaginatorInterface;
 
 class PublicController extends AbstractController
 {
@@ -110,5 +112,59 @@ class PublicController extends AbstractController
         throw new \LogicException('This method can be blank - it will be intercepted by the logout key on your firewall.');
     }
 
+    /**
+     * @Route("/", name="homepage")
+     */
+    public function getAllArticles(ArticleRepository $repository, Request $request){
 
+        if(isset($page)) {
+            $x = ($page - 1) * 10;
+        }else{
+            $x = 0;
+        }
+
+        $datas = $repository->findAllArticles($x,10, 'creationDate' , 'DESC', NULL, null );
+        return $this->render('home.html.twig', [
+            'datas' => $datas,
+        ]);
+    }
+
+    /**
+     * @Route("/article/{id]", name="article")
+     */
+    public function findOneArticle(ArticleRepository $repository, $id): Response
+    {
+        $article = $repository->findOneArticle($id);
+
+        if (!$article){
+            throw $this->createNotFoundException('Cet arricle n\existe pas');
+        }
+
+        return $this->render('_article.html.twig', [
+            'article' => $article,
+        ]);
+    }
+
+    /**
+     * @Route("/", name="home")
+     */
+    public function home(PaginatorInterface $paginator, Request $request)
+     {  
+        $donnees = $this->getDoctrine()->getRepository(Article::class)->findBy([],['id' => 'desc']);
+
+
+        // Paginate the results of the query
+        $articles = $paginator->paginate(
+            // Doctrine Query, not results
+            $donnees,
+            // Define the page parameter
+            $request->query->getInt('page', 1),
+            // Items per page
+            4
+        );
+
+        return $this->render('home.html.twig', [
+            'articles' => $articles
+        ]);
+    }
 }
