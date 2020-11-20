@@ -22,7 +22,7 @@ class AdminDashboardController extends AbstractController
      */
     public function home(ArticleRepository $articleRepository): Response
     {
-        $articles = $articleRepository->findAllArticles(0, 5, 'creationDate', 'DESC', null, null, null);
+        $articles = $articleRepository->findAllArticles(0, 5, 'creationDate', 'DESC', null);
 
         return $this->render('admin_dashboard/index.html.twig', []);
     }
@@ -32,7 +32,7 @@ class AdminDashboardController extends AbstractController
      */
     public function articles(ArticleRepository $articleRepository): Response
     {
-        $articles = $articleRepository->findAllArticles(0, 10, null, null, null, null, null);
+        $articles = $articleRepository->findAllArticles(0, 10, null, null, null);
 
         return $this->render('admin_dashboard/articles.html.twig', ['articles' => $articles]);
     }

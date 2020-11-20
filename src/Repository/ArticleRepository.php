@@ -6,8 +6,6 @@ use App\Entity\Article;
 use DateTime;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
-use Exception;
-use Symfony\Component\HttpFoundation\Response;
 
 /**
  * @method Article|null find($id, $lockMode = null, $lockVersion = null)
@@ -37,7 +35,7 @@ class ArticleRepository extends ServiceEntityRepository
             ->getOneOrNullResult();
     }
 
-    public function findAllArticles(?int $start, ?int $length, ?string $orderBy, ?string $order, ?int $userId, ?bool $onlyBookmarked, ?bool $onlyShared): array
+    public function findAllArticles(?int $start, ?int $length, ?string $orderBy, ?string $order, ?int $userId): array
     {
         !$order ?  $order = 'DESC' : $order = $order;
         !$orderBy ?  $orderby = 'a.creationDate' : $orderby = 'a.' . $orderBy;
@@ -76,33 +74,4 @@ class ArticleRepository extends ServiceEntityRepository
 
         return $article;
     }
-
-    // /**
-    //  * @return Article[] Returns an array of Article objects
-    //  */
-    /*
-    public function findByExampleField($value)
-    {
-        return $this->createQueryBuilder('a')
-            ->andWhere('a.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('a.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
-
-    /*
-    public function findOneBySomeField($value): ?Article
-    {
-        return $this->createQueryBuilder('a')
-            ->andWhere('a.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
-    }
-    */
 }
