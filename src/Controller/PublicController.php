@@ -157,6 +157,8 @@ class PublicController extends AbstractController
         ]);
     }
 
+    // LES COMMENTAIRES NE FONCTIONNENT PAS ENCORE (IACO)
+
     /**
      * @Route("/article/{id}", name="infoarticle")
      */

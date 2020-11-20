@@ -2,20 +2,35 @@
     display: flex;
     justify-content: space-between;
     background-color: #6AA9C1;
+    flex-direction: column;
+    width: 100%;
 }
 
-.articleRecent-container > div{
+.articleRecent_articles{
+    display: flex;
+}
+
+.articleRecent_articles > div{
     display: flex;
     width: 25%;
     margin: 1%;
     background-color: white;
     padding: 0.5rem;
     align-items: center;
+    flex-direction: column;
 }
 
-.articleRecent-container > div > div:last-child{
+.articleRecent_text {
     display: flex;
     flex-direction: column;
     padding: 0 0.5rem;
     align-items: center;
+}
+
+.articleRecent-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem 0.75rem;
+    color: white;
 }
