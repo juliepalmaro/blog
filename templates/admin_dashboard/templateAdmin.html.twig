@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello AdminDashboardController!
+{% endblock %}
+
+{% block body %}
+	<div class="example-wrapper">
+		<div class="affichage">
+
+			<div style="flex-direction: column">
+				<h4>Menu</h4>
+				<div>
+					<button class="btn btn-info" onclick="window.location.href = '/article/home';">Accueil</button>
+					{# <a href="/article/home">Accueil</a> #}
+				</div>
+				<div>
+
+					<button class="btn btn-info" onclick="window.location.href = '/article/articles';">Article</button>
+					{# <a href="/article/articles">Article</a> #}
+
+				</div>
+				<div>
+					<button class="btn btn-info" onclick="window.location.href = '/article/articleComments';">Gestion des commentaires</button>
+					{# <a href="/article/articleComments">Gestion des commentaires</a> #}
+				</div>
+			</div>
+
+			<div>
+				{% block content %}{% endblock %}
+			</div>
+		</div>
+	</div>
+{% endblock %}
