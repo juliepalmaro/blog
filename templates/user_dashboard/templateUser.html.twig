@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello AdminDashboardController!
+{% endblock %}
+
+{% block body %}
+	<div class="row">
+		<div class="col-2">
+			<a {% if route_name == "user_home" %} class="btn btn-primary active" {% else %} class="btn btn-primary" {% endif %}
+				href="{{ path('user_home') }}">Accueil<span class="sr-only">(current)</span></a>
+			<a {% if route_name == "user_home" %} class="btn btn-primary active" {% else %} class="btn btn-primary" {% endif %}
+				href="{{ path('bookmarks') }}">Articles aimés<span class="sr-only">(current)</span></a>
+		</div>
+		<div class="col-10">
+			{% block content %}{% endblock %}
+		</div>
+	</div>
+{% endblock %}
