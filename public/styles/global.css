@@ -1,0 +1,19 @@
+/* BUTTONS */
+
+.btn.btn-projectTextColor {
+    color: #6AA9C1;
+    font-weight: bold;
+}
+
+.btn.btn-projectTextColor:hover {
+    color: #6AA9C1;
+}
+
+.btn.btn-projectBackgroundColor {
+    background-color: #6AA9C1;
+    color: white;
+}
+
+.btn.btn-projectBackgroundColor:hover {
+    background-color: #49a0c2;
+}
