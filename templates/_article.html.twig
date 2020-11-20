@@ -31,15 +31,27 @@
 			<div class="article-shareIcon">
 				{{ source('svg/share.svg')}}
 			</div>
+			<div class="article-socialMedIcons">
+				<div class="article-facebookIcon">
+					{{ source('svg/facebook.svg')}}
+				</div>
+				<div class="article-twitterIcon">
+					{{ source('svg/twitter.svg')}}
+				</div>
+				<div class="article-instagramIcon">
+					{{ source('svg/instagram.svg')}}
+				</div>
+				<div class="article-linkedinIcon">
+					{{ source('svg/linkedin.svg')}}
+				</div>
+			</div>
 		</div>
 		<div>
 			<div class="article-thumbUpIcon">
-				<a href="{{ path('add-bookmark', {'id': article.id}) }}">
-					{{ source('svg/thumb_up.svg')}}
-				</a>
+				{{ source('svg/thumb_up.svg')}}
 			</div>
 
-			{# <div class="article-tags">#Politique#Macron#Guerre</div> #}
+			<div class="article-tags">#Politique#Macron#Guerre</div>
 		</div>
 	</div>
 
