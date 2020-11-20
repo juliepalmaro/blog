@@ -20,14 +20,14 @@ class ArticleController extends AbstractController
         ]);
     }
     /**
-     * @Route("/article/home", name="Accueil")
+     * @Route("/article/home", name="home")
      */
     public function home(): Response
     {
         return $this->render('article/home.html.twig', []);
     }
     /**
-     * @Route("/article/articles", name="Accueil")
+     * @Route("/article/articles", name="article")
      */
     public function articles(): Response
     {
@@ -35,7 +35,7 @@ class ArticleController extends AbstractController
     }
 
     /**
-     * @Route("/article/articleComments", name="Accueil")
+     * @Route("/article/articleComments", name="Comments")
      */
     public function articleComments(): Response
     {
