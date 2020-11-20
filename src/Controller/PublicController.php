@@ -13,12 +13,11 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Guard\GuardAuthenticatorHandler;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
-use App\Form\RegistrationFormType;
 use App\Form\ContactType;
 use Knp\Component\Pager\PaginatorInterface;
+use App\Form\RegistrationType;
 
 class PublicController extends AbstractController
 {
@@ -59,10 +58,10 @@ class PublicController extends AbstractController
     /**
      * @Route("/register", name="register")
      */
-    public function register(Request $request, UserPasswordEncoderInterface $passwordEncoder, GuardAuthenticatorHandler $guardHandler, UserAuthenticator $authenticator): Response
+    public function register(Request $request, GuardAuthenticatorHandler $guardHandler, UserAuthenticator $authenticator): Response
     {
         $user = new User();
-        $form = $this->createForm(RegistrationFormType::class, $user);
+        $form = $this->createForm(RegistrationType::class, $user);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -120,7 +119,7 @@ class PublicController extends AbstractController
 
         if(isset($page)) {
             $x = ($page - 1) * 10;
-        }else{
+        } else {
             $x = 0;
         }
 
@@ -148,7 +147,7 @@ class PublicController extends AbstractController
     {
         $article = $repository->find($id);
 
-        if (!$article){
+        if (!$article) {
             throw $this->createNotFoundException('Cet article n\existe pas');
         }
 

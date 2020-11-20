@@ -3,12 +3,15 @@
 namespace App\Controller;
 
 use App\Repository\BookmarkRepository;
+use App\Repository\CommentRepository;
 use App\Repository\ShareRepository;
+use App\Form\UserUpdateType;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Validator\Constraints\Length;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
  * @IsGranted("ROLE_USER")
@@ -27,13 +30,26 @@ class UserDashboardController extends AbstractController
     /**
      * @Route("/update", name="user_update")
      */
-    public function update(): Response
+    public function update(Request $request): Response
     {
-        return $this->render('user_dashboard/index.html.twig');
+        $user = $this->getUser();
+        $form = $this->createForm(UserUpdateType::class, $user);
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid()) {
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->flush();
+
+            $this->addFlash('success', 'L\'utilisateur a été modifié');
+        }
+
+        return $this->render('user_dashboard/updateUser.html.twig', [
+            'form' => $form->createView(),
+        ]);
     }
 
     /**
-     * @Route("/bookmarks", name="bookmarks")
+     * @Route("/bookmarks", name="user_bookmarks")
      */
     public function bookmarks(BookmarkRepository $bookmarkRepository): Response
     {
@@ -44,7 +60,7 @@ class UserDashboardController extends AbstractController
     }
 
     /**
-     * @Route("/shared", name="shared")
+     * @Route("/shared", name="user_shared")
      */
     public function shared(ShareRepository $shareRepository): Response
     {
@@ -52,5 +68,16 @@ class UserDashboardController extends AbstractController
         $shared = $shareRepository->findAllShared(0, 10, null, null, $currentUser, null);
 
         return $this->render('user_dashboard/shared.html.twig', ['shared' => $shared]);
+    }
+
+    /**
+     * @Route("/comments", name="user_comments")
+     */
+    public function comments(CommentRepository $commentRepository): Response
+    {
+        $currentUser = $this->getUser();
+        $comments = $commentRepository->findAllComments(0, 10, null, null, $currentUser);
+
+        return $this->render('user_dashboard/comments.html.twig', ['comments' => $comments]);
     }
 }

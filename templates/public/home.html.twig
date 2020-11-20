@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Article
+{% endblock %}
+
+{% block body %}
+	{% for article in datas %}
+		<div class="mb-5">
+			{% include '_article.html.twig' with {'article': article} %}
+		</div>
+	{% endfor %}
+{% endblock %}
+
+{#{% if forAdmin == true %}
+	<div class="article-admin p-3">
+		<button class="btn btn-primary">Modifier</button>
+		<button class="btn btn-danger">Supprimer</button>
+	</div>
+{% endif %}#}
