@@ -27,7 +27,7 @@ class ArticleController extends AbstractController
         return $this->render('article/home.html.twig', []);
     }
     /**
-     * @Route("/article/articles", name="article")
+     * @Route("/article/articles", name="articles")
      */
     public function articles(): Response
     {
