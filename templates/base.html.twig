@@ -16,39 +16,17 @@
 		{% endblock %}
 	</head>
 	<header>
-		<nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #6AA9C1;">
-			<a class="navbar-brand" href="{{ path('homepage') }}">LARAJ</a>
-			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-				<span class="navbar-toggler-icon"></span>
-			</button>
-			<div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-				<div class="navbar-nav">
-					<li {% if route_name == "homepage" %} class="nav-item active" {% else %} class="nav-item" {% endif %}>
-						<a class="nav-link" href="{{ path('homepage') }}">Accueil
-							<span class="sr-only">(current)</span>
-						</a>
-					</li>
-					<li {% if route_name == "about" %} class="nav-item active" {% else %} class="nav-item" {% endif %}>
-						<a class="nav-link" href="{{ path('about') }}">À propos</a>
-					</li>
-					<li {% if route_name == "contact" %} class="nav-item active" {% else %} class="nav-item" {% endif %}>
-						<a class="nav-link" href="{{ path('contact') }}">Contact</a>
-					</li>
-					<li {% if route_name == "register" %} class="nav-item active" {% else %} class="nav-item" {% endif %}>
-						<a class="nav-link" href="{{ path('register') }}">Créer un compte</a>
-					</li>
-					<li {% if route_name == "app_login" %} class="nav-item active" {% else %} class="nav-item" {% endif %}>
-						<a class="nav-link" href="{{ path('app_login') }}">Se connecter</a>
-					</li>
-
-				</div>
-			</div>
-		</nav>
+		{% include "navbar.html.twig" %}
 	</header>
 	<body>
         <div class="homepage-container">
             <div class="homepage-contentWrap">
 				<div class="container mt-5">
+					{% for message in app.flashes('success') %}
+						<div class="alert alert-success">
+							{{ message }}
+						</div>
+					{% endfor %}
 					{% block body %}
 					<h1>
 						{{ block('title') }}
