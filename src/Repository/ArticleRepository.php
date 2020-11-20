@@ -91,4 +91,20 @@ class ArticleRepository extends ServiceEntityRepository
 
         return $article;
     }
+
+    public function findSpecificArticle(?int $start, ?int $length, ?string $search){
+
+        $query = $this->createQueryBuilder('a');
+
+        $query
+            ->andWhere("a.title LIKE :search")
+            ->setParameter("search", '%'. $search . '%');
+
+        return $query
+            ->setFirstResult($start)
+            ->setMaxResults($length)
+            ->getQuery()
+            ->getResult();
+
+    }
 }
