@@ -1,54 +1,61 @@
 {% set route_name = app.request.attributes.get('_route') %}
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        {% block stylesheets %}
-            <link rel="stylesheet" href="{{ asset('styles/bootstrap/bootstrap.min.css') }}">
-            <link rel="stylesheet" href="{{ asset('css/style.css') }}">
-        {% endblock %}
-    </head>
-    <header>
-        <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #6AA9C1;">
-            <a class="navbar-brand" href="{{ path('homepage') }}">LARAJ</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-                <div class="navbar-nav">
-                    <li {% if route_name == "homepage" %} class="nav-item active" {% else %} class="nav-item" {% endif %}>
-                        <a class="nav-link" href="{{ path('homepage') }}">Accueil <span class="sr-only">(current)</span></a>
-                    </li>
-                    <li {% if route_name == "about" %} class="nav-item active" {% else %} class="nav-item" {% endif %}>
-                        <a class="nav-link" href="{{ path('about') }}">À propos</a>
-                    </li>
-                    <li {% if route_name == "contact" %} class="nav-item active" {% else %} class="nav-item" {% endif %}>
-                        <a class="nav-link" href="{{ path('contact') }}">Contact</a>
-                    </li>
-                    <li {% if route_name == "..." %} class="nav-item active" {% else %} class="nav-item" {% endif %}>
-                        <a class="nav-link" href="{{ path('contact') }}">Créer un compte</a>
-                    </li>
-                    <li {% if route_name == "..." %} class="nav-item active" {% else %} class="nav-item" {% endif %}>
-                        <a class="nav-link" href="{{ path('contact') }}">Se connecter</a>
-                    </li>
+	<head>
+		<meta charset="UTF-8">
+		<title>
+			{% block title %}Welcome!
+			{% endblock %}
+		</title>
+		{% block stylesheets %}
+			<link rel="stylesheet" href="{{ asset('styles/bootstrap/bootstrap.min.css') }}">
+			<link rel="stylesheet" href="{{ asset('css/style.css') }}">
+		{% endblock %}
+	</head>
+	<header>
+		<nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #6AA9C1;">
+			<a class="navbar-brand" href="{{ path('homepage') }}">LARAJ</a>
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+				<div class="navbar-nav">
+					<li {% if route_name == "homepage" %} class="nav-item active" {% else %} class="nav-item" {% endif %}>
+						<a class="nav-link" href="{{ path('homepage') }}">Accueil
+							<span class="sr-only">(current)</span>
+						</a>
+					</li>
+					<li {% if route_name == "about" %} class="nav-item active" {% else %} class="nav-item" {% endif %}>
+						<a class="nav-link" href="{{ path('about') }}">À propos</a>
+					</li>
+					<li {% if route_name == "contact" %} class="nav-item active" {% else %} class="nav-item" {% endif %}>
+						<a class="nav-link" href="{{ path('contact') }}">Contact</a>
+					</li>
+					<li {% if route_name == "register" %} class="nav-item active" {% else %} class="nav-item" {% endif %}>
+						<a class="nav-link" href="{{ path('register') }}">Créer un compte</a>
+					</li>
+					<li {% if route_name == "app_login" %} class="nav-item active" {% else %} class="nav-item" {% endif %}>
+						<a class="nav-link" href="{{ path('app_login') }}">Se connecter</a>
+					</li>
 
-                </div>
-            </div>
-        </nav>
-    </header>
-    <body>
-        {% block body %}{% endblock %}
-        {% block javascripts %}
-            <script src="{{ asset('js/jquery-3.2.1.slim.min.js') }}"></script>
-            <script src="{{ asset('js/popper.min.js') }}"></script>
-            <script src="{{ asset('js/bootstrap.min.js') }}"></script>
-        {% endblock %}
-    </body>
-    <footer class="blog-footer">
-        <p>Blog <b>LARAJ</b> by  Laura, Alban, Romain, Aymeric and Julie.</p>
-        <p>
-            <a href="#">Back to top</a>
-        </p>
-    </footer>
+				</div>
+			</div>
+		</nav>
+	</header>
+	<body>
+		{% block body %}{% endblock %}
+		{% block javascripts %}
+			<script src="{{ asset('js/jquery-3.2.1.slim.min.js') }}"></script>
+			<script src="{{ asset('js/popper.min.js') }}"></script>
+			<script src="{{ asset('js/bootstrap.min.js') }}"></script>
+		{% endblock %}
+	</body>
+	<footer class="blog-footer">
+		<p>Blog
+			<b>LARAJ</b>
+			by  Laura, Alban, Romain, Aymeric and Julie.</p>
+		<p>
+			<a href="#">Back to top</a>
+		</p>
+	</footer>
 </html>
