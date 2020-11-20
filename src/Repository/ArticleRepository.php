@@ -5,6 +5,8 @@ namespace App\Repository;
 use App\Entity\Article;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Exception;
+use Symfony\Component\HttpFoundation\Response;
 
 /**
  * @method Article|null find($id, $lockMode = null, $lockVersion = null)
@@ -54,6 +56,30 @@ class ArticleRepository extends ServiceEntityRepository
             ->setMaxResults($length)
             ->getQuery()
             ->getResult();
+    }
+
+    public function createOrUpdateArticle(?Article $article): Article
+    {
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->persist($article);
+        $entityManager->flush();
+
+        $id = $article->getId();
+
+        return $this->findOne($id);
+    }
+
+    public function delete(?Article $article): bool
+    {
+        try {
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->delete($article);
+            $entityManager->flush();
+        } catch (Exception $err) {
+            return false;
+        }
+
+        return true;
     }
 
     // /**
