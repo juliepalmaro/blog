@@ -116,7 +116,7 @@ class PublicController extends AbstractController
     /**
      * @Route("/", name="homepage")
      */
-    public function getAllArticles(ArticleRepository $repository, Request $request){
+    public function getAllArticles(ArticleRepository $repository, PaginatorInterface $paginator, Request $request){
 
         if(isset($page)) {
             $x = ($page - 1) * 10;
@@ -125,6 +125,17 @@ class PublicController extends AbstractController
         }
 
         $datas = $repository->findAllArticles($x,10, 'creationDate' , 'DESC', NULL, null );
+
+        // Paginate the results of the query
+        $articles = $paginator->paginate(
+        // Doctrine Query, not results
+            $datas,
+            // Define the page parameter
+            $request->query->getInt('page', 1),
+            // Items per page
+            6
+        );
+
         return $this->render('home.html.twig', [
             'datas' => $datas,
         ]);
@@ -146,26 +157,5 @@ class PublicController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/", name="home")
-     */
-    public function home(PaginatorInterface $paginator, Request $request)
-     {  
-        $donnees = $this->getDoctrine()->getRepository(Article::class)->findBy([],['id' => 'desc']);
 
-
-        // Paginate the results of the query
-        $articles = $paginator->paginate(
-            // Doctrine Query, not results
-            $donnees,
-            // Define the page parameter
-            $request->query->getInt('page', 1),
-            // Items per page
-            4
-        );
-
-        return $this->render('home.html.twig', [
-            'articles' => $articles
-        ]);
-    }
 }
