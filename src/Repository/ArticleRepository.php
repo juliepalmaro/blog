@@ -3,10 +3,8 @@
 namespace App\Repository;
 
 use App\Entity\Article;
-use App\Request\GetAllArticleRequest;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
-use App\Request\GetOneArticleRequest;
 
 /**
  * @method Article|null find($id, $lockMode = null, $lockVersion = null)
@@ -21,14 +19,14 @@ class ArticleRepository extends ServiceEntityRepository
         parent::__construct($registry, Article::class);
     }
 
-    public function findOne(GetOneArticleRequest $request): Article
+    public function findOne(?string $id): Article
     {
         $query = $this->createQueryBuilder('a');
 
-        if ($request->id) {
+        if ($id) {
             $query
                 ->andWhere('a.id = :val')
-                ->setParameter('val', $request->id);
+                ->setParameter('val', $id);
         }
 
         return $query
@@ -36,26 +34,20 @@ class ArticleRepository extends ServiceEntityRepository
             ->getOneOrNullResult();
     }
 
-    public function findAllArticle(GetAllArticleRequest $request): array
+    public function findAllArticles(?int $start, ?int $length, ?string $orderBy, ?string $order, ?int $userId, ?bool $onlyBookmarked, ?bool $onlyShared): array
     {
-        !$request->order ?  $order = 'DESC' : $order = $request->order;
-        !$request->orderby ?  $orderby = 'a.creationDate' : $orderby = $request->orderby;
+        !$order ?  $order = 'DESC' : $order = $order;
+        !$orderBy ?  $orderby = 'a.creationDate' : $orderby = $orderBy;
 
         $query = $this->createQueryBuilder('a');
 
-        if ($request->id) {
-            $query
-                ->andWhere('a.id = :val')
-                ->setParameter('val', $request->id);
-        }
-
-        if ($request->userId) {
+        if ($userId) {
             $query
                 ->andWhere('a.userId = :val')
-                ->setParameter('val', $request->userId);
+                ->setParameter('val', $userId);
         }
 
-        !$request->length ?  $length = 20 : $length = $request->length;
+        !$length ?  $length = 20 : $length = $length;
 
         return $query
             ->orderBy($orderby, $order)

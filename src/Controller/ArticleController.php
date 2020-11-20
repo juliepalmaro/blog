@@ -22,8 +22,11 @@ class ArticleController extends AbstractController
     /**
      * @Route("/article/home", name="home")
      */
-    public function home(): Response
+    public function home(ArticleRepository $articleRepository): Response
     {
+        $articles = $articleRepository->findAllArticles(0, 10, null, null, null, null, null);
+        dump($articles);
+
         return $this->render('article/home.html.twig', []);
     }
     /**
