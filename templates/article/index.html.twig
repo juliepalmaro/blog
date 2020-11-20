@@ -15,37 +15,45 @@
 			background: #F5F5F5;
 			padding: 2px 6px;
 		}
+		.affichage {
+			display: flex;
+		}
 	</style>
 
-	<div>
-		<div class="display:flex">
+	<div class="affichage">
+
+		<div style="flex-direction: column">
+			<h4>Menu</h4>
 			<div>
-				<h1>Menu</h1>
-				<h4>
-					<a href="/article/home">Accueil</a>
-				</h4>
-				<h4>
-					<a href="/article/articles">Article</a>
-				</h4>
-				<h4>
-					<a href="/article/articleComments">Gestion des commentaires</a>
-				</h4>
+				<button class="btn btn-info" onclick="window.location.href = '/article/home';">Accueil</button>
+				{# <a href="/article/home">Accueil</a> #}
 			</div>
 			<div>
-				Contenu</div>
+
+				<button class="btn btn-info" onclick="window.location.href = '/article/articles';">Article</button>
+				{# <a href="/article/articles">Article</a> #}
+
+			</div>
+			<div>
+				<button class="btn btn-info" onclick="window.location.href = '/article/articleComments';">Gestion des commentaires</button>
+				{# <a href="/article/articleComments">Gestion des commentaires</a> #}
+			</div>
 		</div>
 
-
-		{# <ul>
-																									{% for artcile in articles %}
-																										<li>{{ article.title }}
-																										{# {{article.image}} #}
-	{# {{article.user}}
-																		{{article.publicationDate}} #}
-		{# ajouter la catégorie de l'article #}
-		{# </li>
-																													{% endfor %}
-																												</ul> #}
-
+		<div>
+			Contenu
+		</div>
 	</div>
+
+
+	{# <ul>
+																																												{% for artcile in articles %}
+																																													<li>{{ article.title }}
+																																													{# {{article.image}} #}
+{# {{article.user}}
+																						{{article.publicationDate}} #}
+	{# ajouter la catégorie de l'article #}
+	{# </li>
+																																																{% endfor %}
+																																															</ul> #}
 {% endblock %}
