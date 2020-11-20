@@ -64,7 +64,10 @@
 	</div>
 	{% endfor %}
 
-	{{ knp_pagination_render(datas) }}
+	<div class="home-pagination">
+		{{ knp_pagination_render(datas) }}
+	</div>
+
 {% endblock %}
 
 {#{% if forAdmin == true %}

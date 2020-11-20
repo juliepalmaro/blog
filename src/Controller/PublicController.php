@@ -124,7 +124,7 @@ class PublicController extends AbstractController
             $x = 0;
         }
 
-        $datas = $repository->findAllArticles($x,10, 'creationDate' , 'DESC', NULL, null );
+        $datas = $repository->findAllArticles($x,20, 'creationDate' , 'DESC', NULL, null );
 
         // Paginate the results of the query
         $articles = $paginator->paginate(
@@ -137,7 +137,7 @@ class PublicController extends AbstractController
         );
 
         return $this->render('home.html.twig', [
-            'datas' => $datas,
+            'datas' => $articles,
         ]);
     }
 
