@@ -31,11 +31,13 @@
 					<li {% if route_name == "contact" %} class="nav-item active" {% else %} class="nav-item" {% endif %}>
 						<a class="nav-link" href="{{ path('contact') }}">Contact</a>
 					</li>
-					<li {% if route_name == "..." %} class="nav-item active" {% else %} class="nav-item" {% endif %}>
-						<a class="nav-link" href="{{ path('contact') }}">Créer un compte</a>
+
+					<li {% if route_name == "register" %} class="nav-item active" {% else %} class="nav-item" {% endif %}>
+						<a class="nav-link" href="{{ path('register') }}">Créer un compte</a>
 					</li>
-					<li {% if route_name == "..." %} class="nav-item active" {% else %} class="nav-item" {% endif %}>
-						<a class="nav-link" href="{{ path('contact') }}">Se connecter</a>
+					<li {% if route_name == "app_login" %} class="nav-item active" {% else %} class="nav-item" {% endif %}>
+						<a class="nav-link" href="{{ path('app_login') }}">Se connecter</a>
+
 					</li>
 
 				</div>
@@ -44,7 +46,6 @@
 	</header>
 	<body>
 		{% block body %}{% endblock %}
-
 		{% block javascripts %}
 			<script src="{{ asset('js/jquery-3.2.1.slim.min.js') }}"></script>
 			<script src="{{ asset('js/popper.min.js') }}"></script>
