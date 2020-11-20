@@ -22,9 +22,7 @@ class GlobalController extends AbstractController
         if (!\is_string($referer) || !$referer) {
             echo 'Referer is invalid or empty.';
         }
-
         $refererPathInfo = Request::create($referer)->getPathInfo();
-        dump($refererPathInfo);
 
         $currentUser = $this->getUser();
 
@@ -47,8 +45,11 @@ class GlobalController extends AbstractController
      */
     public function removeBookmark(ArticleRepository $articleRepository, $id, Request $request): Response
     {
-        $currentRoute = $request->attributes->get('_route');
-        dump($currentRoute);
+        $referer = $request->headers->get('referer');
+        if (!\is_string($referer) || !$referer) {
+            echo 'Referer is invalid or empty.';
+        }
+        $refererPathInfo = Request::create($referer)->getPathInfo();
 
         $currentUser = $this->getUser();
 
@@ -63,7 +64,7 @@ class GlobalController extends AbstractController
         $entityManager->remove($bookmark);
         $entityManager->flush();
 
-        return $this->redirectToRoute($currentRoute);
+        return $this->redirectToRoute($refererPathInfo);
     }
 
     /**
@@ -71,8 +72,11 @@ class GlobalController extends AbstractController
      */
     public function addShared(ArticleRepository $articleRepository, $id, Request $request): Response
     {
-        $currentRoute = $request->attributes->get('_route');
-        dump($currentRoute);
+        $referer = $request->headers->get('referer');
+        if (!\is_string($referer) || !$referer) {
+            echo 'Referer is invalid or empty.';
+        }
+        $refererPathInfo = Request::create($referer)->getPathInfo();
 
         $currentUser = $this->getUser();
 
@@ -87,6 +91,6 @@ class GlobalController extends AbstractController
         $entityManager->persist($share);
         $entityManager->flush();
 
-        return $this->redirectToRoute($currentRoute);
+        return $this->redirectToRoute($refererPathInfo);
     }
 }
