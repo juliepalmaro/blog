@@ -1,0 +1,60 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Nom de l'article{% endblock %}
+
+{% block body %}
+	<div class="article-container card">
+		<div class="article-header">
+			<div>
+				<div class="text-muted">
+					auteur
+				</div>
+				<div class="text-muted">
+					date
+				</div>
+				<div class="text-muted">
+					temps de lecture
+				</div>
+				<div>
+					Catégorie de l'article
+				</div>
+			</div>
+		</div>
+
+		<h2 class="article-subtitle">Titre de l'article</h2>
+
+        <img src="{{ asset('img/guerre.jpg') }}" class="card-img-top" alt="...">
+        <div class="card-body">
+            <p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Maiores, alias. Nobis nihil minima at perspiciatis eveniet maxime ut necessitatibus autem, rem aspernatur! Consectetur, iste ipsa inventore commodi incidunt similique earum... <button class="btn btn-link btn-projectColor">Voir plus</button></p>
+        </div>
+
+		<div class="article-socialMed">
+			<div>
+				<div class="article-shareIcon">
+                    {{ source('svg/share.svg')}}
+                </div>
+				<div class="article-socialMedIcons">
+                    <div class="article-facebookIcon">
+                        {{ source('svg/facebook.svg')}}
+                    </div>
+                    <div class="article-twitterIcon">
+                        {{ source('svg/twitter.svg')}}
+                    </div>
+                    <div class="article-instagramIcon">
+                        {{ source('svg/instagram.svg')}}
+                    </div>
+                    <div class="article-linkedinIcon">
+                        {{ source('svg/linkedin.svg')}}
+                    </div>
+                </div>
+			</div>
+			<div>
+                <div class="article-thumbUpIcon">
+                    {{ source('svg/thumb_up.svg')}}
+                </div>
+				
+				<div class="article-tags">#Politique#Macron#Guerre</div>
+			</div>
+		</div>
+	</div>
+{% endblock %}

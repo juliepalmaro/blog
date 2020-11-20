@@ -1,0 +1,100 @@
+.article-container {
+    width: 70%;
+    margin: 5% auto;
+}
+
+/* HEADER ARTICLE */
+
+.article-header {
+    display: flex;
+    justify-content: space-between;
+    padding: 1.25rem;
+}
+
+.article-header > div {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+/* ARTICLE CONTENT */
+
+.article-subtitle {
+    margin: 2%;
+    color: #6AA9C1;
+}
+
+.btn-projectColor {
+    color: #6AA9C1;
+    font-weight: bold;
+}
+
+.btn-projectColor:hover {
+    color: #6AA9C1;
+}
+/* ARTICLE SOCIAL MEDIA & SHARE */
+
+.article-socialMed{
+    display: flex;
+    justify-content: space-between;
+}
+
+.article-socialMed > div{
+    padding: 0 1.25rem;
+}
+
+.article-socialMed > div > div{
+    padding-bottom: 1.25rem;
+}
+
+.article-socialMed > div:last-child{
+    text-align: end;
+}
+
+.article-tags {
+    font-weight: bold;
+    color: #6AA9C1;
+    text-decoration: underline;
+    max-width: 250px;
+}
+
+.article-tags:hover {
+    cursor: pointer;
+}
+
+/* SOCIAL MEDIA ICONS */
+
+.article-socialMed svg {
+    fill: #6AA9C1;
+    width: 40px;
+    height: 40px;
+}
+
+.article-socialMed svg:hover {
+    cursor: pointer;
+}
+
+.article-socialMedIcons{
+    display: flex;
+    align-items: center;
+}
+
+.article-socialMedIcons > div{
+    padding: 0 0.5rem;
+}
+
+.article-twitterIcon svg,
+.article-facebookIcon svg{
+    width: 43px;
+    height: 43px;
+}
+
+.article-linkedinIcon svg{
+    width: 35px;
+    height: 35px;
+}
+
+/* .article-instagramIcon svg{
+    width: 35px;
+    height: 35px;
+} */
