@@ -19,15 +19,6 @@ use App\Form\ContactType;
 
 class PublicController extends AbstractController
 {
-    /**
-     * @Route("/", name="homepage")
-     */
-    public function index(): Response
-    {
-        return $this->render('public/index.html.twig', [
-            'controller_name' => 'HomepageController',
-        ]);
-    }
 
     /**
      * @Route("/about", name="about")
