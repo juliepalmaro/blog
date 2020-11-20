@@ -15,7 +15,7 @@ use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
-class RegistrationFormType extends AbstractType
+class RegistrationType extends AbstractType
 {
     /** @var UserPasswordEncoderInterface */
     private $encoder;
