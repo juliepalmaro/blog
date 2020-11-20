@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello ContactController!{% endblock %}
+{% block title %}Contact{% endblock %}
 
 {% block body %}
 <style>
@@ -8,8 +8,11 @@
     .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
 </style>
 
-<div class="example-wrapper">
-    <div id="contactForm">
+<div class="container mt-5">
+    <div>
+        <h1>Contact</h1>
+    </div>
+    <div id="contactForm" class="mt-5 mb-5">
 
         {% for message in app.flashes('success') %}
         <div class="alert alert-success">
