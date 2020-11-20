@@ -18,7 +18,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 class AdminDashboardController extends AbstractController
 {
     /**
-     * @Route("/home", name="admin_home")
+     * @Route("/", name="admin_home")
      */
     public function home(ArticleRepository $articleRepository): Response
     {
@@ -28,7 +28,7 @@ class AdminDashboardController extends AbstractController
     }
 
     /**
-     * @Route("/admin/articles", name="admin_articles")
+     * @Route("/articles", name="admin_articles")
      */
     public function articles(ArticleRepository $articleRepository): Response
     {
@@ -38,7 +38,7 @@ class AdminDashboardController extends AbstractController
     }
 
     /**
-     * @Route("/admin/articles/new", name="admin_article_new")
+     * @Route("/articles/new", name="admin_article_new")
      */
     public function createArticle(Request $request, ArticleRepository $articleRepository): Response
     {
@@ -68,7 +68,7 @@ class AdminDashboardController extends AbstractController
     }
 
     /**
-     * @Route("/admin/comments", name="admin_comments")
+     * @Route("/comments", name="admin_comments")
      */
     public function comments(): Response
     {
