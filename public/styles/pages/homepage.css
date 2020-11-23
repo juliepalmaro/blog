@@ -6,3 +6,20 @@
 .homepage-contentWrap {
     padding-bottom: 10rem;
 }
+
+.pagination{
+    justify-content: center;
+}
+
+.pagination .page-item .page-link{
+    color: #6AA9C1;
+}
+
+.pagination .page-item.active .page-link{
+    background-color: #6AA9C1;
+    color: white;
+}
+
+.pagination .page-item.disabled .page-link{
+    color:lightgray;
+}

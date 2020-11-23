@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Article
+{% endblock %}
+
+{% block body %}
+	{#<form action="{{path('search')}}" method="post">
+		<input type="text" name="search" >
+		<button class="btn btn-secondary">Rechercher</button>
+	</form>#}
+
+	{% for article in datas %}
+		<div class="mb-5">
+			{% include '_article.html.twig' with {'article': article} %}
+		</div>
+	{% endfor %}
+
+	<div class="home-pagination">
+		{{ knp_pagination_render(datas) }}
+	</div>
+{% endblock %}
+
+{#{% if forAdmin == true %}
+	<div class="article-admin p-3">
+		<button class="btn btn-primary">Modifier</button>
+		<button class="btn btn-danger">Supprimer</button>
+	</div>
+{% endif %}#}

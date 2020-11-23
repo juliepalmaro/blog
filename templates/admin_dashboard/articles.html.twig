@@ -9,7 +9,7 @@
 <a class="btn btn-primary" href="{{ path('admin_article_new') }}">Créer un nouvel article</a>
 
 {% for article in articles %}
-	{% include '_article.html.twig' with {'article': article, 'forAdmin': true} %}
+	{% include 'public/home.html.twig' with {'article': article, 'forAdmin': true} %}
 {% endfor %}
 {% endblock %}
 

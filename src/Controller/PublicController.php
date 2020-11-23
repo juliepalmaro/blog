@@ -5,29 +5,23 @@ namespace App\Controller;
 use App\Entity\Contact;
 use App\Entity\Role;
 use App\Entity\User;
+use App\Entity\Article;
 use App\Notification\ContactNotification;
+use App\Repository\ArticleRepository;
 use App\Security\UserAuthenticator;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Guard\GuardAuthenticatorHandler;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
-use App\Form\RegistrationFormType;
 use App\Form\ContactType;
+use Knp\Component\Pager\PaginatorInterface;
+use App\Form\RegistrationType;
+use App\Repository\CommentRepository;
 
 class PublicController extends AbstractController
 {
-    /**
-     * @Route("/", name="homepage")
-     */
-    public function index(): Response
-    {
-        return $this->render('public/index.html.twig', [
-            'controller_name' => 'HomepageController',
-        ]);
-    }
 
     /**
      * @Route("/about", name="about")
@@ -65,10 +59,10 @@ class PublicController extends AbstractController
     /**
      * @Route("/register", name="register")
      */
-    public function register(Request $request, UserPasswordEncoderInterface $passwordEncoder, GuardAuthenticatorHandler $guardHandler, UserAuthenticator $authenticator): Response
+    public function register(Request $request, GuardAuthenticatorHandler $guardHandler, UserAuthenticator $authenticator): Response
     {
         $user = new User();
-        $form = $this->createForm(RegistrationFormType::class, $user);
+        $form = $this->createForm(RegistrationType::class, $user);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -118,4 +112,117 @@ class PublicController extends AbstractController
     {
         throw new \LogicException('This method can be blank - it will be intercepted by the logout key on your firewall.');
     }
+
+    /**
+     * @Route("/", name="homepage")
+     */
+    public function getAllArticles(ArticleRepository $repository, PaginatorInterface $paginator, Request $request){
+
+        if(isset($page)) {
+            $x = ($page - 1) * 10;
+        } else {
+            $x = 0;
+        }
+
+        $datas = $repository->findAllArticles($x,20, 'creationDate' , 'DESC', NULL, null );
+
+        // Paginate the results of the query
+        $articles = $paginator->paginate(
+        // Doctrine Query, not results
+            $datas,
+            // Define the page parameter
+            $request->query->getInt('page', 1),
+            // Items per page
+            6
+        );
+
+        return $this->render('public/home.html.twig', [
+            'datas' => $articles,
+        ]);
+    }
+
+    /**
+     * @Route("/article/{id}", name="article")
+     */
+    public function findOneArticle(ArticleRepository $repository, $id): Response
+    {
+        $article = $repository->find($id);
+
+        if (!$article) {
+            throw $this->createNotFoundException('Cet article n\existe pas');
+        }
+
+        return $this->render('public/infoarticle.html.twig', [
+            'article' => $article,
+        ]);
+    }
+
+    // LES COMMENTAIRES NE FONCTIONNENT PAS ENCORE (IACO)
+
+    /**
+     * @Route("/article/{id}", name="infoarticle")
+     */
+    public function getAllComments(CommentRepository $repository, PaginatorInterface $paginator, Request $request){
+
+        if(isset($page)) {
+            $x = ($page - 1) * 10;
+        } else {
+            $x = 0;
+        }
+
+        $datas = $repository->findAllComments($x,20, 'creationDate' , 'DESC', NULL, null );
+
+        // Paginate the results of the query
+        $comments = $paginator->paginate(
+        // Doctrine Query, not results
+            $datas,
+            // Define the page parameter
+            $request->query->getInt('page', 1),
+            // Items per page
+            6
+        );
+
+        return $this->render('public/home.html.twig', [
+            'datas' => $comments,
+        ]);
+    }
+
+    /**
+     * @Route("/comment/{id}", name="comment")
+     */
+    public function findOneComment(CommentRepository $repository, $id): Response
+    {
+        $comment = $repository->find($id);
+
+        if (!$comment) {
+            throw $this->createNotFoundException('Ce commentaire n\existe pas');
+        }
+
+        return $this->render('public/infoarticle.html.twig', [
+            'article' => $comment,
+        ]);
+    }
+
+    /**
+     * @Route("/search/", name="search")
+     */
+    public function searchArticle(ArticleRepository $repository): Response
+    {
+        if(isset ($_POST['search'])){
+            $search = $_POST['search'];
+        }else{
+            throw $this->createNotFoundException('Cet article n\'existe pas');
+        }
+
+        $article = $repository->findSpecificArticle(0, 10, 'creationDate' ,'DESC', $search);
+
+        if (!$article) {
+            throw $this->createNotFoundException('Cet article n\'existe pas 2');
+        }
+
+        return $this->render('public/articlefind.html.twig', [
+            'articleSearched' => $article,
+        ]);
+    }
+
 }
