@@ -6,20 +6,18 @@
 {% block content %}
 
 	<h1>Commentaires</h1>
-	<a class="btn btn-primary active" href="{{ path('/approuve-comment/{id}') }}">Approuver<span class="sr-only">(current)</span>
-	</a>
-	<ul>
-		{% for comment in comments %}
-			<li>
-				{{comment.user.firstName}}
-				{{comment.user.lastName}}
-				{{comment.user.email}}
-				{{comment.creationDate|date}}
-				{{comment.article.title}}
-				{{comment.content}}
-			</li>
-			{# {{comment.user}} #}
-		{% endfor %}
-	</ul>
-
-{% endblock %}
+	{# <a class="btn btn-primary active" href="{{ path('/approuve-comment/{id}') }}">Approuver<span class="sr-only">(current)</span> #}
+</a>
+<ul>
+	{% for comment in comments %}
+		<li>
+			{{comment.user.firstName}}
+			{{comment.user.lastName}}
+			{{comment.user.email}}
+			{{comment.creationDate|date}}
+			{{comment.article.title}}
+			{{comment.content}}
+		</li>
+		{# {{comment.user}} #}
+	{% endfor %}
+</ul>{% endblock %}

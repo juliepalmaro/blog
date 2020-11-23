@@ -116,19 +116,20 @@ class PublicController extends AbstractController
     /**
      * @Route("/", name="homepage")
      */
-    public function getAllArticles(ArticleRepository $repository, PaginatorInterface $paginator, Request $request){
+    public function getAllArticles(ArticleRepository $repository, PaginatorInterface $paginator, Request $request)
+    {
 
-        if(isset($page)) {
+        if (isset($page)) {
             $x = ($page - 1) * 10;
         } else {
             $x = 0;
         }
 
-        $datas = $repository->findAllArticles($x,20, 'creationDate' , 'DESC', NULL, null );
+        $datas = $repository->findAllArticles($x, 20, 'creationDate', 'DESC', NULL, null);
 
         // Paginate the results of the query
         $articles = $paginator->paginate(
-        // Doctrine Query, not results
+            // Doctrine Query, not results
             $datas,
             // Define the page parameter
             $request->query->getInt('page', 1),
@@ -162,19 +163,20 @@ class PublicController extends AbstractController
     /**
      * @Route("/article/{id}", name="infoarticle")
      */
-    public function getAllComments(CommentRepository $repository, PaginatorInterface $paginator, Request $request){
+    public function getAllComments(CommentRepository $repository, PaginatorInterface $paginator, Request $request)
+    {
 
-        if(isset($page)) {
+        if (isset($page)) {
             $x = ($page - 1) * 10;
         } else {
             $x = 0;
         }
 
-        $datas = $repository->findAllComments($x,20, 'creationDate' , 'DESC', NULL, null );
+        $datas = $repository->findAllComments($x, 20, 'creationDate', 'DESC', NULL, null);
 
         // Paginate the results of the query
         $comments = $paginator->paginate(
-        // Doctrine Query, not results
+            // Doctrine Query, not results
             $datas,
             // Define the page parameter
             $request->query->getInt('page', 1),
@@ -208,13 +210,13 @@ class PublicController extends AbstractController
      */
     public function searchArticle(ArticleRepository $repository): Response
     {
-        if(isset ($_POST['search'])){
+        if (isset($_POST['search'])) {
             $search = $_POST['search'];
-        }else{
+        } else {
             throw $this->createNotFoundException('Cet article n\'existe pas');
         }
 
-        $article = $repository->findSpecificArticle(0, 10, 'creationDate' ,'DESC', $search);
+        $article = $repository->findSpecificArticle(0, 10, 'creationDate', 'DESC', $search);
 
         if (!$article) {
             throw $this->createNotFoundException('Cet article n\'existe pas 2');
@@ -224,5 +226,4 @@ class PublicController extends AbstractController
             'articleSearched' => $article,
         ]);
     }
-
 }
