@@ -27,7 +27,7 @@ class UserDashboardController extends AbstractController
         $currentUser = $this->getUser();
         $bookmarks = $bookmarkRepository->findAllBookmarks(0, 5, null, null, $currentUser, null);
         $shareds = $shareRepository->findAllShared(0, 5, null, null, $currentUser, null);
-        $comments = $commentRepository->findAllComments(0, 5, null, null, $currentUser);
+        $comments = $commentRepository->findAllComments(0, 5, null, null, $currentUser, null);
 
         return $this->render('user_dashboard/index.html.twig', [
             'bookmarks' => $bookmarks,
