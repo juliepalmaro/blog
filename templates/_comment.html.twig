@@ -1,16 +1,16 @@
 <div class="article-commentaire">
         <div class="article-commentaire_text">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Sed fuga id sapiente beatae architecto laborum voluptatem similique, magni repellat nihil illum ipsum aperiam quo modi necessitatibus, nobis consequatur repellendus placeat?
+                {{ comment.content }}
         </div>
         <div class="article-commentaire_info">
             <div class="text-muted">
-                Nom
+                {{ comment.user.firstName }}
             </div>
             <div class="text-muted">
-                email
+                {{ comment.user.email }}
             </div>
             <div class="text-muted">
-                date
+                {{ comment.creationDate | date }}
             </div>
         </div>
     </div>
