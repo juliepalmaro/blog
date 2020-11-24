@@ -16,7 +16,7 @@
                 <span> Temps de lecture :</span> {{article.readingTime}}
             </div>
             <div>
-                {# <span> Catégories :</span> cat #}
+                <span> Catégorie :</span> {{article.category}}
             </div>
 
 			{% if sharedDate is defined %}
@@ -30,6 +30,9 @@
                		<span> Ajouté en favoris le :</span> {{bookmarkDate | date}}
 				</div>
 			{% endif %}
+			<div>
+				<a href="{{ path('article', { 'id': article.id }) }}" class="btn btn-link btn-projectTextColor">Voir plus</a>
+			</div>
 	    </div>
     </div>
 
