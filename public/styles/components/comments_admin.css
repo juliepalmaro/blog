@@ -1,0 +1,19 @@
+.comments_user-info,
+.comments-info,
+.comments-info > div:first-child {
+    display: flex;
+}
+
+.comments_user-info {
+    border: 2px solid #6AA9C1;
+    border-top-left-radius: 25px;
+}
+
+.comments_user-info > div,
+.comments-info > div > div{
+    margin: auto 2%;
+}
+
+.comments-info {
+    flex-direction: column;
+}
