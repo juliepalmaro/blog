@@ -216,7 +216,7 @@ class PublicController extends AbstractController
             throw $this->createNotFoundException('Cet article n\'existe pas');
         }
 
-        $article = $repository->findSpecificArticle(0, 10, 'creationDate', 'DESC', $search);
+        $article = $repository->findSpecificArticle($search);
 
         if (!$article) {
             throw $this->createNotFoundException('Cet article n\'existe pas 2');

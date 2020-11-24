@@ -92,7 +92,7 @@ class ArticleRepository extends ServiceEntityRepository
         return $article;
     }
 
-    public function findSpecificArticle(?int $start, ?int $length, ?string $search){
+    public function findSpecificArticle(?string $search){
 
         $query = $this->createQueryBuilder('a');
 
@@ -101,8 +101,6 @@ class ArticleRepository extends ServiceEntityRepository
             ->setParameter("search", '%'. $search . '%');
 
         return $query
-            ->setFirstResult($start)
-            ->setMaxResults($length)
             ->getQuery()
             ->getResult();
 
