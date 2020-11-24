@@ -134,7 +134,7 @@ class PublicController extends AbstractController
             // Define the page parameter
             $request->query->getInt('page', 1),
             // Items per page
-            6
+            10
         );
 
         return $this->render('public/home.html.twig', [
