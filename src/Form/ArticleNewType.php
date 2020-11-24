@@ -31,6 +31,9 @@ class ArticleNewType extends AbstractType
             ->add('subTitle', TextType::class, [
                 'label' => 'Sous-titre',
             ])
+            ->add('category', TextType::class, [
+                'label' => 'Catégorie',
+            ])
             ->add('readingTime', NumberType::class, [
                 'label' => 'Temps de lecture',
             ])

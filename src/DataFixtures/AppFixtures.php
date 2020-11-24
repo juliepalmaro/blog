@@ -61,7 +61,7 @@ class AppFixtures extends Fixture
             $article->setSubTitle('article ' . $i);
             $article->setUser($userAdmin);
             $article->setContent('Content article ' . $i);
-            $article->setCreationDate(new DateTime('now + ' . $i . ' hour'));
+            $article->setCreationDate(new DateTime('now - ' . $i . ' hour'));
             $article->setPublic(true);
             $article->setState('validated');
             $article->setReadingTime($i * 2);
@@ -74,7 +74,7 @@ class AppFixtures extends Fixture
                 $comment->setContent('Commentaire ' . $j);
                 $comment->setState('validated');
                 $comment->setPrivacy('approved');
-                $comment->setCreationDate(new DateTime('now + ' . $i*$j . ' hour'));
+                $comment->setCreationDate(new DateTime('now - ' . $i . ' hour + ' . $j*3 . ' minute'));
                 $comment->setArticle($article);
 
                 $manager->persist($comment);
@@ -82,7 +82,7 @@ class AppFixtures extends Fixture
 
             if ($i < 3) {
                 $bookmark = new Bookmark();
-                $bookmark->setCreationDate(new DateTime('now + ' . $i*2 . ' hour'));
+                $bookmark->setCreationDate(new DateTime('now - ' . $i . ' hour'));
                 $bookmark->setArticle($article);
                 $bookmark->setUser($user);
 
@@ -91,7 +91,7 @@ class AppFixtures extends Fixture
 
             if ($i > 7) {
                 $share = new Share();
-                $share->setCreationDate(new DateTime('now + ' . $i*3 . ' day'));
+                $share->setCreationDate(new DateTime('now - ' . $i . ' hour'));
                 $share->setArticle($article);
                 $share->setUser($user);
 
@@ -107,7 +107,7 @@ class AppFixtures extends Fixture
             $article->setSubTitle('article user ' . $i);
             $article->setUser($user);
             $article->setContent('Content article user ' . $i);
-            $article->setCreationDate(new DateTime('now + ' . $i . ' day'));
+            $article->setCreationDate(new DateTime('now - ' . $i . ' day'));
             $article->setPublic(true);
             $article->setState('validated');
             $article->setReadingTime($i * 2);
@@ -120,7 +120,7 @@ class AppFixtures extends Fixture
                 $comment->setContent('Commentaire admin ' . $j);
                 $comment->setState('validated');
                 $comment->setPrivacy('approved');
-                $comment->setCreationDate(new DateTime('now + ' . $i*$j . ' day'));
+                $comment->setCreationDate(new DateTime('now - ' . $i . ' day + ' . $j . ' hour'));
                 $comment->setArticle($article);
 
                 $manager->persist($comment);
@@ -128,7 +128,7 @@ class AppFixtures extends Fixture
 
             if ($i < 3) {
                 $bookmark = new Bookmark();
-                $bookmark->setCreationDate(new DateTime('now + ' . $i*2 . ' day'));
+                $bookmark->setCreationDate(new DateTime('now - ' . $i . ' day'));
                 $bookmark->setArticle($article);
                 $bookmark->setUser($userAdmin);
 
@@ -137,7 +137,7 @@ class AppFixtures extends Fixture
 
             if ($i > 7) {
                 $share = new Share();
-                $share->setCreationDate(new DateTime('now + ' . $i*3 . ' day'));
+                $share->setCreationDate(new DateTime('now - ' . $i . ' day'));
                 $share->setArticle($article);
                 $share->setUser($userAdmin);
 
