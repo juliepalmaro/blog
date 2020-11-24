@@ -6,6 +6,6 @@
 {% block content %}
 	<h1>Accueil</h1>
 	{% for article in articles %}
-		{% include '_article.html.twig' with {'article': article, 'forAdmin': true} %}
+		{% include '_article_small.html.twig' with {'article': article, 'forAdmin': true} %}
 	{% endfor %}
 {% endblock %}
