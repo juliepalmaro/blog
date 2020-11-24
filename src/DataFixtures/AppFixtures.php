@@ -74,7 +74,7 @@ class AppFixtures extends Fixture
                 $comment->setContent('Commentaire ' . $j);
                 $comment->setState('validated');
                 $comment->setPrivacy('approved');
-                $comment->setCreationDate(new DateTime());
+                $comment->setCreationDate(new DateTime('now + ' . $i*$j . ' hour'));
                 $comment->setArticle($article);
 
                 $manager->persist($comment);
@@ -82,7 +82,7 @@ class AppFixtures extends Fixture
 
             if ($i < 3) {
                 $bookmark = new Bookmark();
-                $bookmark->setCreationDate(new DateTime());
+                $bookmark->setCreationDate(new DateTime('now + ' . $i*2 . ' hour'));
                 $bookmark->setArticle($article);
                 $bookmark->setUser($user);
 
@@ -91,7 +91,7 @@ class AppFixtures extends Fixture
 
             if ($i > 7) {
                 $share = new Share();
-                $share->setCreationDate(new DateTime());
+                $share->setCreationDate(new DateTime('now + ' . $i*3 . ' day'));
                 $share->setArticle($article);
                 $share->setUser($user);
 
@@ -120,7 +120,7 @@ class AppFixtures extends Fixture
                 $comment->setContent('Commentaire admin ' . $j);
                 $comment->setState('validated');
                 $comment->setPrivacy('approved');
-                $comment->setCreationDate(new DateTime());
+                $comment->setCreationDate(new DateTime('now + ' . $i*$j . ' day'));
                 $comment->setArticle($article);
 
                 $manager->persist($comment);
@@ -128,7 +128,7 @@ class AppFixtures extends Fixture
 
             if ($i < 3) {
                 $bookmark = new Bookmark();
-                $bookmark->setCreationDate(new DateTime());
+                $bookmark->setCreationDate(new DateTime('now + ' . $i*2 . ' day'));
                 $bookmark->setArticle($article);
                 $bookmark->setUser($userAdmin);
 
@@ -137,7 +137,7 @@ class AppFixtures extends Fixture
 
             if ($i > 7) {
                 $share = new Share();
-                $share->setCreationDate(new DateTime());
+                $share->setCreationDate(new DateTime('now + ' . $i*3 . ' day'));
                 $share->setArticle($article);
                 $share->setUser($userAdmin);
 
