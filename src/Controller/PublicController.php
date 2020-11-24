@@ -145,7 +145,7 @@ class PublicController extends AbstractController
     /**
      * @Route("/article/{id}", name="article")
      */
-    public function findOneArticle(ArticleRepository $repository, $id): Response
+    public function findOneArticle(ArticleRepository $repository, $id, CommentRepository $commentsRepository): Response
     {
         $article = $repository->find($id);
 
@@ -153,8 +153,17 @@ class PublicController extends AbstractController
             throw $this->createNotFoundException('Cet article n\existe pas');
         }
 
+        if (isset($page)) {
+            $x = ($page - 1) * 10;
+        } else {
+            $x = 0;
+        }
+
+        $comments = $commentsRepository->findAllComments($x, 20, 'creationDate', 'DESC', NULL, $article);
+
         return $this->render('public/infoarticle.html.twig', [
             'article' => $article,
+            'comments' => $comments
         ]);
     }
 
@@ -172,20 +181,20 @@ class PublicController extends AbstractController
             $x = 0;
         }
 
-        $datas = $repository->findAllComments($x, 20, 'creationDate', 'DESC', NULL, null);
+        $commentDatas = $repository->findAllComments($x, 20, 'creationDate', 'DESC', NULL, null);
 
         // Paginate the results of the query
         $comments = $paginator->paginate(
             // Doctrine Query, not results
-            $datas,
+            $commentDatas,
             // Define the page parameter
             $request->query->getInt('page', 1),
             // Items per page
             6
         );
 
-        return $this->render('public/home.html.twig', [
-            'datas' => $comments,
+        return $this->render('public/infoarticle.html.twig', [
+            'commentDatas' => $comments,
         ]);
     }
 
@@ -200,7 +209,7 @@ class PublicController extends AbstractController
             throw $this->createNotFoundException('Ce commentaire n\existe pas');
         }
 
-        return $this->render('public/infoarticle.html.twig', [
+        return $this->render('public/comment.html.twig', [
             'article' => $comment,
         ]);
     }
