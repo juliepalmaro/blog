@@ -30,16 +30,20 @@ class RegistrationType extends AbstractType
         $encoder = $this->encoder;
         $builder
             ->add('firstName', TextType::class, [
-                'label' => 'Prénom'
+                'label' => 'Prénom',
+                'required' => true,
             ])
             ->add('lastName', TextType::class, [
-                'label' => 'Nom'
+                'label' => 'Nom',
+                'required' => true,
             ])
             ->add('email', EmailType::class, [
-                'label' => 'Email'
+                'label' => 'Email',
+                'required' => true,
             ])
             ->add('phone', TextType::class, [
-                'label' => 'Numéro de téléphone'
+                'label' => 'Numéro de téléphone',
+                'required' => false,
             ])
             ->add('password', RepeatedType::class, [
                 'type' => PasswordType::class,
