@@ -70,6 +70,17 @@ class AdminDashboardController extends AbstractController
     }
 
     /**
+     * @Route("/articles/delete", name="admin_article_delete")
+     */
+    public function deleteArticle(Request $request, ArticleRepository $articleRepository): Response
+    {
+        $checks = $request->request->get('idCheck');
+        dump($checks);
+        die;
+        return $this->redirectToRoute('admin_articles');
+    }
+
+    /**
      * @Route("/comments", name="admin_comments")
      */
     public function comments(CommentRepository $commentRepository): Response
