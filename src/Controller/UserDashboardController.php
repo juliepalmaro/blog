@@ -85,7 +85,7 @@ class UserDashboardController extends AbstractController
     public function comments(CommentRepository $commentRepository): Response
     {
         $currentUser = $this->getUser();
-        $comments = $commentRepository->findAllComments(0, 10, null, null, $currentUser);
+        $comments = $commentRepository->findAllComments(0, 10, null, null, $currentUser, null);
 
         return $this->render('user_dashboard/comments.html.twig', ['comments' => $comments]);
     }
