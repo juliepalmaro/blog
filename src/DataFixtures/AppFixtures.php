@@ -61,7 +61,7 @@ class AppFixtures extends Fixture
             $article->setSubTitle('article ' . $i);
             $article->setUser($userAdmin);
             $article->setContent('Content article ' . $i);
-            $article->setCreationDate(new DateTime());
+            $article->setCreationDate(new DateTime('now + ' . $i . ' hour'));
             $article->setPublic(true);
             $article->setState('validated');
             $article->setReadingTime($i * 2);
@@ -100,14 +100,14 @@ class AppFixtures extends Fixture
 
             $manager->persist($article);
         }
-
+        
         for ($i = 0; $i < 10; $i++) {
             $article = new Article();
             $article->setTitle('Article user ' . $i);
             $article->setSubTitle('article user ' . $i);
             $article->setUser($user);
             $article->setContent('Content article user ' . $i);
-            $article->setCreationDate(new DateTime());
+            $article->setCreationDate(new DateTime('now + ' . $i . ' day'));
             $article->setPublic(true);
             $article->setState('validated');
             $article->setReadingTime($i * 2);
