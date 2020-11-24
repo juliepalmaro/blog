@@ -74,9 +74,13 @@ class AdminDashboardController extends AbstractController
      */
     public function deleteArticle(Request $request, ArticleRepository $articleRepository): Response
     {
-        $checks = $request->request->get('idCheck');
-        dump($checks);
-        die;
+        $ids = $request->request->get('idCheck');
+        $entityManager = $this->getDoctrine()->getManager();
+        foreach($ids as $id) {
+            $article = $articleRepository->find($id);
+            $entityManager->remove($article);
+        }
+        $entityManager->flush();     
         return $this->redirectToRoute('admin_articles');
     }
 

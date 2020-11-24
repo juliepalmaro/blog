@@ -8,15 +8,13 @@
 
 	<a class="btn btn-primary" href="{{ path('admin_article_new') }}">Créer un nouvel article</a>
 	{# <a class="btn btn-primary" id="button" href="{{ path('admin_article_delete') }}">Supprimer un ou des articles</a> #}
-	<button id="button" onclick="actionFormCheckBox('delete', '{{ path('admin_article_delete') }}')">Test</button>
+	<button id="button" class="btn btn-primary" onclick="actionFormCheckBox('delete', '{{ path('admin_article_delete') }}')">Supprimer un ou des articles</button>
 	<form id="formCheckbox" method="POST">
-		<div class="test">
 		{% for article in articles %}
 			<input class="checkbox-hidden" type="checkbox" name="idCheck[]" value={{ article.id }}>
 			<label class="checkbox-label"></label>
 			{% include '_article_small.html.twig' with {'article': article, 'forAdmin': true} %}
 		{% endfor %}
-		</div>
 	</form>
 {% endblock %}
 
