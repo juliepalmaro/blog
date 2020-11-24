@@ -9,6 +9,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Form\ArticleNewType;
+use App\Repository\CommentRepository;
+use Doctrine\ORM\Mapping\Id;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 /**
@@ -24,7 +26,7 @@ class AdminDashboardController extends AbstractController
     {
         $articles = $articleRepository->findAllArticles(0, 5, 'creationDate', 'DESC', null, null);
 
-        return $this->render('admin_dashboard/index.html.twig', []);
+        return $this->render('admin_dashboard/index.html.twig', ['articles' => $articles]);
     }
 
     /**
@@ -70,8 +72,20 @@ class AdminDashboardController extends AbstractController
     /**
      * @Route("/comments", name="admin_comments")
      */
-    public function comments(): Response
+    public function comments(CommentRepository $commentRepository): Response
     {
-        return $this->render('admin_dashboard/comments.html.twig', []);
+        $comments = $commentRepository->findAllComments(0, 10, null, null, null, null);
+        return $this->render('admin_dashboard/comments.html.twig', ['comments' => $comments]);
+    }
+    /**
+     * @Route("/approuve-comment/{id}", name="approuveComment")
+     */
+    public function approuveComment(CommentRepository $commentRepository, $id)
+    {
+        $comment = $commentRepository->findOneComment($id);
+        $comment->setState('approved');
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->persist($comment);
+        $entityManager->flush();
     }
 }

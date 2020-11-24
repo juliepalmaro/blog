@@ -22,9 +22,18 @@ class UserDashboardController extends AbstractController
     /**
      * @Route("/", name="user_home")
      */
-    public function index(): Response
+    public function index(BookmarkRepository $bookmarkRepository, ShareRepository $shareRepository, CommentRepository $commentRepository): Response
     {
-        return $this->render('user_dashboard/index.html.twig');
+        $currentUser = $this->getUser();
+        $bookmarks = $bookmarkRepository->findAllBookmarks(0, 5, null, null, $currentUser, null);
+        $shareds = $shareRepository->findAllShared(0, 5, null, null, $currentUser, null);
+        $comments = $commentRepository->findAllComments(0, 5, null, null, $currentUser);
+
+        return $this->render('user_dashboard/index.html.twig', [
+            'bookmarks' => $bookmarks,
+            'shareds' => $shareds,
+            'comments' => $comments,
+        ]);
     }
 
     /**
