@@ -6,21 +6,30 @@
 {% block content %}
 <h1>Accueil</h1>
 
-<h2>Articles Aimés</h2>
+<h2>
+    Articles Aimés
+    <a class="btn btn-link btn-projectTextColor float-right" href="{{ path('user_bookmarks') }}">Voir plus</a>
+</h2>
 {% for bookmark in bookmarks %}
     <div class="mb-3">
         {% include '_article_small.html.twig' with {'article': bookmark.article, 'bookmarkDate': bookmark.creationDate} %}
     </div>
 {% endfor %}
 
-<h2>Articles Partagés</h2>
+<h2>
+    Articles Partagés
+    <a class="btn btn-link btn-projectTextColor float-right" href="{{ path('user_shared') }}">Voir plus</a>
+</h2>
 {% for shared in shareds %}
     <div class="mb-3">
         {% include '_article_small.html.twig' with {'article': shared.article, 'sharedDate': shared.creationDate} %}
     </div>
 {% endfor %}
 
-<h2>Articles Commentés</h2>
+<h2>
+    Articles Commentés
+    <a class="btn btn-link btn-projectTextColor float-right" href="{{ path('user_comments') }}">Voir plus</a>
+</h2>
 {% for comment in comments %}
     <div class="mb-3">
         {% include '_article_small.html.twig' with {'article': comment.article, 'commentDate': comment.creationDate} %}
