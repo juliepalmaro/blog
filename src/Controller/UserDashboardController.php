@@ -39,54 +39,6 @@ class UserDashboardController extends AbstractController
     }
 
     /**
-     * @Route("/bookmarks", name="bookmarks")
-     */
-    public function GetBookmarks(BookmarkRepository $bookmarkRepository ,PaginatorInterface $paginator, Request $request): Response
-    {
-        $currentUser = $this->getUser();
-        $bookmarks = $bookmarkRepository->findAllBookmarks(0, 10, null, null, $currentUser, null);
-
-        // Paginate the results of the query
-        $bookmarksToLoad = $paginator->paginate(
-            // Doctrine Query, not results
-            $bookmarks,
-            // Define the page parameter
-            $request->query->getInt('page', 1),
-            // Items per page
-            5
-        );
-
-        return $this->render('user_dashboard/bookmarks.html.twig', [
-            'bookmarks' => $bookmarks,
-            'bookmarksToLoad' => $bookmarksToLoad
-        ]);
-    }
-
-    /**
-     * @Route("/shared", name="bookmarks")
-     */
-    public function GetShared(BookmarkRepository $bookmarkRepository ,PaginatorInterface $paginator, Request $request): Response
-    {
-        $currentUser = $this->getUser();
-        $shared = $bookmarkRepository->findAllBookmarks(0, 10, null, null, $currentUser, null);
-
-        // Paginate the results of the query
-        $sharedToLoad = $paginator->paginate(
-            // Doctrine Query, not results
-            $shared,
-            // Define the page parameter
-            $request->query->getInt('page', 1),
-            // Items per page
-            5
-        );
-
-        return $this->render('user_dashboard/shared.html.twig', [
-            'shared' => $shared,
-            'sharedToLoad' => $sharedToLoad
-        ]);
-    }
-
-    /**
      * @Route("/update", name="user_update")
      */
     public function update(Request $request): Response
@@ -110,29 +62,49 @@ class UserDashboardController extends AbstractController
     /**
      * @Route("/bookmarks", name="user_bookmarks")
      */
-    public function bookmarks(BookmarkRepository $bookmarkRepository): Response
+    public function bookmarks(BookmarkRepository $bookmarkRepository, PaginatorInterface $paginator, Request $request): Response
     {
         $currentUser = $this->getUser();
         $bookmarks = $bookmarkRepository->findAllBookmarks(0, 10, null, null, $currentUser, null);
 
-        return $this->render('user_dashboard/bookmarks.html.twig', ['bookmarks' => $bookmarks]);
+        // Paginate the results of the query
+        $bookmarksToLoad = $paginator->paginate(
+            // Doctrine Query, not results
+            $bookmarks,
+            // Define the page parameter
+            $request->query->getInt('page', 1),
+            // Items per page
+            1
+        );
+
+        return $this->render('user_dashboard/bookmarks.html.twig', ['bookmarks' => $bookmarksToLoad]);
     }
 
     /**
      * @Route("/shared", name="user_shared")
      */
-    public function shared(ShareRepository $shareRepository): Response
+    public function shared(ShareRepository $shareRepository, PaginatorInterface $paginator, Request $request): Response
     {
         $currentUser = $this->getUser();
         $shared = $shareRepository->findAllShared(0, 10, null, null, $currentUser, null);
 
-        return $this->render('user_dashboard/shared.html.twig', ['shared' => $shared]);
+        // Paginate the results of the query
+        $sharedToLoad = $paginator->paginate(
+            // Doctrine Query, not results
+            $shared,
+            // Define the page parameter
+            $request->query->getInt('page', 1),
+            // Items per page
+            1
+        );
+
+        return $this->render('user_dashboard/shared.html.twig', ['shared' => $sharedToLoad]);
     }
 
     /**
      * @Route("/comments", name="user_comments")
      */
-    public function comments(CommentRepository $commentRepository): Response
+    public function comments(CommentRepository $commentRepository, PaginatorInterface $paginator,Request $request): Response
     {
         $currentUser = $this->getUser();
         $comments = $commentRepository->findAllComments(0, 10, null, null, $currentUser, null);
@@ -148,7 +120,17 @@ class UserDashboardController extends AbstractController
             }
         }
 
+        // Paginate the results of the query
+        $commentsToLoad = $paginator->paginate(
+            // Doctrine Query, not results
+            $articles,
+            // Define the page parameter
+            $request->query->getInt('page', 1),
+            // Items per page
+            5
+        );
 
-        return $this->render('user_dashboard/comments.html.twig', ['articles' => $articles]);
+
+        return $this->render('user_dashboard/comments.html.twig', ['articles' => $commentsToLoad]);
     }
 }
