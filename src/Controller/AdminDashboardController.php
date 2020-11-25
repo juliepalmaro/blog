@@ -144,7 +144,8 @@ class AdminDashboardController extends AbstractController
         $entityManager = $this->getDoctrine()->getManager();
         foreach($ids as $id) {
             $comment = $commentRepository->find($id);
-            $entityManager->remove($comment);
+            $comment->setState('archived');
+            $entityManager->persist($comment);
         }
         $entityManager->flush();     
         return $this->redirectToRoute('admin_comments');
@@ -165,38 +166,6 @@ class AdminDashboardController extends AbstractController
             }
             $entityManager->flush();  
         }   
-        return $this->redirectToRoute('admin_comments');
-    }
-
-    /**
-     * @Route("/comments/approved", name="admin_comment_approved")
-     */
-    public function approvedComment(Request $request, CommentRepository $commentRepository): Response
-    {
-        $ids = $request->request->get('idCheck');
-        $entityManager = $this->getDoctrine()->getManager();
-        foreach($ids as $id) {
-            $comment = $commentRepository->find($id);
-            $comment->setPrivacy('approved');
-            $entityManager->persist($comment);
-        }
-        $entityManager->flush();     
-        return $this->redirectToRoute('admin_comments');
-    }
-
-    /**
-     * @Route("/comments/unapproved", name="admin_comment_unapproved")
-     */
-    public function unapprovedComment(Request $request, CommentRepository $commentRepository): Response
-    {
-        $ids = $request->request->get('idCheck');
-        $entityManager = $this->getDoctrine()->getManager();
-        foreach($ids as $id) {
-            $comment = $commentRepository->find($id);
-            $comment->setPrivacy('unapproved');
-            $entityManager->persist($comment);
-        }
-        $entityManager->flush();     
         return $this->redirectToRoute('admin_comments');
     }
 
