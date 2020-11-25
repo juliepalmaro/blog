@@ -9,9 +9,9 @@
 		</title>
 		{% block stylesheets %}
 			<link rel="stylesheet" href="{{ asset('styles/bootstrap/bootstrap.min.css') }}">
-            <link rel="stylesheet" href="{{ asset('styles/components/article.css') }}">
-            <link rel="stylesheet" href="{{ asset('styles/components/article_admin.css') }}">
-            <link rel="stylesheet" href="{{ asset('styles/components/comments_admin.css') }}">
+			<link rel="stylesheet" href="{{ asset('styles/components/article.css') }}">
+			<link rel="stylesheet" href="{{ asset('styles/components/article_admin.css') }}">
+			<link rel="stylesheet" href="{{ asset('styles/components/comments_admin.css') }}">
 			<link rel="stylesheet" href="{{ asset('styles/components/footer.css') }}">
 			<link rel="stylesheet" href="{{ asset('styles/components/commentaire.css') }}">
 			<link rel="stylesheet" href="{{ asset('styles/components/article_recent.css') }}">
@@ -23,37 +23,44 @@
 		{% include "navbar.html.twig" %}
 	</header>
 	<body>
-        <div class="homepage-container">
-            <div class="homepage-contentWrap">
+		<div class="homepage-container">
+			<div class="homepage-contentWrap">
 				<div class="container mt-5">
 					{% for message in app.flashes('success') %}
 						<div class="alert alert-success">
 							{{ message }}
 						</div>
 					{% endfor %}
+
+					{% for message in app.flashes('notice') %}
+						<div class="flash-notice">
+							{{ message }}
+						</div>
+					{% endfor %}
+
 					{% block body %}
-					<h1>
-						{{ block('title') }}
-					</h1>
+						<h1>
+							{{ block('title') }}
+						</h1>
 					{% endblock %}
 				</div>
 
-                {% block javascripts %}
-                    <script src="{{ asset('js/jquery-3.2.1.slim.min.js') }}"></script>
-                    <script src="{{ asset('js/popper.min.js') }}"></script>
-                    <script src="{{ asset('js/bootstrap.min.js') }}"></script>
-                {% endblock %}
-            </div>
+				{% block javascripts %}
+					<script src="{{ asset('js/jquery-3.2.1.slim.min.js') }}"></script>
+					<script src="{{ asset('js/popper.min.js') }}"></script>
+					<script src="{{ asset('js/bootstrap.min.js') }}"></script>
+				{% endblock %}
+			</div>
 
-            <footer class="blog-footer">
-                <p>Blog
-                    <b>LARAJ</b>
-                    by  Laura, Alban, Romain, Aymeric and Julie.</p>
-                <p>
-                    <a href="#">Back to top</a>
-                </p>
-            </footer>
-        </div>
+			<footer class="blog-footer">
+				<p>Blog
+					<b>LARAJ</b>
+					by  Laura, Alban, Romain, Aymeric and Julie.</p>
+				<p>
+					<a href="#">Back to top</a>
+				</p>
+			</footer>
+		</div>
 	</body>
-	
+
 </html>

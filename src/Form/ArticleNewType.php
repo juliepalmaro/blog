@@ -27,18 +27,27 @@ class ArticleNewType extends AbstractType
             ])
             ->add('content', TextareaType::class, [
                 'label' => 'Contenu',
+                'required' => true,
             ])
             ->add('subTitle', TextType::class, [
                 'label' => 'Sous-titre',
+                'required' => true,
             ])
             ->add('category', TextType::class, [
                 'label' => 'Catégorie',
+                'required' => true,
             ])
             ->add('readingTime', NumberType::class, [
                 'label' => 'Temps de lecture',
+                'required' => true,
+            ])
+            ->add('picture', TextType::class, [
+                'label' => 'URL Image',
+                'required' => false,
             ])
             ->add('public', CheckboxType::class, [
                 'label' => 'Publier l\'article',
+                'required' => false,
             ]);
     }
 

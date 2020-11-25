@@ -46,6 +46,11 @@ class GlobalController extends AbstractController
 
         $entityManager->flush();
 
+        $this->addFlash(
+            'notice',
+            'Article aimé !'
+        );
+
         return $this->redirect($refererPathInfo);
     }
 
@@ -72,6 +77,11 @@ class GlobalController extends AbstractController
         $entityManager = $this->getDoctrine()->getManager();
         $entityManager->remove($bookmark);
         $entityManager->flush();
+
+        $this->addFlash(
+            'notice',
+            'Article retiré !'
+        );
 
         return $this->redirectToRoute($refererPathInfo);
     }
@@ -106,6 +116,11 @@ class GlobalController extends AbstractController
         $entityManager->persist($share);
 
         $entityManager->flush();
+
+        $this->addFlash(
+            'notice',
+            'Article partagé !'
+        );
 
         return $this->redirectToRoute($refererPathInfo);
     }
