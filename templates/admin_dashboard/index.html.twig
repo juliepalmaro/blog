@@ -5,21 +5,23 @@
 
 {% block content %}
 	<h1>Accueil</h1>
-	<form action="{{ path('admin_search') }}" method="post">
-		<input type="text" name="search">
-		<button class="btn btn-secondary">Rechercher</button>
-	</form>
-	<form action="{{ path('admin_filter') }}">
-		<select name="filter" id="filter">
-			<option value="news">Récent -> Ancien</option>
-			<option value="old">Ancien -> Récent</option>
-			<option value="a-z">A-Z</option>
-			<option value="z-a">Z-A</option>
-			<option value="authorUp">Auteur ↑</option>
-			<option value="authorDown">Auteur ↓</option>
-		</select>
-		<button class="btn btn-primary">Filtrer</button>
-	</form>
+	<div class="searchBar-container">
+		<form action="{{ path('admin_search') }}" method="post">
+			<input type="text" name="search">
+			<button class="btn btn-projectBackgroundColor btn--noRadius">Rechercher</button>
+		</form>
+		<form action="{{ path('admin_filter') }}">
+			<select name="filter" id="filter">
+				<option value="news">Récent -> Ancien</option>
+				<option value="old">Ancien -> Récent</option>
+				<option value="a-z">A-Z</option>
+				<option value="z-a">Z-A</option>
+				<option value="authorUp">Auteur ↑</option>
+				<option value="authorDown">Auteur ↓</option>
+			</select>
+			<button class="btn btn-projectBackgroundColor btn--noRadius">Filtrer</button>
+		</form>
+	</div>
 	{% for article in articles %}
 		{% include '_article_small.html.twig' with {'article': article, 'forAdmin': true} %}
 	{% endfor %}

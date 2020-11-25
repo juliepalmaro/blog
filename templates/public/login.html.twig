@@ -4,22 +4,25 @@
 
 {% block body %}
 {{ parent() }}
-	<form method="post">
-		{% if error %}
-			<div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-		{% endif %}
+	<div class="login-container">
+		<form method="post">
+			{% if error %}
+				<div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+			{% endif %}
 
-		<label for="inputEmail">Email</label>
-		<input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" required autofocus>
-		<label for="inputPassword">Mot de passe</label>
-		<input type="password" name="password" id="inputPassword" class="form-control" required>
+			<label for="inputEmail">Email</label>
+			<input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" required autofocus>
+			<label for="inputPassword">Mot de passe</label>
+			<input type="password" name="password" id="inputPassword" class="form-control" required>
 
-		<input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+			<input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
 
-		<button class="btn btn-lg btn-primary" type="submit">
-			Connexion
-		</button>
-	</form>
+			<button class="btn btn-projectBackgroundColor mt-3" type="submit">
+				Connexion
+			</button>
+		</form>
 
-	<a class="btn btn-link btn-projectTextColor" href="{{ path('register') }}">Créer un compte</a>
+		<a class="btn btn-link btn-projectTextColor" href="{{ path('register') }}">Créer un compte</a>
+	</div>
+
 {% endblock %}

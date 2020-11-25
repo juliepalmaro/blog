@@ -6,69 +6,82 @@
 {% block content %}
 
 	<h1>Commentaires</h1>
-	<form action="{{ path('admin_searchsCom') }}" method="post">
-			<input type="text" name="search">
-			<button class="btn btn-projectBackgroundColor btn--noRadius">Rechercher</button>
-	</form>
-	{# <a class="btn btn-primary active" href="{{ path('/approuve-comment/{id}') }}">Approuver<span class="sr-only">(current)</span> #}
-</a>
-<button id="button" class="btn btn-primary" onclick="actionFormCheckBox('delete', '{{ path('admin_comment_delete') }}')">Supprimer un ou des commentaires</button>
-<button id="button" class="btn btn-primary" onclick="actionFormCheckBox('approved', '{{ path('admin_comment_privacy', {'privacy': 'approved'}) }}')">Approuver un ou des commentaires</button>
-<button id="button" class="btn btn-primary" onclick="actionFormCheckBox('unapproved', '{{ path('admin_comment_privacy', {'privacy': 'unapproved'}) }}')">Non-approuver un ou des commentaires</button>
+	<div class="searchBar-container">
+
+		<form action="{{ path('admin_searchsCom') }}" method="post">
+				<input type="text" name="search">
+				<button class="btn btn-projectBackgroundColor btn--noRadius">Rechercher</button>
+		</form>
+		{# <a class="btn btn-primary active" href="{{ path('/approuve-comment/{id}') }}">Approuver<span class="sr-only">(current)</span> </a> #}
+		<form action="{{ path('admin_filtersCom') }}">
+			<select name="filter" id="filter">
+				<option value="news">Récent -> Ancien</option>
+				<option value="old">Ancien -> Récent</option>
+				<option value="a-z">A-Z</option>
+				<option value="z-a">Z-A</option>
+				<option value="authorUp">Auteur ↑</option>
+				<option value="authorDown">Auteur ↓</option>
+			</select>
+			<button class="btn btn-projectBackgroundColor btn--noRadius">Filtrer</button>
+		</form>
+	</div>
+
+	<div class="comments-adminBtn">
+		<button id="button" class="btn btn-danger" onclick="actionFormCheckBox('delete', '{{ path('admin_comment_delete') }}')">Supprimer un ou des commentaires</button>
+		<button id="button" class="btn btn-primary middle-button" onclick="actionFormCheckBox('approved', '{{ path('admin_comment_privacy', {'privacy': 'approved'}) }}')">Approuver un ou des commentaires</button>
+		<button id="button" class="btn btn-warning" onclick="actionFormCheckBox('unapproved', '{{ path('admin_comment_privacy', {'privacy': 'unapproved'}) }}')">Non-approuver un ou des commentaires</button>
+	</div>
+
+
 <form id="formCheckbox" method="POST">
-<ul>
+<ul class="comments-adminList">
 	
-	<form action="{{ path('admin_filtersCom') }}">
-		<select name="filter" id="filter">
-			<option value="news">Récent -> Ancien</option>
-			<option value="old">Ancien -> Récent</option>
-			<option value="a-z">A-Z</option>
-			<option value="z-a">Z-A</option>
-			<option value="authorUp">Auteur ↑</option>
-			<option value="authorDown">Auteur ↓</option>
-		</select>
-		<button class="btn btn-primary">Filtrer</button>
-	</form>
+	
 	{% for comment in comments %}
-		<li>
-			<input class="checkbox-hidden" type="checkbox" name="idCheck[]" value={{ comment.id }}>
-			<label class="checkbox-label"></label>
-			<div class="article-commentaire">
-				<div class="article-commentaire_text">
-					<div class="commentaire-admin_titre">
-						<div>
-							{# {{comment.article.title}} #}
-							<a class="navbar-brand" href="{{ path('article', { 'id': comment.article.id }) }}">{{comment.article.title}}</a>
-						</div>
-						<div>
-							{{comment.creationDate|date}}
-						</div>
-					</div>
-					<div>
-						{{comment.content}}
-					</div>
-				</div>
-				<div class="article-commentaire_info">
-					<div>
-						{{comment.user.firstName}}
-					</div>
-					<div>
-						{{comment.user.lastName}}
-					</div>
-					<div>
-						{{comment.user.email}}
-					</div>
-					<div>
-						{{comment.privacy}}
-					</div>
-				</div>
+		<li class="comment-list row">
+			<div class="col-1">
+				<input class="checkbox-hidden" type="checkbox" name="idCheck[]" value={{ comment.id }}>
+				<label class="checkbox-label"></label>
 			</div>
+
+				<div class="article-commentaire col-11">
+					<div class="article-commentaire_text">
+						<div class="commentaire-admin_titre">
+							<div>
+								{# {{comment.article.title}} #}
+								<a class="navbar-brand" href="{{ path('article', { 'id': comment.article.id }) }}">{{comment.article.title}}</a>
+							</div>
+							<div>
+								{{comment.creationDate|date}}
+							</div>
+						</div>
+						<div>
+							{{comment.content}}
+						</div>
+					</div>
+					<div class="article-commentaire_info">
+						<div>
+							{{comment.user.firstName}}
+						</div>
+						<div>
+							{{comment.user.lastName}}
+						</div>
+						<div>
+							{{comment.user.email}}
+						</div>
+						<div>
+							{{comment.privacy}}
+						</div>
+					</div>
+				</div>
+
 		</li>
 	{% endfor %}
 </ul>
 <div class="home-pagination">
 	{{ knp_pagination_render(comments) }}
-</div>{% endblock %}
+</div>
+{% endblock %}
 
 {% block javascripts %}
 	{{ parent() }}
