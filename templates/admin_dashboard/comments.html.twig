@@ -21,8 +21,8 @@
 				<div class="article-commentaire_text">
 					<div class="commentaire-admin_titre">
 						<div>
+							{# {{comment.article.title}} #}
 							<a class="navbar-brand" href="{{ path('article', { 'id': comment.article.id }) }}">{{comment.article.title}}</a>
-
 						</div>
 						<div>
 							{{comment.creationDate|date}}
@@ -42,13 +42,17 @@
 					<div>
 						{{comment.user.email}}
 					</div>
+					<div>
+						{{comment.privacy}}
+					</div>
 				</div>
-
 			</div>
 		</li>
 	{% endfor %}
 </ul>
-{% endblock %}
+<div class="home-pagination">
+	{{ knp_pagination_render(comments) }}
+</div>{% endblock %}
 
 {% block javascripts %}
 	{{ parent() }}

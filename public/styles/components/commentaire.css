@@ -1,7 +1,7 @@
 .article-commentaire {
     display: flex;
     flex-direction: column;
-    margin-bottom: 2%;
+    margin: 20px auto;
 }
 
 .article-commentaire_text {
