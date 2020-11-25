@@ -23,3 +23,14 @@
 .pagination .page-item.disabled .page-link{
     color:lightgray;
 }
+
+/* SEARCH SECTION */
+
+.searchBar {
+    display: flex;
+}
+
+.searchBar > button {
+    background-color: #6AA9C1;
+    color: white;
+}

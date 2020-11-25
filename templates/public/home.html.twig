@@ -4,9 +4,9 @@
 {% endblock %}
 
 {% block body %}
-	<form action="{{path('search')}}" method="post">
+	<form action="{{path('search')}}" class="searchBar" method="post">
 		<input type="text" name="search">
-		<button class="btn btn-secondary">Rechercher</button>
+		<button class="btn btn-projectBackgroundColor">Rechercher</button>
 	</form>
 
 	{% for article in datas %}
