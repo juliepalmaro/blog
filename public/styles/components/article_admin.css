@@ -19,3 +19,19 @@
 .article-header--admin-img {
     width: 60%;
 }
+
+.article-form {
+    margin-top: 2%;
+}
+
+.article-group {
+    display: flex;
+    align-items: center;
+    margin: 3% auto;
+}
+
+.article-group > input {
+    margin: auto 2%;
+    width: 20px;
+    height: 20px;
+}

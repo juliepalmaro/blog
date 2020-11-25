@@ -11,6 +11,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use App\Form\ArticleNewType;
 use App\Repository\CommentRepository;
 use Doctrine\ORM\Mapping\Id;
+use Knp\Component\Pager\PaginatorInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 /**
@@ -117,10 +118,21 @@ class AdminDashboardController extends AbstractController
     /**
      * @Route("/comments", name="admin_comments")
      */
-    public function comments(CommentRepository $commentRepository): Response
+    public function comments(CommentRepository $commentRepository, PaginatorInterface $paginator, Request $request): Response
     {
         $comments = $commentRepository->findAllComments(0, 10, null, null, null, null);
-        return $this->render('admin_dashboard/comments.html.twig', ['comments' => $comments]);
+        
+        // Paginate the results of the query
+        $commentsToLoad = $paginator->paginate(
+            // Doctrine Query, not results
+            $comments,
+            // Define the page parameter
+            $request->query->getInt('page', 1),
+            // Items per page
+            5
+        );
+        
+        return $this->render('admin_dashboard/comments.html.twig', ['comments' => $commentsToLoad]);
     }
     /**
      * @Route("/approuve-comment/{id}", name="approuveComment")

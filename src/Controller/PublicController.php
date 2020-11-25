@@ -145,7 +145,7 @@ class PublicController extends AbstractController
     /**
      * @Route("/article/{id}", name="article")
      */
-    public function findOneArticle(ArticleRepository $repository, $id, CommentRepository $commentsRepository): Response
+    public function findOneArticle(ArticleRepository $repository, $id,PaginatorInterface $paginator,Request $request, CommentRepository $commentsRepository): Response
     {
         $article = $repository->find($id);
 
@@ -161,56 +161,19 @@ class PublicController extends AbstractController
 
         $comments = $commentsRepository->findAllComments($x, 20, 'creationDate', 'DESC', NULL, $article);
 
-        return $this->render('public/infoarticle.html.twig', [
-            'article' => $article,
-            'comments' => $comments
-        ]);
-    }
-
-    // LES COMMENTAIRES NE FONCTIONNENT PAS ENCORE (IACO)
-
-    /**
-     * @Route("/article/{id}", name="infoarticle")
-     */
-    public function getAllComments(CommentRepository $repository, PaginatorInterface $paginator, Request $request)
-    {
-
-        if (isset($page)) {
-            $x = ($page - 1) * 10;
-        } else {
-            $x = 0;
-        }
-
-        $commentDatas = $repository->findAllComments($x, 20, 'creationDate', 'DESC', NULL, null);
-
         // Paginate the results of the query
-        $comments = $paginator->paginate(
+        $commentsToLoad = $paginator->paginate(
             // Doctrine Query, not results
-            $commentDatas,
+            $comments,
             // Define the page parameter
             $request->query->getInt('page', 1),
             // Items per page
-            6
+            2
         );
 
         return $this->render('public/infoarticle.html.twig', [
-            'commentDatas' => $comments,
-        ]);
-    }
-
-    /**
-     * @Route("/comment/{id}", name="comment")
-     */
-    public function findOneComment(CommentRepository $repository, $id): Response
-    {
-        $comment = $repository->find($id);
-
-        if (!$comment) {
-            throw $this->createNotFoundException('Ce commentaire n\existe pas');
-        }
-
-        return $this->render('public/comment.html.twig', [
-            'article' => $comment,
+            'article' => $article,
+            'comments' => $commentsToLoad
         ]);
     }
 
