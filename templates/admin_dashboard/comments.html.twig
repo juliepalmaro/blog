@@ -11,13 +11,29 @@
 <ul>
 	{% for comment in comments %}
 		<li>
-			{{comment.user.firstName}}
-			{{comment.user.lastName}}
-			{{comment.user.email}}
-			{{comment.creationDate|date}}
-			{{comment.article.title}}
-			{{comment.content}}
+			<div class="article-commentaire">
+				<div class="comments_user-info">
+					<div>
+						{{comment.user.firstName}}
+					</div>
+					<div>
+						{{comment.user.lastName}}
+					</div>
+					<div>
+						{{comment.user.email}}
+					</div>
+				</div>
+				<div class="comments-info">
+					<div>
+						<div>
+							{{comment.article.title}}, {{comment.creationDate|date}}
+						</div>
+					</div>
+					<div>
+						{{comment.content}}
+					</div>
+				</div>
+			</div>
 		</li>
-		{# {{comment.user}} #}
 	{% endfor %}
 </ul>{% endblock %}
