@@ -1,0 +1,31 @@
+{% extends 'admin_dashboard/templateAdmin.html.twig' %}
+
+{% block title %}Edit article
+{% endblock %}
+
+{% block content %}
+	{% for message in app.flashes('notice') %}
+		<div class="flash-notice">
+			{{ message }}
+		</div>
+	{% endfor %}
+
+	<form method="post">
+		<h1 class="h3 mb-3 font-weight-normal">Modifier l'article</h1>
+		{{ form_start(form) }}
+		{{ form_widget(form) }}
+
+		<button class="btn btn-lg btn-primary" type="submit">Enregister</button>
+		{{ form_end(form) }}
+	</form>
+
+	{% if comments is empty %}
+		Pas de commentaire
+	{% endif %}
+
+	{% for comment in comments %}
+		<div class="mb-5">
+			{% include '_comment.html.twig' with {'comment': comment} %}
+		</div>
+	{% endfor %}
+{% endblock %}
