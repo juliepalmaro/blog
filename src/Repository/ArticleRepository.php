@@ -92,7 +92,8 @@ class ArticleRepository extends ServiceEntityRepository
         return $article;
     }
 
-    public function findSpecificArticle(?string $search){
+    public function findSpecificArticle(?string $search)
+    {
 
         $query = $this->createQueryBuilder('a');
 
@@ -101,6 +102,36 @@ class ArticleRepository extends ServiceEntityRepository
             ->setParameter("search", '%'. $search . '%');
 
         return $query
+            ->getQuery()
+            ->getResult();
+
+    }
+
+    public function articleFilter(?string $filter)
+    {
+        $orderby = null;
+        $order = null;
+
+        if($filter == 'news'){
+            $orderby = 'a.creationDate';
+            $order = 'DESC';
+        }elseif ($filter == 'old'){
+            $orderby = 'a.creationDate';
+            $order = 'ASC';
+        }elseif ($filter == 'a-z'){
+            $orderby = 'a.title';
+            $order = 'DESC';
+        }elseif ($filter == 'z-a'){
+            $orderby = 'a.title';
+            $order = 'ASC';
+        }else{
+            return $query = null;
+        }
+
+        $query = $this->createQueryBuilder('a');
+
+        return $query
+            ->orderBy($orderby, $order)
             ->getQuery()
             ->getResult();
 

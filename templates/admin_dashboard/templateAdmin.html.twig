@@ -5,16 +5,16 @@
 
 {% block body %}
 	<div class="row">
-		<div class="col-2">
-			<a {% if route_name == "homepage" %} class="btn btn-primary active" {% else %} class="btn btn-primary" {% endif %} href="{{ path('admin_home') }}">Accueil<span class="sr-only">(current)</span>
+		<div class="col-2 dashboard-menu">
+			<a {% if route_name == "homepage" %} class="active" {% else %} class="" {% endif %} href="{{ path('admin_home') }}">Accueil<span class="sr-only">(current)</span>
 			</a>
 
 
-			<a {% if route_name == "homepage" %} class="btn btn-primary active" {% else %} class="btn btn-primary" {% endif %} href="{{ path('admin_articles') }}">Articles<span class="sr-only">(current)</span>
+			<a {% if route_name == "homepage" %} class="active" {% else %} class="" {% endif %} href="{{ path('admin_articles') }}">Articles<span class="sr-only">(current)</span>
 			</a>
 
 
-			<a {% if route_name == "homepage" %} class="btn btn-primary active" {% else %} class="btn btn-primary" {% endif %} href="{{ path('admin_comments') }}">
+			<a {% if route_name == "homepage" %} class="active" {% else %} class="" {% endif %} href="{{ path('admin_comments') }}">
 				Gérer les commentaires<span class="sr-only">(current)</span>
 			</a>
 		</div>

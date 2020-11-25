@@ -4,7 +4,7 @@
     Article
 {% endblock %}
 {% block body %}
-	<a class="" href="{{ path('homepage') }}">Retour sur tous les articles</a>
+	<a class="btn btn-link btn-projectTextColor mb-2" href="{{ path('homepage') }}">Retour sur tous les articles</a>
     <div class="article-container card">
         <div class="article-header">
             <div>
@@ -72,10 +72,14 @@
     </div>
 
     {% for comment in comments %}
-		<div class="mb-5">
+		<div class="mb-1">
 			{% include '_comment.html.twig' with {'comment': comment} %}
 		</div>
 	{% endfor %}
+
+    <div class="home-pagination">
+		{{ knp_pagination_render(comments) }}
+	</div>
 
 			{# {% include 'public/comment.html.twig' %} #}
 			{% include 'public/articleRecent.html.twig' %}

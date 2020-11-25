@@ -1,0 +1,20 @@
+.dashboard-menu > a {
+    width: 100%;
+    /* margin: 2% auto; */
+    background-color: #6AA9C1;
+    border: solid 2px white;
+    color: white;
+    text-align: center;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+}
+
+.dashboard-menu > a:hover {
+    text-decoration: none;
+    background-color: #6aa8c1a1;
+}
+
+.dashboard-menu {
+    display: flex;
+    flex-direction: column;
+}
