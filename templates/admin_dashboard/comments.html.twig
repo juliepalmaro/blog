@@ -6,42 +6,42 @@
 {% block content %}
 
 	<h1>Commentaires</h1>
-	{# <a class="btn btn-primary active" href="{{ path('/approuve-comment/{id}') }}">Approuver<span class="sr-only">(current)</span> #}
-</a>
-<ul>
-	{% for comment in comments %}
-		<li>
-			<div class="article-commentaire">
-				<div class="article-commentaire_text">
-					<div class="commentaire-admin_titre">
-						<div>
-							<a class="navbar-brand" href="{{ path('article', { 'id': comment.article.id }) }}">{{comment.article.title}}</a>
-
+	{# <a class="btn btn-primary active" href="{{ path('/approuve-comment/{id}') }}">Approuver<span class="sr-only">(current)</span> #}</a>
+	<ul>
+		{% for comment in comments %}
+			<li>
+				<div class="article-commentaire">
+					<div class="article-commentaire_text">
+						<div class="commentaire-admin_titre">
+							<div>
+								{# {{comment.article.title}} #}
+								<a class="navbar-brand" href="{{ path('article', { 'id': comment.article.id }) }}">{{comment.article.title}}</a>
+							</div>
+							<div>
+								{{comment.creationDate|date}}
+							</div>
 						</div>
 						<div>
-							{{comment.creationDate|date}}
+							{{comment.content}}
 						</div>
 					</div>
-					<div>
-						{{comment.content}}
-					</div>
+					<div class="article-commentaire_info">
+						<div>
+							{{comment.user.firstName}}
+						</div>
+						<div>
+							{{comment.user.lastName}}
+						</div>
+						<div>
+							{{comment.user.email}}
+						</div>
+					</div>					
 				</div>
-				<div class="article-commentaire_info">
-					<div>
-						{{comment.user.firstName}}
-					</div>
-					<div>
-						{{comment.user.lastName}}
-					</div>
-					<div>
-						{{comment.user.email}}
-					</div>
-					<div>
-						{{comment.state}}
-					</div>
-				</div>
+			</li>
+		{% endfor %}
+	</ul>
 
-			</div>
-		</li>
-	{% endfor %}
-</ul>{% endblock %}
+	<div class="home-pagination">
+		{{ knp_pagination_render(comments) }}
+	</div>
+{% endblock %}

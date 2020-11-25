@@ -5,17 +5,17 @@
 
 {% block body %}
 	<div class="row">
-		<div class="col-2">
-			<a {% if route_name == "user_home" %} class="btn btn-primary active" {% else %} class="btn btn-primary" {% endif %}
+		<div class="col-2 dashboard-menu">
+			<a {% if route_name == "user_home" %} class="active" {% else %} class="" {% endif %}
 				href="{{ path('user_home') }}">Accueil<span class="sr-only">(current)</span></a>
-			<a {% if route_name == "user_update" %} class="btn btn-primary active" {% else %} class="btn btn-primary" {% endif %}
+			<a {% if route_name == "user_update" %} class="active" {% else %} class="" {% endif %}
 				href="{{ path('user_update') }}">Informations personnelles<span class="sr-only">(current)</span>
 			</a>
-			<a {% if route_name == "user_bookmarks" %} class="btn btn-primary active" {% else %} class="btn btn-primary" {% endif %}
+			<a {% if route_name == "user_bookmarks" %} class="active" {% else %} class="" {% endif %}
 				href="{{ path('user_bookmarks') }}">Articles aimés<span class="sr-only">(current)</span></a>
-			<a {% if route_name == "user_shared" %} class="btn btn-primary active" {% else %} class="btn btn-primary" {% endif %}
+			<a {% if route_name == "user_shared" %} class="active" {% else %} class="" {% endif %}
 				href="{{ path('user_shared') }}">Articles partagés<span class="sr-only">(current)</span></a>
-			<a {% if route_name == "user_comments" %} class="btn btn-primary active" {% else %} class="btn btn-primary" {% endif %}
+			<a {% if route_name == "user_comments" %} class="active" {% else %} class="" {% endif %}
 				href="{{ path('user_comments') }}">Articles commentés<span class="sr-only">(current)</span>
 			</a>
 		</div>
