@@ -22,3 +22,7 @@
     font-weight: bold;
     color: white !important;
 }
+
+.btn.btn--noRadius {
+    border-radius: 0!important;
+}

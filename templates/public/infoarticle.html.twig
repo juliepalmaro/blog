@@ -36,9 +36,9 @@
 
         <div class="article-socialMed">
             <div>
-                <div class="article-shareIcon">
-                    {{ source('svg/share.svg')}}
-                </div>
+                <a class="article-shareIcon" href="{{ path('add-shared', { 'id': article.id }) }}">
+				    {{ source('svg/share.svg')}}
+			    </a>
                 <div class="article-socialMedIcons">
                     <div class="article-facebookIcon">
                         {{ source('svg/facebook.svg')}}
@@ -55,9 +55,9 @@
                 </div>
             </div>
             <div>
-                <div class="article-thumbUpIcon">
-                    {{ source('svg/thumb_up.svg')}}
-                </div>
+                <a class="article-thumbUpIcon" href="{{ path('add-bookmark', { 'id': article.id }) }}">
+				    {{ source('svg/thumb_up.svg')}}
+			    </a>
 
                 <div class="article-tags">#Politique#Macron#Guerre</div>
             </div>

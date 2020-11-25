@@ -28,7 +28,7 @@
 
 	<div class="article-socialMed">
 		<div>
-			<a class="article-shareIcon" href="/add-shared/{{article.id}}">
+			<a class="article-shareIcon" href="{{ path('add-shared', { 'id': article.id }) }}">
 				{{ source('svg/share.svg')}}
 			</a>
 			{# <div class="article-socialMedIcons">
@@ -48,7 +48,7 @@
 		</div>
 		<div>
 
-			<a class="article-thumbUpIcon" href="/add-bookmark/{{article.id}}">
+			<a class="article-thumbUpIcon" href="{{ path('add-bookmark', { 'id': article.id }) }}">
 				{{ source('svg/thumb_up.svg')}}
 			</a>
 

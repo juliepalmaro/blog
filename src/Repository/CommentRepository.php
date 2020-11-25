@@ -36,7 +36,7 @@ class CommentRepository extends ServiceEntityRepository
             ->getOneOrNullResult();
     }
 
-    public function findAllComments(?int $start, ?int $length, ?string $orderBy, ?string $order, ?User $user, ?Article $article): array
+    public function findAllComments(?int $start, ?int $length, ?string $orderBy, ?string $order, ?User $user, ?Article $article, ?bool $onlyValidate = true): array
     {
         !$order ?  $order = 'DESC' : $order = $order;
         !$orderBy ?  $orderby = 'a.creationDate' : $orderby = 'a.' . $orderBy;
@@ -54,6 +54,12 @@ class CommentRepository extends ServiceEntityRepository
             $query
                 ->andWhere('a.article = :article')
                 ->setParameter('article', $article);
+        }
+
+        if ($onlyValidate) {
+            $query
+                ->andWhere('a.state = :state')
+                ->setParameter('state', 'validated');
         }
 
         !$length ?  $length = 20 : $length = $length;

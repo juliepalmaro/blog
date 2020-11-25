@@ -43,7 +43,7 @@ class AdminDashboardController extends AbstractController
     /**
      * @Route("/article/{id}", name="admin_edit_article")
      */
-    public function editArticle(ArticleRepository $articleRepository, $id, Request $request): Response
+    public function editArticle(ArticleRepository $articleRepository, $id, Request $request, CommentRepository $commentRepository): Response
     {
         $article = $articleRepository->findOneArticle($id);
         $form = $this->createForm(ArticleNewType::class, $article);
@@ -65,8 +65,9 @@ class AdminDashboardController extends AbstractController
             );
         }
 
-        return $this->render('admin_dashboard/newArticle.html.twig', [
+        return $this->render('admin_dashboard/editArticle.html.twig', [
             'form' => $form->createView(),
+            'comments' => $article->getComments(),
         ]);
     }
 
@@ -134,6 +135,41 @@ class AdminDashboardController extends AbstractController
         
         return $this->render('admin_dashboard/comments.html.twig', ['comments' => $commentsToLoad]);
     }
+
+    /**
+     * @Route("/comments/delete", name="admin_comment_delete")
+     */
+    public function deleteComment(Request $request, CommentRepository $commentRepository): Response
+    {
+        $ids = $request->request->get('idCheck');
+        $entityManager = $this->getDoctrine()->getManager();
+        foreach($ids as $id) {
+            $comment = $commentRepository->find($id);
+            $comment->setState('archived');
+            $entityManager->persist($comment);
+        }
+        $entityManager->flush();     
+        return $this->redirectToRoute('admin_comments');
+    }
+
+    /**
+     * @Route("/comments/privacy/{privacy}", name="admin_comment_privacy")
+     */
+    public function updatePrivacy(Request $request, CommentRepository $commentRepository, $privacy): Response
+    {
+        if ($privacy === 'approved' || $privacy === 'unapproved' || $privacy === 'pending') {
+            $ids = $request->request->get('idCheck');
+            $entityManager = $this->getDoctrine()->getManager();
+            foreach($ids as $id) {
+                $comment = $commentRepository->find($id);
+                $comment->setPrivacy($privacy);
+                $entityManager->persist($comment);
+            }
+            $entityManager->flush();  
+        }   
+        return $this->redirectToRoute('admin_comments');
+    }
+
     /**
      * @Route("/approuve-comment/{id}", name="approuveComment")
      */
