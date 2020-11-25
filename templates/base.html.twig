@@ -54,12 +54,40 @@
 			</div>
 
 			<footer class="blog-footer">
-				<p>Blog
-					<b>LARAJ</b>
-					by  Laura, Alban, Romain, Aymeric and Julie.</p>
-				<p>
-					<a href="#">Back to top</a>
-				</p>
+				<div>
+					<span>Blog
+						<b>LARAJ</b>
+						by  Laura, Alban, Romain, Aymeric and Julie.
+					</span>
+
+					<div class="footer-socialMedIcons">
+						<div class="footer-facebookIcon">
+							{{ source('svg/facebook.svg')}}
+						</div>
+						<div class="footer-twitterIcon">
+							{{ source('svg/twitter.svg')}}
+						</div>
+						<div class="footer-instagramIcon">
+							{{ source('svg/instagram.svg')}}
+						</div>
+						<div class="footer-linkedinIcon">
+							{{ source('svg/linkedin.svg')}}
+						</div>
+					</div>
+
+				</div>
+
+				<div class="footer-email">
+					<div>News letter</div>
+					<form action="{{ path('search') }}" method="post">
+						<input type="text" name="email">
+						<button class="btn btn-projectBackgroundColor btn--noRadius">Je m'inscris !</button>
+					</form>
+				</div>
+
+				<span>
+					<a class="btn btn-link btn-projectTextColor" href="#">Back to top</a>
+				</span>
 			</footer>
 		</div>
 	</body>
