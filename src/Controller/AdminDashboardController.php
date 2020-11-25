@@ -40,6 +40,36 @@ class AdminDashboardController extends AbstractController
     }
 
     /**
+     * @Route("/article/{id}", name="admin_edit_article")
+     */
+    public function editArticle(ArticleRepository $articleRepository, $id, Request $request): Response
+    {
+        $article = $articleRepository->findOneArticle($id);
+        $form = $this->createForm(ArticleNewType::class, $article);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $user = $this->getUser();
+
+            $article->setUser($user);
+            $article = $articleRepository->setDefaultValues($article);
+
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($article);
+            $entityManager->flush();
+
+            $this->addFlash(
+                'notice',
+                'Article modifié !'
+            );
+        }
+
+        return $this->render('admin_dashboard/newArticle.html.twig', [
+            'form' => $form->createView(),
+        ]);
+    }
+
+    /**
      * @Route("/articles/new", name="admin_article_new")
      */
     public function createArticle(Request $request, ArticleRepository $articleRepository): Response
