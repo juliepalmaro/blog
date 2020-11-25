@@ -107,4 +107,19 @@ class CommentRepository extends ServiceEntityRepository
             ->getResult();
 
     }
+
+    public function findSpecificComment(?string $search)
+    {
+
+        $query = $this->createQueryBuilder('a');
+
+        $query
+            ->andWhere("a.content LIKE :search")
+            ->setParameter("search", '%'. $search . '%');
+
+        return $query
+            ->getQuery()
+            ->getResult();
+
+    }
 }

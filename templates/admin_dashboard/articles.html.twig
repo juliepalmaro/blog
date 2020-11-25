@@ -17,14 +17,18 @@
 	{# <a class="btn btn-primary" id="button" href="{{ path('admin_article_delete') }}">Supprimer un ou des articles</a> #}
 	<button id="button" class="btn btn-danger" onclick="actionFormCheckBox('delete', '{{ path('admin_article_delete') }}')">Supprimer un ou des articles</button>
 	<form id="formCheckbox" class="article-form" method="POST">
+		<form action="{{ path('admin_searchs') }}" method="post">
+			<input type="text" name="search">
+			<button class="btn btn-projectBackgroundColor btn--noRadius">Rechercher</button>
+		</form>
 		<form action="{{ path('admin_filters') }}">
 			<select name="filter" id="filter">
-				<option value="news article">Récent -> Ancien</option>
-				<option value="old article">Ancien -> Récent</option>
-				<option value="a-z article">A-Z</option>
-				<option value="z-a article">Z-A</option>
-				<option value="authorUp article">Auteur ↑</option>
-				<option value="authorDown article">Auteur ↓</option>
+				<option value="news">Récent -> Ancien</option>
+				<option value="old">Ancien -> Récent</option>
+				<option value="a-z">A-Z</option>
+				<option value="z-a">Z-A</option>
+				<option value="authorUp">Auteur ↑</option>
+				<option value="authorDown">Auteur ↓</option>
 			</select>
 			<button class="btn btn-primary">Filtrer</button>
 		</form>

@@ -164,12 +164,12 @@ class GlobalController extends AbstractController
             // Items per page
             10);
 
-        if (!$article) {
+        if (!$articles) {
             throw $this->createNotFoundException('Cette page n\'existe pas');
         }
 
         return $this->render('admin_dashboard/articles.html.twig', [
-            'article' => $articles,
+            'articles' => $articles,
         ]);
 
     }
@@ -203,6 +203,59 @@ class GlobalController extends AbstractController
 
         return $this->render('admin_dashboard/comments.html.twig', [
             'comments' => $comments,
+        ]);
+    }
+
+    /**
+     * @Route("admin/searchs/", name="admin_searchs")
+     */
+    public function searchArticle(ArticleRepository $repository, PaginatorInterface $paginator, Request $request): Response
+    {
+        if (isset($_POST['search'])) {
+            $search = $_POST['search'];
+        } else {
+            throw $this->createNotFoundException('Cet article n\'existe pas');
+        }
+
+        $article = $repository->findSpecificArticle($search);
+
+        // Paginate the results of the query
+        $articles = $paginator->paginate(
+        // Doctrine Query, not results
+            $article,
+            // Define the page parameter
+            $request->query->getInt('page', 1),
+            // Items per page
+            10);
+
+        if (!$articles) {
+            throw $this->createNotFoundException('Cet article n\'existe pas');
+        }
+
+        return $this->render('admin_dashboard/articles.html.twig', [
+            'articles' => $articles,
+        ]);
+    }
+
+    /**
+     * @Route("admin/searchsComment/", name="admin_searchsCom")
+     */
+    public function searchComment(CommentRepository $repository): Response
+    {
+        if (isset($_POST['search'])) {
+            $search = $_POST['search'];
+        } else {
+            throw $this->createNotFoundException('Ce commentaire n\'existe pas');
+        }
+
+        $comment = $repository->findSpecificComment($search);
+        dd($comment);
+        if (!$comment) {
+            throw $this->createNotFoundException('Ce commentaire n\'existe pas');
+        }
+
+        return $this->render('admin_dashboard/comments.html.twig', [
+            'comment' => $comment,
         ]);
     }
 }

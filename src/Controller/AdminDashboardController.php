@@ -209,6 +209,28 @@ class AdminDashboardController extends AbstractController
         }
 
         return $this->render('admin_dashboard/index.html.twig', [
+            'articles' => $articles,
+        ]);
+    }
+
+    /**
+     * @Route("admin/search/", name="admin_search")
+     */
+    public function searchArticle(ArticleRepository $repository): Response
+    {
+        if (isset($_POST['search'])) {
+            $search = $_POST['search'];
+        } else {
+            throw $this->createNotFoundException('Cet article n\'existe pas');
+        }
+
+        $article = $repository->findSpecificArticle($search);
+
+        if (!$article) {
+            throw $this->createNotFoundException('Cet article n\'existe pas');
+        }
+
+        return $this->render('admin_dashboard/index.html.twig', [
             'articles' => $article,
         ]);
     }
