@@ -124,6 +124,12 @@ class ArticleRepository extends ServiceEntityRepository
         }elseif ($filter == 'z-a'){
             $orderby = 'a.title';
             $order = 'ASC';
+        }elseif ($filter == 'authorUp'){
+            $orderby = 'a.user';
+            $order = 'ASC';
+        }elseif ($filter == 'authorDown'){
+            $orderby = 'a.user';
+            $order = 'DESC';
         }else{
             return $query = null;
         }

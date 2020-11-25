@@ -192,4 +192,66 @@ class AdminDashboardController extends AbstractController
         $entityManager->persist($comment);
         $entityManager->flush();
     }
+
+    /**
+     * @Route("admin/filter/", name="admin_filter")
+     */
+    public function filterArticle(ArticleRepository $repository, PaginatorInterface $paginator, Request $request): Response
+    {
+        if (isset($_GET['filter'])) {
+            $filter = $_GET['filter'];
+        } else {
+            throw $this->createNotFoundException('Cette page n\'existe pas');
+        }
+
+        $article = $repository->articleFilter($filter);
+
+        // Paginate the results of the query
+        $articles = $paginator->paginate(
+        // Doctrine Query, not results
+            $article,
+            // Define the page parameter
+            $request->query->getInt('page', 1),
+            // Items per page
+            10);
+
+        if (!$article) {
+            throw $this->createNotFoundException('Cette page n\'existe pas');
+        }
+
+        return $this->render('admin_dashboard/index.html.twig', [
+            'articles' => $articles,
+        ]);
+    }
+
+    /**
+     * @Route("admin/search/", name="admin_search")
+     */
+    public function searchArticle(ArticleRepository $repository, PaginatorInterface $paginator, Request $request): Response
+    {
+        if (isset($_POST['search'])) {
+            $search = $_POST['search'];
+        } else {
+            throw $this->createNotFoundException('Cet article n\'existe pas');
+        }
+
+        $article = $repository->findSpecificArticle($search);
+
+        // Paginate the results of the query
+        $articles = $paginator->paginate(
+        // Doctrine Query, not results
+            $article,
+            // Define the page parameter
+            $request->query->getInt('page', 1),
+            // Items per page
+            10);
+
+        if (!$article) {
+            throw $this->createNotFoundException('Cet article n\'existe pas');
+        }
+
+        return $this->render('admin_dashboard/index.html.twig', [
+            'articles' => $articles,
+        ]);
+    }
 }

@@ -71,4 +71,55 @@ class CommentRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult();
     }
+
+    public function commentFilter(?string $filter)
+    {
+        $orderby = null;
+        $order = null;
+
+        if($filter == 'news'){
+            $orderby = 'a.creationDate';
+            $order = 'DESC';
+        }elseif ($filter == 'old'){
+            $orderby = 'a.creationDate';
+            $order = 'ASC';
+        }elseif ($filter == 'a-z'){
+            $orderby = 'a.content';
+            $order = 'DESC';
+        }elseif ($filter == 'z-a'){
+            $orderby = 'a.content';
+            $order = 'ASC';
+        }elseif ($filter == 'authorUp'){
+            $orderby = 'a.user';
+            $order = 'ASC';
+        }elseif ($filter == 'authorDown'){
+            $orderby = 'a.user';
+            $order = 'DESC';
+        }else{
+            return $query = null;
+        }
+
+        $query = $this->createQueryBuilder('a');
+
+        return $query
+            ->orderBy($orderby, $order)
+            ->getQuery()
+            ->getResult();
+
+    }
+
+    public function findSpecificComment(?string $search)
+    {
+
+        $query = $this->createQueryBuilder('a');
+
+        $query
+            ->andWhere("a.content LIKE :search")
+            ->setParameter("search", '%'. $search . '%');
+
+        return $query
+            ->getQuery()
+            ->getResult();
+
+    }
 }

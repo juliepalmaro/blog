@@ -6,8 +6,10 @@ use App\Entity\Bookmark;
 use App\Entity\Share;
 use App\Repository\ArticleRepository;
 use App\Repository\BookmarkRepository;
+use App\Repository\CommentRepository;
 use App\Repository\ShareRepository;
 use DateTime;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -137,5 +139,131 @@ class GlobalController extends AbstractController
         } else {
             return $this->redirectToRoute('homepage');
         }
+    }
+
+    /**
+     * @Route("admin/filters/", name="admin_filters")
+     */
+
+    public function filterArticle(ArticleRepository $repository, PaginatorInterface $paginator, Request $request): Response
+    {
+        if (isset($_GET['filter'])) {
+            $filter = $_GET['filter'];
+        } else {
+            throw $this->createNotFoundException('Cette page n\'existe pas');
+        }
+
+        $article = $repository->articleFilter($filter);
+
+        // Paginate the results of the query
+        $articles = $paginator->paginate(
+        // Doctrine Query, not results
+            $article,
+            // Define the page parameter
+            $request->query->getInt('page', 1),
+            // Items per page
+            10);
+
+        if (!$articles) {
+            throw $this->createNotFoundException('Cette page n\'existe pas');
+        }
+
+        return $this->render('admin_dashboard/articles.html.twig', [
+            'articles' => $articles,
+        ]);
+
+    }
+
+    /**
+     * @Route("admin/filtersComment/", name="admin_filtersCom")
+     */
+
+    public function filterCommentary(CommentRepository $repository, PaginatorInterface $paginator, Request $request): Response
+    {
+        if (isset($_GET['filter'])) {
+            $filter = $_GET['filter'];
+        } else {
+            throw $this->createNotFoundException('Cette page n\'existe pas');
+        }
+
+        $comment = $repository->commentFilter($filter);
+
+        // Paginate the results of the query
+        $comments = $paginator->paginate(
+        // Doctrine Query, not results
+            $comment,
+            // Define the page parameter
+            $request->query->getInt('page', 1),
+            // Items per page
+            10);
+
+        if (!$comment) {
+            throw $this->createNotFoundException('Cette page n\'existe pas');
+        }
+
+        return $this->render('admin_dashboard/comments.html.twig', [
+            'comments' => $comments,
+        ]);
+    }
+
+    /**
+     * @Route("admin/searchs/", name="admin_searchs")
+     */
+    public function searchArticle(ArticleRepository $repository, PaginatorInterface $paginator, Request $request): Response
+    {
+        if (isset($_POST['search'])) {
+            $search = $_POST['search'];
+        } else {
+            throw $this->createNotFoundException('Cet article n\'existe pas');
+        }
+
+        $article = $repository->findSpecificArticle($search);
+
+        // Paginate the results of the query
+        $articles = $paginator->paginate(
+        // Doctrine Query, not results
+            $article,
+            // Define the page parameter
+            $request->query->getInt('page', 1),
+            // Items per page
+            10);
+
+        if (!$article) {
+            throw $this->createNotFoundException('Cet article n\'existe pas');
+        }
+
+        return $this->render('admin_dashboard/articles.html.twig', [
+            'articles' => $articles,
+        ]);
+    }
+
+    /**
+     * @Route("admin/searchsComment/", name="admin_searchsCom")
+     */
+    public function searchComment(CommentRepository $repository, PaginatorInterface $paginator, Request $request): Response
+    {
+        if (isset($_POST['search'])) {
+            $search = $_POST['search'];
+        } else {
+            throw $this->createNotFoundException('Ce commentaire n\'existe pas');
+        }
+
+        $comment = $repository->findSpecificComment($search);
+
+        // Paginate the results of the query
+        $comments = $paginator->paginate(
+            // Doctrine Query, not results
+                $comment,
+                // Define the page parameter
+                $request->query->getInt('page', 1),
+                // Items per page
+                10);
+        if (!$comment) {
+            throw $this->createNotFoundException('Ce commentaire n\'existe pas');
+        }
+
+        return $this->render('admin_dashboard/comments.html.twig', [
+            'comments' => $comments,
+        ]);
     }
 }
