@@ -38,6 +38,9 @@ class UserDashboardController extends AbstractController
         ]);
     }
 
+    /**
+     * @Route("/user/bookmarksz", name="bookmarkz")
+     */
     public function GetBookmarks(BookmarkRepository $bookmarkRepository ,PaginatorInterface $paginator, Request $request): Response
     {
         $currentUser = $this->getUser();
@@ -53,7 +56,8 @@ class UserDashboardController extends AbstractController
             5
         );
 
-        return $this->render('user_dashboard/comments.html.twig', [
+        return $this->render('user_dashboard/bookmarks.html.twig', [
+            'bookmarks' => $bookmarks,
             'bookmarksToLoad' => $bookmarksToLoad
         ]);
     }
