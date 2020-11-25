@@ -7,7 +7,9 @@
 	<div class="alert alert-danger" role="alert">{{ flashError }}</div>
 {% endfor %}
 {{ parent() }}
-{% include '_form.html.twig' with {'button_label': 'Créer un compte'} %}
+<div class="login-container">
+	{% include '_form.html.twig' with {'button_label': 'Créer un compte'} %}
+</div>
 
 
 {% endblock %}

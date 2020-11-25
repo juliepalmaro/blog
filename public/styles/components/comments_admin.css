@@ -3,3 +3,29 @@
     display: flex;
     justify-content: space-between;
 }
+
+.comments-adminBtn {
+    display: flex;
+}
+
+.middle-button{
+    margin: auto 2%;
+}
+
+.comments-adminList{
+    list-style-type: none;
+}
+
+.comment-list{
+    display: flex;
+}
+
+.comment-list > div:first-child{
+    display: flex;
+    align-items: center;
+}
+
+.comment-list input{
+    width: 20px;
+    height: 20px;
+}
