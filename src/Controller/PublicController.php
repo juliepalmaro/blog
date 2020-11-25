@@ -180,7 +180,7 @@ class PublicController extends AbstractController
     /**
      * @Route("/search/", name="search")
      */
-    public function searchArticle(ArticleRepository $repository): Response
+    public function searchArticle(ArticleRepository $repository, PaginatorInterface $paginator, Request $request): Response
     {
         if (isset($_POST['search'])) {
             $search = $_POST['search'];
@@ -190,12 +190,21 @@ class PublicController extends AbstractController
 
         $article = $repository->findSpecificArticle($search);
 
-        if (!$article) {
+        // Paginate the results of the query
+        $articles = $paginator->paginate(
+        // Doctrine Query, not results
+            $article,
+            // Define the page parameter
+            $request->query->getInt('page', 1),
+            // Items per page
+            10);
+
+        if (!$articles) {
             throw $this->createNotFoundException('Cet article n\'existe pas');
         }
 
-        return $this->render('public/articlefind.html.twig', [
-            'articleSearched' => $article,
+        return $this->render('public/home.html.twig', [
+            'datas' => $articles,
         ]);
     }
 
