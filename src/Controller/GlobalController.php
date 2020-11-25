@@ -122,7 +122,7 @@ class GlobalController extends AbstractController
             'Article partagé !'
         );
 
-        return $this->redirectToRoute($refererPathInfo);
+        return $this->redirect($refererPathInfo);
     }
 
     /**
