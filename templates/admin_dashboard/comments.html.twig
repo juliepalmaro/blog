@@ -12,7 +12,20 @@
 	{% for comment in comments %}
 		<li>
 			<div class="article-commentaire">
-				<div class="comments_user-info">
+				<div class="article-commentaire_text">
+					<div class="commentaire-admin_titre">
+						<div>
+							{{comment.article.title}}
+						</div>
+						<div>
+							{{comment.creationDate|date}}
+						</div>
+					</div>
+					<div>
+						{{comment.content}}
+					</div>
+				</div>
+				<div class="article-commentaire_info">
 					<div>
 						{{comment.user.firstName}}
 					</div>
@@ -23,16 +36,7 @@
 						{{comment.user.email}}
 					</div>
 				</div>
-				<div class="comments-info">
-					<div>
-						<div>
-							{{comment.article.title}}, {{comment.creationDate|date}}
-						</div>
-					</div>
-					<div>
-						{{comment.content}}
-					</div>
-				</div>
+				
 			</div>
 		</li>
 	{% endfor %}
