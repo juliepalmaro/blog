@@ -21,16 +21,16 @@ class ShareRepository extends ServiceEntityRepository
         parent::__construct($registry, Share::class);
     }
 
-    public function findOneShared(int $userId, int $articleId): Share
+    public function findOneShared(User $user, Article $article)
     {
         $query = $this->createQueryBuilder('a');
 
-        if ($userId && $articleId) {
+        if ($user && $article) {
             $query
-                ->andWhere('a.userId = :userId')
-                ->setParameter('userId', $userId)
-                ->andWhere('a.articleId = :articleId')
-                ->setParameter('articleId', $articleId);
+                ->andWhere('a.user = :user')
+                ->setParameter('user', $user)
+                ->andWhere('a.article = :article')
+                ->setParameter('article', $article);
         }
 
         return $query

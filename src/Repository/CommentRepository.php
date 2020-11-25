@@ -46,10 +46,11 @@ class CommentRepository extends ServiceEntityRepository
         if ($user) {
             $query
                 ->andWhere('a.user = :val')
-                ->setParameter('val', $user);
+                ->setParameter('val', $user)
+                ->groupBy('a.article');
         }
 
-        if($article){
+        if ($article) {
             $query
                 ->andWhere('a.article = :article')
                 ->setParameter('article', $article);

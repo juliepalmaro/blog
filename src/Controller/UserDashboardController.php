@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Article;
 use App\Repository\BookmarkRepository;
 use App\Repository\CommentRepository;
 use App\Repository\ShareRepository;
@@ -45,7 +46,7 @@ class UserDashboardController extends AbstractController
         $form = $this->createForm(UserUpdateType::class, $user);
         $form->handleRequest($request);
 
-        if($form->isSubmitted() && $form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->flush();
 
@@ -87,6 +88,18 @@ class UserDashboardController extends AbstractController
         $currentUser = $this->getUser();
         $comments = $commentRepository->findAllComments(0, 10, null, null, $currentUser, null);
 
-        return $this->render('user_dashboard/comments.html.twig', ['comments' => $comments]);
+        $articles = [];
+
+        for ($i = 0; $i < count($comments); $i++) {
+            $index = array_search($comments[$i]->getArticle(), $articles);
+            dump($index);
+
+            if (!$index) {
+                array_push($articles, $comments[$i]->getArticle());
+            }
+        }
+
+
+        return $this->render('user_dashboard/comments.html.twig', ['articles' => $articles]);
     }
 }

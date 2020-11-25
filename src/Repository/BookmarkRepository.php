@@ -21,16 +21,16 @@ class BookmarkRepository extends ServiceEntityRepository
         parent::__construct($registry, Bookmark::class);
     }
 
-    public function findOneBookmark(int $userId, int $articleId): Bookmark
+    public function findOneBookmark(User $user, Article $article)
     {
         $query = $this->createQueryBuilder('a');
 
-        if ($userId && $articleId) {
+        if ($user && $article) {
             $query
-                ->andWhere('a.userId = :userId')
-                ->setParameter('userId', $userId)
-                ->andWhere('a.articleId = :articleId')
-                ->setParameter('articleId', $articleId);
+                ->andWhere('a.user = :user')
+                ->setParameter('user', $user)
+                ->andWhere('a.article = :article')
+                ->setParameter('article', $article);
         }
 
         return $query
