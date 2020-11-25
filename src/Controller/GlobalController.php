@@ -228,7 +228,7 @@ class GlobalController extends AbstractController
             // Items per page
             10);
 
-        if (!$articles) {
+        if (!$article) {
             throw $this->createNotFoundException('Cet article n\'existe pas');
         }
 
@@ -240,7 +240,7 @@ class GlobalController extends AbstractController
     /**
      * @Route("admin/searchsComment/", name="admin_searchsCom")
      */
-    public function searchComment(CommentRepository $repository): Response
+    public function searchComment(CommentRepository $repository, PaginatorInterface $paginator, Request $request): Response
     {
         if (isset($_POST['search'])) {
             $search = $_POST['search'];
@@ -249,13 +249,21 @@ class GlobalController extends AbstractController
         }
 
         $comment = $repository->findSpecificComment($search);
-        dd($comment);
+
+        // Paginate the results of the query
+        $comments = $paginator->paginate(
+            // Doctrine Query, not results
+                $comment,
+                // Define the page parameter
+                $request->query->getInt('page', 1),
+                // Items per page
+                10);
         if (!$comment) {
             throw $this->createNotFoundException('Ce commentaire n\'existe pas');
         }
 
         return $this->render('admin_dashboard/comments.html.twig', [
-            'comment' => $comment,
+            'comments' => $comments,
         ]);
     }
 }

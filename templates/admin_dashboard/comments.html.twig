@@ -6,6 +6,10 @@
 {% block content %}
 
 	<h1>Commentaires</h1>
+	<form action="{{ path('admin_searchsCom') }}" method="post">
+			<input type="text" name="search">
+			<button class="btn btn-projectBackgroundColor btn--noRadius">Rechercher</button>
+	</form>
 	{# <a class="btn btn-primary active" href="{{ path('/approuve-comment/{id}') }}">Approuver<span class="sr-only">(current)</span> #}
 </a>
 <button id="button" class="btn btn-primary" onclick="actionFormCheckBox('delete', '{{ path('admin_comment_delete') }}')">Supprimer un ou des commentaires</button>
@@ -13,10 +17,7 @@
 <button id="button" class="btn btn-primary" onclick="actionFormCheckBox('unapproved', '{{ path('admin_comment_privacy', {'privacy': 'unapproved'}) }}')">Non-approuver un ou des commentaires</button>
 <form id="formCheckbox" method="POST">
 <ul>
-	<form action="{{ path('admin_searchsCom') }}" method="post">
-			<input type="text" name="search">
-			<button class="btn btn-projectBackgroundColor btn--noRadius">Rechercher</button>
-	</form>
+	
 	<form action="{{ path('admin_filtersCom') }}">
 		<select name="filter" id="filter">
 			<option value="news">Récent -> Ancien</option>
