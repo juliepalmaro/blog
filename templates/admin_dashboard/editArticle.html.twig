@@ -19,6 +19,10 @@
 		{{ form_end(form) }}
 	</form>
 
+	{% if comments is empty %}
+		Pas de commentaire
+	{% endif %}
+
 	{% for comment in comments %}
 		<div class="mb-5">
 			{% include '_comment.html.twig' with {'comment': comment} %}
