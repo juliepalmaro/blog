@@ -14,15 +14,19 @@
 		<form id="formCheckbox" class="article-form" method="POST">
 
 			{% for article in articles %}
-				<div class="article-group" style="display:flex;">
-					<div><input class="checkbox-hidden" type="checkbox" name="idCheck[]" value={{ article.id }}>
+				<div class="article-group">
+					<div>
+						<input class="checkbox-hidden article-input" type="checkbox" name="idCheck[]" value={{ article.id }}>
 						<label class="checkbox-label"></label>
-
 					</div>
 					<div>{% include '_article_small.html.twig' with {'article': article, 'forAdmin': true} %}</div>
 				</div>
 			{% endfor %}
 		</form>
+	</div>
+
+	<div class="home-pagination">
+		{{ knp_pagination_render(articles) }}
 	</div>
 {% endblock %}
 

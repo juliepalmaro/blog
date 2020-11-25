@@ -30,8 +30,11 @@
     margin: 3% auto;
 }
 
-.article-group > input {
+.article-group > div{
     margin: auto 2%;
+}
+
+.article-input {
     width: 20px;
     height: 20px;
 }

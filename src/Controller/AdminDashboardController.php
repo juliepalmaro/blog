@@ -33,11 +33,22 @@ class AdminDashboardController extends AbstractController
     /**
      * @Route("/articles", name="admin_articles")
      */
-    public function articles(ArticleRepository $articleRepository): Response
+    public function articles(ArticleRepository $articleRepository, PaginatorInterface $paginator, Request $request): Response
     {
-        $articles = $articleRepository->findAllArticles(0, 10, null, null, null, null);
+        $articles = $articleRepository->findAllArticles(0, 20, null, null, null, null);
 
-        return $this->render('admin_dashboard/articles.html.twig', ['articles' => $articles]);
+
+        // Paginate the results of the query
+        $articlesToLoad = $paginator->paginate(
+            // Doctrine Query, not results
+            $articles,
+            // Define the page parameter
+            $request->query->getInt('page', 1),
+            // Items per page
+            10
+        );
+
+        return $this->render('admin_dashboard/articles.html.twig', ['articles' => $articlesToLoad]);
     }
 
     /**

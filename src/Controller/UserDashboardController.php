@@ -7,6 +7,7 @@ use App\Repository\BookmarkRepository;
 use App\Repository\CommentRepository;
 use App\Repository\ShareRepository;
 use App\Form\UserUpdateType;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
@@ -23,12 +24,43 @@ class UserDashboardController extends AbstractController
     /**
      * @Route("/", name="user_home")
      */
-    public function index(BookmarkRepository $bookmarkRepository, ShareRepository $shareRepository, CommentRepository $commentRepository): Response
+    public function index(BookmarkRepository $bookmarkRepository, ShareRepository $shareRepository, CommentRepository $commentRepository, PaginatorInterface $paginator, Request $request): Response
     {
         $currentUser = $this->getUser();
         $bookmarks = $bookmarkRepository->findAllBookmarks(0, 5, null, null, $currentUser, null);
         $shareds = $shareRepository->findAllShared(0, 5, null, null, $currentUser, null);
         $comments = $commentRepository->findAllComments(0, 5, null, null, $currentUser, null);
+
+
+        // // Paginate the results of the query
+        // $bookmarksToLoad = $paginator->paginate(
+        //     // Doctrine Query, not results
+        //     $bookmarks,
+        //     // Define the page parameter
+        //     $request->query->getInt('page', 1),
+        //     // Items per page
+        //     10
+        // );
+
+        // // Paginate the results of the query
+        // $sharedsToLoad = $paginator->paginate(
+        //     // Doctrine Query, not results
+        //     $shareds,
+        //     // Define the page parameter
+        //     $request->query->getInt('page', 1),
+        //     // Items per page
+        //     10
+        // );
+
+        // // Paginate the results of the query
+        // $commentsToLoad = $paginator->paginate(
+        //     // Doctrine Query, not results
+        //     $comments,
+        //     // Define the page parameter
+        //     $request->query->getInt('page', 1),
+        //     // Items per page
+        //     10
+        // );
 
         return $this->render('user_dashboard/index.html.twig', [
             'bookmarks' => $bookmarks,
