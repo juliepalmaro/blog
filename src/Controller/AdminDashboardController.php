@@ -42,7 +42,7 @@ class AdminDashboardController extends AbstractController
     /**
      * @Route("/article/{id}", name="admin_edit_article")
      */
-    public function editArticle(ArticleRepository $articleRepository, $id, Request $request): Response
+    public function editArticle(ArticleRepository $articleRepository, $id, Request $request, CommentRepository $commentRepository): Response
     {
         $article = $articleRepository->findOneArticle($id);
         $form = $this->createForm(ArticleNewType::class, $article);
@@ -64,8 +64,9 @@ class AdminDashboardController extends AbstractController
             );
         }
 
-        return $this->render('admin_dashboard/newArticle.html.twig', [
+        return $this->render('admin_dashboard/editArticle.html.twig', [
             'form' => $form->createView(),
+            'comments' => $article->getComments(),
         ]);
     }
 
