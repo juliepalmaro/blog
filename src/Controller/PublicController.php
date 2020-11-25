@@ -228,7 +228,29 @@ class PublicController extends AbstractController
         $article = $repository->findSpecificArticle($search);
 
         if (!$article) {
-            throw $this->createNotFoundException('Cet article n\'existe pas 2');
+            throw $this->createNotFoundException('Cet article n\'existe pas');
+        }
+
+        return $this->render('public/articlefind.html.twig', [
+            'articleSearched' => $article,
+        ]);
+    }
+
+    /**
+     * @Route("/filter/", name="filter")
+     */
+    public function filterArticle(ArticleRepository $repository): Response
+    {
+        if (isset($_GET['filter'])) {
+            $filter = $_GET['filter'];
+        } else {
+            throw $this->createNotFoundException('Cette page n\'existe pas');
+        }
+
+        $article = $repository->articleFilter($filter);
+
+        if (!$article) {
+            throw $this->createNotFoundException('Cette page n\'existe pas');
         }
 
         return $this->render('public/articlefind.html.twig', [
