@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use App\Entity\Article;
 use App\Entity\Comment;
 use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
@@ -35,7 +36,7 @@ class CommentRepository extends ServiceEntityRepository
             ->getOneOrNullResult();
     }
 
-    public function findAllComments(?int $start, ?int $length, ?string $orderBy, ?string $order, ?User $user): array
+    public function findAllComments(?int $start, ?int $length, ?string $orderBy, ?string $order, ?User $user, ?Article $article): array
     {
         !$order ?  $order = 'DESC' : $order = $order;
         !$orderBy ?  $orderby = 'a.creationDate' : $orderby = 'a.' . $orderBy;
@@ -45,7 +46,14 @@ class CommentRepository extends ServiceEntityRepository
         if ($user) {
             $query
                 ->andWhere('a.user = :val')
-                ->setParameter('val', $user);
+                ->setParameter('val', $user)
+                ->groupBy('a.article');
+        }
+
+        if ($article) {
+            $query
+                ->andWhere('a.article = :article')
+                ->setParameter('article', $article);
         }
 
         !$length ?  $length = 20 : $length = $length;

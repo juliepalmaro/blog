@@ -5,6 +5,8 @@ namespace App\Controller;
 use App\Entity\Bookmark;
 use App\Entity\Share;
 use App\Repository\ArticleRepository;
+use App\Repository\BookmarkRepository;
+use App\Repository\ShareRepository;
 use DateTime;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -16,7 +18,7 @@ class GlobalController extends AbstractController
     /**
      * @Route("/add-bookmark/{id}", name="add-bookmark")
      */
-    public function addBookmark(ArticleRepository $articleRepository, $id, Request $request): Response
+    public function addBookmark(ArticleRepository $articleRepository, $id, Request $request, BookmarkRepository $bookmarkRepository): Response
     {
         $referer = $request->headers->get('referer');
         if (!\is_string($referer) || !$referer) {
@@ -25,17 +27,29 @@ class GlobalController extends AbstractController
         $refererPathInfo = Request::create($referer)->getPathInfo();
 
         $currentUser = $this->getUser();
+        $entityManager = $this->getDoctrine()->getManager();
 
         $article = $articleRepository->findOneArticle($id);
+
+        $oldBookmark = $bookmarkRepository->findOneBookmark($currentUser, $article);
+
+        if ($oldBookmark) {
+            $entityManager->remove($oldBookmark,);
+        }
 
         $bookmark = new Bookmark();
         $bookmark->setUser($currentUser);
         $bookmark->setArticle($article);
         $bookmark->setCreationDate(new DateTime());
 
-        $entityManager = $this->getDoctrine()->getManager();
         $entityManager->persist($bookmark);
+
         $entityManager->flush();
+
+        $this->addFlash(
+            'notice',
+            'Article aimé !'
+        );
 
         return $this->redirect($refererPathInfo);
     }
@@ -64,13 +78,18 @@ class GlobalController extends AbstractController
         $entityManager->remove($bookmark);
         $entityManager->flush();
 
+        $this->addFlash(
+            'notice',
+            'Article retiré !'
+        );
+
         return $this->redirectToRoute($refererPathInfo);
     }
 
     /**
      * @Route("/add-shared/{id}", name="add-shared")
      */
-    public function addShared(ArticleRepository $articleRepository, $id, Request $request): Response
+    public function addShared(ArticleRepository $articleRepository, $id, Request $request, ShareRepository $shareRepository): Response
     {
         $referer = $request->headers->get('referer');
         if (!\is_string($referer) || !$referer) {
@@ -79,17 +98,29 @@ class GlobalController extends AbstractController
         $refererPathInfo = Request::create($referer)->getPathInfo();
 
         $currentUser = $this->getUser();
+        $entityManager = $this->getDoctrine()->getManager();
 
         $article = $articleRepository->findOneArticle($id);
+
+        $oldShare = $shareRepository->findOneShared($currentUser, $article);
+
+        if ($oldShare) {
+            $entityManager->remove($oldShare);
+        }
 
         $share = new Share();
         $share->setUser($currentUser);
         $share->setArticle($article);
         $share->setCreationDate(new DateTime());
 
-        $entityManager = $this->getDoctrine()->getManager();
         $entityManager->persist($share);
+
         $entityManager->flush();
+
+        $this->addFlash(
+            'notice',
+            'Article partagé !'
+        );
 
         return $this->redirectToRoute($refererPathInfo);
     }
@@ -97,15 +128,14 @@ class GlobalController extends AbstractController
     /**
      * @Route("/dashboard", name="dashboard")
      */
-    public function dashboard() : Response
+    public function dashboard(): Response
     {
-        if($this->container->get('security.authorization_checker')->isGranted('ROLE_ADMIN')){
+        if ($this->container->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
             return $this->redirectToRoute('admin_home');
-        } elseif($this->container->get('security.authorization_checker')->isGranted('ROLE_USER')){
+        } elseif ($this->container->get('security.authorization_checker')->isGranted('ROLE_USER')) {
             return $this->redirectToRoute('user_home');
         } else {
             return $this->redirectToRoute('homepage');
         }
-        
     }
 }
