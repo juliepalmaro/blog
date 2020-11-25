@@ -135,6 +135,41 @@ class AdminDashboardController extends AbstractController
         
         return $this->render('admin_dashboard/comments.html.twig', ['comments' => $commentsToLoad]);
     }
+
+    /**
+     * @Route("/comments/delete", name="admin_comment_delete")
+     */
+    public function deleteComment(Request $request, CommentRepository $commentRepository): Response
+    {
+        $ids = $request->request->get('idCheck');
+        $entityManager = $this->getDoctrine()->getManager();
+        foreach($ids as $id) {
+            $comment = $commentRepository->find($id);
+            $comment->setState('archived');
+            $entityManager->persist($comment);
+        }
+        $entityManager->flush();     
+        return $this->redirectToRoute('admin_comments');
+    }
+
+    /**
+     * @Route("/comments/privacy/{privacy}", name="admin_comment_privacy")
+     */
+    public function updatePrivacy(Request $request, CommentRepository $commentRepository, $privacy): Response
+    {
+        if ($privacy === 'approved' || $privacy === 'unapproved' || $privacy === 'pending') {
+            $ids = $request->request->get('idCheck');
+            $entityManager = $this->getDoctrine()->getManager();
+            foreach($ids as $id) {
+                $comment = $commentRepository->find($id);
+                $comment->setPrivacy($privacy);
+                $entityManager->persist($comment);
+            }
+            $entityManager->flush();  
+        }   
+        return $this->redirectToRoute('admin_comments');
+    }
+
     /**
      * @Route("/approuve-comment/{id}", name="approuveComment")
      */
@@ -145,5 +180,36 @@ class AdminDashboardController extends AbstractController
         $entityManager = $this->getDoctrine()->getManager();
         $entityManager->persist($comment);
         $entityManager->flush();
+    }
+
+    /**
+     * @Route("admin/filter/", name="admin_filter")
+     */
+    public function filterArticle(ArticleRepository $repository, PaginatorInterface $paginator, Request $request): Response
+    {
+        if (isset($_GET['filter'])) {
+            $filter = $_GET['filter'];
+        } else {
+            throw $this->createNotFoundException('Cette page n\'existe pas');
+        }
+
+        $article = $repository->articleFilter($filter);
+
+        // Paginate the results of the query
+        $articles = $paginator->paginate(
+        // Doctrine Query, not results
+            $article,
+            // Define the page parameter
+            $request->query->getInt('page', 1),
+            // Items per page
+            10);
+
+        if (!$article) {
+            throw $this->createNotFoundException('Cette page n\'existe pas');
+        }
+
+        return $this->render('admin_dashboard/index.html.twig', [
+            'articles' => $article,
+        ]);
     }
 }

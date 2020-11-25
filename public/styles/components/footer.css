@@ -1,5 +1,5 @@
 .blog-footer{
-    padding: 2.5rem 0;
+    padding: 1.5rem 0;
     color: #999;
     text-align: center;
     background-color: #f9f9f9;
@@ -7,4 +7,61 @@
     position: absolute;
     bottom: 0;
     width: 100%;
+}
+
+.blog-footer > div:not(.footer-email){
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 0px;
+    padding: 1% 5%;
+}
+
+.footer-socialMedIcons {
+    display: flex;
+    align-items: center;
+}
+
+.footer-socialMedIcons svg {
+    fill: #6AA9C1;
+    width: 35px;
+}
+
+.footer-socialMedIcons > div{
+    padding: 0 0.5rem;
+}
+
+.footer-twitterIcon svg,
+.footer-facebookIcon svg{
+    width: 43px;
+    height: 43px;
+}
+
+.footer-linkedinIcon svg{
+    width: 35px;
+    height: 35px;
+}
+
+.footer-email {
+    display: flex;
+    flex-direction: column;
+    padding-top: 1rem;
+    padding-right: 1rem;
+    width: 40%;
+    text-align: left;
+    padding-left: 5%;
+}
+
+.footer-email form {
+    display: flex;
+    height: 31px;
+    overflow: hidden;
+    width: 100%;
+}
+
+.footer-email form > button {
+    padding-top: inherit;
+    padding-bottom: inherit;
+    padding-right: 1rem;
+    padding-left: 1rem;
 }

@@ -36,7 +36,7 @@ class CommentRepository extends ServiceEntityRepository
             ->getOneOrNullResult();
     }
 
-    public function findAllComments(?int $start, ?int $length, ?string $orderBy, ?string $order, ?User $user, ?Article $article): array
+    public function findAllComments(?int $start, ?int $length, ?string $orderBy, ?string $order, ?User $user, ?Article $article, ?bool $onlyValidate = true): array
     {
         !$order ?  $order = 'DESC' : $order = $order;
         !$orderBy ?  $orderby = 'a.creationDate' : $orderby = 'a.' . $orderBy;
@@ -56,6 +56,12 @@ class CommentRepository extends ServiceEntityRepository
                 ->setParameter('article', $article);
         }
 
+        if ($onlyValidate) {
+            $query
+                ->andWhere('a.state = :state')
+                ->setParameter('state', 'validated');
+        }
+
         !$length ?  $length = 20 : $length = $length;
 
         return $query
@@ -64,5 +70,41 @@ class CommentRepository extends ServiceEntityRepository
             ->setMaxResults($length)
             ->getQuery()
             ->getResult();
+    }
+
+    public function commentFilter(?string $filter)
+    {
+        $orderby = null;
+        $order = null;
+
+        if($filter == 'news'){
+            $orderby = 'a.creationDate';
+            $order = 'DESC';
+        }elseif ($filter == 'old'){
+            $orderby = 'a.creationDate';
+            $order = 'ASC';
+        }elseif ($filter == 'a-z'){
+            $orderby = 'a.content';
+            $order = 'DESC';
+        }elseif ($filter == 'z-a'){
+            $orderby = 'a.content';
+            $order = 'ASC';
+        }elseif ($filter == 'authorUp'){
+            $orderby = 'a.user';
+            $order = 'ASC';
+        }elseif ($filter == 'authorDown'){
+            $orderby = 'a.user';
+            $order = 'DESC';
+        }else{
+            return $query = null;
+        }
+
+        $query = $this->createQueryBuilder('a');
+
+        return $query
+            ->orderBy($orderby, $order)
+            ->getQuery()
+            ->getResult();
+
     }
 }

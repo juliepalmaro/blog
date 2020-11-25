@@ -4,19 +4,21 @@
 {% endblock %}
 
 {% block body %}
-    <form action="{{ path('search') }}" method="post">
-        <input type="text" name="search">
-        <button class="btn btn-secondary">Rechercher</button>
-    </form>
-    <form action="{{ path('filter') }}">
-        <select name="filter" id="filter">
-            <option value="news">Récent -> Ancien</option>
-            <option value="old">Ancien -> Récent</option>
-            <option value="a-z">A-Z</option>
-            <option value="z-a">Z-A</option>
-        </select>
-        <button class="btn btn-primary">Filtrer</button>
-    </form>
+    <div class="searchBar-container">
+		<form action="{{ path('search') }}" method="post">
+			<input type="text" name="search">
+			<button class="btn btn-projectBackgroundColor btn--noRadius">Rechercher</button>
+		</form>
+		<form action="{{ path('filter') }}">
+			<select name="filter" id="filter">
+				<option value="news">Récent -> Ancien</option>
+				<option value="old">Ancien -> Récent</option>
+				<option value="a-z">A-Z</option>
+				<option value="z-a">Z-A</option>
+			</select>
+			<button class="btn btn-projectBackgroundColor btn--noRadius">Filtrer</button>
+		</form>
+	</div>
     {% for article in articleSearched %}
         <div class="article-container card">
             <div class="article-header">

@@ -4,7 +4,7 @@
 }
 
 .homepage-contentWrap {
-    padding-bottom: 10rem;
+    padding-bottom: 15rem;
 }
 
 .pagination{
@@ -22,4 +22,27 @@
 
 .pagination .page-item.disabled .page-link{
     color:lightgray;
+}
+
+/* SEARCH SECTION */
+.searchBar > button {
+    background-color: #6AA9C1;
+    color: white;
+}
+
+.searchBar-container {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 2%;
+    height: 31px;
+    overflow: hidden;
+}
+
+.searchBar-container > form {
+    display: flex;
+    align-items: center;
+}
+
+.searchBar-container select {
+    height: 31px;
 }

@@ -5,28 +5,43 @@
 
 {% block content %}
 	<h1>Articles</h1>
+	<div>
+		<form id="formCheckbox" class="article-form" method="POST">
 
 	<a class="btn btn-light" href="{{ path('admin_article_new') }}">Créer un nouvel article</a>
 	{# <a class="btn btn-primary" id="button" href="{{ path('admin_article_delete') }}">Supprimer un ou des articles</a> #}
 	<button id="button" class="btn btn-danger" onclick="actionFormCheckBox('delete', '{{ path('admin_article_delete') }}')">Supprimer un ou des articles</button>
 	<form id="formCheckbox" class="article-form" method="POST">
+		<form action="{{ path('admin_filters') }}">
+			<select name="filter" id="filter">
+				<option value="news article">Récent -> Ancien</option>
+				<option value="old article">Ancien -> Récent</option>
+				<option value="a-z article">A-Z</option>
+				<option value="z-a article">Z-A</option>
+				<option value="authorUp article">Auteur ↑</option>
+				<option value="authorDown article">Auteur ↓</option>
+			</select>
+			<button class="btn btn-primary">Filtrer</button>
+		</form>
 		{% for article in articles %}
-			<div class="article-group">
-				<input class="checkbox-hidden" type="checkbox" name="idCheck[]" value={{ article.id }}>
-				<label class="checkbox-label"></label>
-				{% include '_article_small.html.twig' with {'article': article, 'forAdmin': true} %}
+			<div class="article-group" style="display:flex;">
+				<div><input class="checkbox-hidden" type="checkbox" name="idCheck[]" value={{ article.id }}>
+					<label class="checkbox-label"></label>
+
+				</div>
+				<div>{% include '_article_small.html.twig' with {'article': article, 'forAdmin': true} %}</div>
 			</div>
 		{% endfor %}
 	</form>
+</div>
 {% endblock %}
 
 {% block javascripts %}
 	{{ parent() }}
 	<script>
 		function actionFormCheckBox(action, url) {
-			$('#formCheckbox').attr('action', url);
-			$('#formCheckbox').submit();
-		}
+$('#formCheckbox').attr('action', url);
+$('#formCheckbox').submit();
+}
 	</script>
 {% endblock %}
-
