@@ -39,7 +39,7 @@ class UserDashboardController extends AbstractController
     }
 
     /**
-     * @Route("/user/bookmarksz", name="bookmarkz")
+     * @Route("/bookmarks", name="bookmarks")
      */
     public function GetBookmarks(BookmarkRepository $bookmarkRepository ,PaginatorInterface $paginator, Request $request): Response
     {
