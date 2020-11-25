@@ -63,6 +63,30 @@ class UserDashboardController extends AbstractController
     }
 
     /**
+     * @Route("/shared", name="bookmarks")
+     */
+    public function GetShared(BookmarkRepository $bookmarkRepository ,PaginatorInterface $paginator, Request $request): Response
+    {
+        $currentUser = $this->getUser();
+        $shared = $bookmarkRepository->findAllBookmarks(0, 10, null, null, $currentUser, null);
+
+        // Paginate the results of the query
+        $sharedToLoad = $paginator->paginate(
+            // Doctrine Query, not results
+            $shared,
+            // Define the page parameter
+            $request->query->getInt('page', 1),
+            // Items per page
+            5
+        );
+
+        return $this->render('user_dashboard/shared.html.twig', [
+            'shared' => $shared,
+            'sharedToLoad' => $sharedToLoad
+        ]);
+    }
+
+    /**
      * @Route("/update", name="user_update")
      */
     public function update(Request $request): Response
