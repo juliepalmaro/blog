@@ -216,7 +216,7 @@ class AdminDashboardController extends AbstractController
     /**
      * @Route("admin/search/", name="admin_search")
      */
-    public function searchArticle(ArticleRepository $repository): Response
+    public function searchArticle(ArticleRepository $repository, PaginatorInterface $paginator, Request $request): Response
     {
         if (isset($_POST['search'])) {
             $search = $_POST['search'];
@@ -226,12 +226,21 @@ class AdminDashboardController extends AbstractController
 
         $article = $repository->findSpecificArticle($search);
 
+        // Paginate the results of the query
+        $articles = $paginator->paginate(
+        // Doctrine Query, not results
+            $article,
+            // Define the page parameter
+            $request->query->getInt('page', 1),
+            // Items per page
+            10);
+
         if (!$article) {
             throw $this->createNotFoundException('Cet article n\'existe pas');
         }
 
         return $this->render('admin_dashboard/index.html.twig', [
-            'articles' => $article,
+            'articles' => $articles,
         ]);
     }
 }
