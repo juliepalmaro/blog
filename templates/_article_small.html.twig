@@ -6,6 +6,9 @@
 		</div>
 		<div class="article-header--admin">
 			<h2 class="article-subtitle">{{article.title}}</h2>
+			<div>
+				<p>{{article.content|slice(0, 30) ~ '…'}}</p>
+			</div>
 			<div class="">
 				<span>
 					Auteur :</span>
@@ -57,38 +60,38 @@
 	</div>
 
 	{# <div class="article-socialMed">
-						<div>
-							<div class="article-shareIcon">
-								{{ source('svg/share.svg')}}
-							</div>
-							<div class="article-socialMedIcons">
-								<div class="article-facebookIcon">
-									{{ source('svg/facebook.svg')}}
-								</div>
-								<div class="article-twitterIcon">
-									{{ source('svg/twitter.svg')}}
-								</div>
-								<div class="article-instagramIcon">
-									{{ source('svg/instagram.svg')}}
-								</div>
-								<div class="article-linkedinIcon">
-									{{ source('svg/linkedin.svg')}}
-								</div>
-							</div>
-						</div>
-						<div>
-							<div class="article-thumbUpIcon">
-								{{ source('svg/thumb_up.svg')}}
-							</div>
-							
-							<div class="article-tags">#Politique#Macron#Guerre</div>
-						</div>
-					</div> #}
+										<div>
+											<div class="article-shareIcon">
+												{{ source('svg/share.svg')}}
+											</div>
+											<div class="article-socialMedIcons">
+												<div class="article-facebookIcon">
+													{{ source('svg/facebook.svg')}}
+												</div>
+												<div class="article-twitterIcon">
+													{{ source('svg/twitter.svg')}}
+												</div>
+												<div class="article-instagramIcon">
+													{{ source('svg/instagram.svg')}}
+												</div>
+												<div class="article-linkedinIcon">
+													{{ source('svg/linkedin.svg')}}
+												</div>
+											</div>
+										</div>
+										<div>
+											<div class="article-thumbUpIcon">
+												{{ source('svg/thumb_up.svg')}}
+											</div>
+											
+											<div class="article-tags">#Politique#Macron#Guerre</div>
+										</div>
+									</div> #}
 
 	{# {% if forAdmin == true %}
-						<div class="article-admin p-3">
-							<button class="btn btn-primary">Modifier</button>
-							<button class="btn btn-danger">Supprimer</button>
-						</div>
-					{% endif %} #}
+										<div class="article-admin p-3">
+											<button class="btn btn-primary">Modifier</button>
+											<button class="btn btn-danger">Supprimer</button>
+										</div>
+									{% endif %} #}
 </div>
