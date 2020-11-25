@@ -24,48 +24,37 @@ class UserDashboardController extends AbstractController
     /**
      * @Route("/", name="user_home")
      */
-    public function index(BookmarkRepository $bookmarkRepository, ShareRepository $shareRepository, CommentRepository $commentRepository, PaginatorInterface $paginator, Request $request): Response
+    public function index(BookmarkRepository $bookmarkRepository, ShareRepository $shareRepository, CommentRepository $commentRepository): Response
     {
         $currentUser = $this->getUser();
-        $bookmarks = $bookmarkRepository->findAllBookmarks(0, 5, null, null, $currentUser, null);
-        $shareds = $shareRepository->findAllShared(0, 5, null, null, $currentUser, null);
-        $comments = $commentRepository->findAllComments(0, 5, null, null, $currentUser, null);
-
-
-        // // Paginate the results of the query
-        // $bookmarksToLoad = $paginator->paginate(
-        //     // Doctrine Query, not results
-        //     $bookmarks,
-        //     // Define the page parameter
-        //     $request->query->getInt('page', 1),
-        //     // Items per page
-        //     10
-        // );
-
-        // // Paginate the results of the query
-        // $sharedsToLoad = $paginator->paginate(
-        //     // Doctrine Query, not results
-        //     $shareds,
-        //     // Define the page parameter
-        //     $request->query->getInt('page', 1),
-        //     // Items per page
-        //     10
-        // );
-
-        // // Paginate the results of the query
-        // $commentsToLoad = $paginator->paginate(
-        //     // Doctrine Query, not results
-        //     $comments,
-        //     // Define the page parameter
-        //     $request->query->getInt('page', 1),
-        //     // Items per page
-        //     10
-        // );
+        $bookmarks = $bookmarkRepository->findAllBookmarks(0, 10, null, null, $currentUser, null);
+        $shareds = $shareRepository->findAllShared(0, 10, null, null, $currentUser, null);
+        $comments = $commentRepository->findAllComments(0, 10, null, null, $currentUser, null);
 
         return $this->render('user_dashboard/index.html.twig', [
             'bookmarks' => $bookmarks,
             'shareds' => $shareds,
             'comments' => $comments,
+        ]);
+    }
+
+    public function GetBookmarks(BookmarkRepository $bookmarkRepository ,PaginatorInterface $paginator, Request $request): Response
+    {
+        $currentUser = $this->getUser();
+        $bookmarks = $bookmarkRepository->findAllBookmarks(0, 10, null, null, $currentUser, null);
+
+        // Paginate the results of the query
+        $bookmarksToLoad = $paginator->paginate(
+            // Doctrine Query, not results
+            $bookmarks,
+            // Define the page parameter
+            $request->query->getInt('page', 1),
+            // Items per page
+            5
+        );
+
+        return $this->render('user_dashboard/comments.html.twig', [
+            'bookmarksToLoad' => $bookmarksToLoad
         ]);
     }
 

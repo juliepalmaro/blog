@@ -12,9 +12,9 @@
         {% include '_article_small.html.twig' with {'article': bookmark.article, 'bookmarkDate': bookmark.creationDate} %}
     </div>
 {% endfor %}
-{# 
-<div class="home-pagination">
-	{{ knp_pagination_render(bookmarks) }}
+
+{# <div class="home-pagination">
+	{{ knp_pagination_render(bookmarksToLoad) }}
 </div> #}
 
 {% endblock %}
