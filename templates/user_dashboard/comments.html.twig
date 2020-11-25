@@ -6,9 +6,9 @@
 {% block content %}
 <h1>Articles commentés</h1>
 
-{% for comment in comments %}
+{% for article in articles %}
     <div class="mb-3">
-        {% include '_article_small.html.twig' with {'article': comment.article, 'commentDate': comment.creationDate} %}
+        {% include '_article_small.html.twig' with {'article': article} %}
     </div>
 {% endfor %}
 {% endblock %}

@@ -28,38 +28,38 @@
 
 	<div class="article-socialMed">
 		<div>
-			<div class="article-shareIcon">
+			<a class="article-shareIcon" href="/add-shared/{{article.id}}">
 				{{ source('svg/share.svg')}}
-			</div>
-			<div class="article-socialMedIcons">
-				<div class="article-facebookIcon">
-					{{ source('svg/facebook.svg')}}
-				</div>
-				<div class="article-twitterIcon">
-					{{ source('svg/twitter.svg')}}
-				</div>
-				<div class="article-instagramIcon">
-					{{ source('svg/instagram.svg')}}
-				</div>
-				<div class="article-linkedinIcon">
-					{{ source('svg/linkedin.svg')}}
-				</div>
-			</div>
+			</a>
+			{# <div class="article-socialMedIcons">
+													<div class="article-facebookIcon">
+														{{ source('svg/facebook.svg')}}
+													</div>
+													<div class="article-twitterIcon">
+														{{ source('svg/twitter.svg')}}
+													</div>
+													<div class="article-instagramIcon">
+														{{ source('svg/instagram.svg')}}
+													</div>
+													<div class="article-linkedinIcon">
+														{{ source('svg/linkedin.svg')}}
+													</div>
+												</div> #}
 		</div>
 		<div>
-			<div class="article-thumbUpIcon">
-				{{ source('svg/thumb_up.svg')}}
-			</div>
 
-			<div class="article-tags">#Politique#Macron#Guerre</div>
+			<a class="article-thumbUpIcon" href="/add-bookmark/{{article.id}}">
+				{{ source('svg/thumb_up.svg')}}
+			</a>
+
+			{# <div class="article-tags">#Politique#Macron#Guerre</div> #}
 		</div>
 	</div>
 
 	{#{% if forAdmin == true %}
-									<div class="article-admin p-3">
-										<button class="btn btn-primary">Modifier</button>
-										<button class="btn btn-danger">Supprimer</button>
-									</div>
-								{% endif %}#}
+															<div class="article-admin p-3">
+																<button class="btn btn-primary">Modifier</button>
+																<button class="btn btn-danger">Supprimer</button>
+															</div>
+														{% endif %}#}
 </div>
-
