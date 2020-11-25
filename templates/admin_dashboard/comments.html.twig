@@ -8,9 +8,15 @@
 	<h1>Commentaires</h1>
 	{# <a class="btn btn-primary active" href="{{ path('/approuve-comment/{id}') }}">Approuver<span class="sr-only">(current)</span> #}
 </a>
+<button id="button" class="btn btn-primary" onclick="actionFormCheckBox('delete', '{{ path('admin_comment_delete') }}')">Supprimer un ou des commentaires</button>
+<button id="button" class="btn btn-primary" onclick="actionFormCheckBox('approved', '{{ path('admin_comment_privacy', {'privacy': 'approved'}) }}')">Approuver un ou des commentaires</button>
+<button id="button" class="btn btn-primary" onclick="actionFormCheckBox('unapproved', '{{ path('admin_comment_privacy', {'privacy': 'unapproved'}) }}')">Non-approuver un ou des commentaires</button>
+<form id="formCheckbox" method="POST">
 <ul>
 	{% for comment in comments %}
 		<li>
+			<input class="checkbox-hidden" type="checkbox" name="idCheck[]" value={{ comment.id }}>
+			<label class="checkbox-label"></label>
 			<div class="article-commentaire">
 				<div class="article-commentaire_text">
 					<div class="commentaire-admin_titre">
@@ -41,4 +47,15 @@
 			</div>
 		</li>
 	{% endfor %}
-</ul>{% endblock %}
+</ul>
+{% endblock %}
+
+{% block javascripts %}
+	{{ parent() }}
+	<script>
+		function actionFormCheckBox(action, url) {
+			$('#formCheckbox').attr('action', url);
+			$('#formCheckbox').submit();
+		}
+	</script>
+{% endblock %}
